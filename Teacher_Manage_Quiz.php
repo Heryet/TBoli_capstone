@@ -204,7 +204,7 @@ $user_id = $_SESSION['user_id'];
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-group">
-
+                                        <h1>Red</h1>
                                     </ul>
                                 </div>
                             </div>
@@ -215,7 +215,9 @@ $user_id = $_SESSION['user_id'];
                                     Students
                                 </div>
                                 <div class="card-body">
-
+                                    <ul class="list-group">
+                                        <h1>Red</h1>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -238,10 +240,9 @@ $user_id = $_SESSION['user_id'];
                             // Send an AJAX request to submit the form data
                             $.ajax({
                                 type: "POST",
-                                url: "process_add_quiz.php", // Replace with the URL to your PHP script to handle form submission
+                                url: "save_question.php", // Replace with the URL to your PHP script to handle form submission
                                 data: formData,
                                 success: function(response) {
-                                    // Handle the response from the server
                                     if (response == "success") {
                                         // Close the modal and reset the form
                                         $("#addQuizModal").modal("hide");
@@ -249,9 +250,14 @@ $user_id = $_SESSION['user_id'];
                                         // You can also reload or update the quiz list on success
                                         // Example: window.location.reload();
                                     } else {
-                                        // Display an error message
-                                        alert("Error occurred while adding quiz.");
+                                        // Display an error message based on the server's response
+                                        // You can also handle specific error cases here
+                                        alert("Error: " + response);
                                     }
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle AJAX errors here (e.g., network issues)
+                                    alert("AJAX Error: " + error);
                                 }
                             });
                         });
