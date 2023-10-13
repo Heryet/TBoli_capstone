@@ -192,48 +192,64 @@ $user_id = $_SESSION['user_id'];
                                 </div>
                                 <div class="modal-body">
                                     <!-- Form for adding a new quiz assignment -->
-                                    <form id="addStudentForm">
+                                    <?php 
+                                    include 'dbcon.php';
+                                    if(isset($_GET['quiz_options_id']) && isset($_POST['addStudent'])) {
+                                        $quiz_options_id = $_GET['quiz_options_id'];
+                                        $student = $_POST['student'];
+
+                                        $sql = "INSERT INTO tbl_quiz_student (quiz_options_id, student) VALUES ('$quiz_options_id', '$student')";
+
+                                        $result = mysqli_query($conn, $sql);
+
+                                        if($result) {
+                                            header("Location: Teacher_Manage_Quiz.php?msg=Student Added Succesfully");
+                                            exit();
+                                        }
+                                    }
+                                    ?>
+                                    <form action="" method="POST">
                                         <div class="mb-3">
                                             <label for="inputState" class="form-label">Add Student</label>
-                                            <select id="inputState" class="form-select" name="lesson">
+                                            <select id="inputState" class="form-select" name="student">
                                                 <option selected disabled>Select Student</option>
                                                 <!-- Default option -->
                                                 <?php
-                            include 'dbcon.php';
+                                                include 'dbcon.php';
 
-                            $sql = "SELECT tbl_userinfo.user_id, tbl_learner.learner_id, tbl_learner.level_id, tbl_user_level.level, tbl_userinfo.firstname,
-                            tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_user_status.status,
-                            tbl_learner_id.lrn
-                            FROM tbl_learner
-                            JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
-                            JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
-                            JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
-                            JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
-                            WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
+                                                $sql = "SELECT tbl_userinfo.user_id, tbl_learner.learner_id, tbl_learner.level_id, tbl_user_level.level, tbl_userinfo.firstname,
+                                                tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_user_status.status,
+                                                tbl_learner_id.lrn
+                                                FROM tbl_learner
+                                                JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
+                                                JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
+                                                JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
+                                                JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
+                                                WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
 
-                            $result = mysqli_query($conn, $sql);
+                                                $result = mysqli_query($conn, $sql);
 
-                            if (mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    $user_id = $row['user_id'];
-                                    $firstname = $row['firstname'];
-                                    $middlename = $row['middlename'];
-                                    $lastname = $row['lastname'];
-                                    echo "<option value='$user_id'>$firstname $middlename  $lastname</option>";
-                                }   
-                            } else {
-                                echo "<option value='' disabled>No lessons available</option>";
-                            }
-                            ?>
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $user_id = $row['user_id'];
+                                                        $firstname = $row['firstname'];
+                                                        $middlename = $row['middlename'];
+                                                        $lastname = $row['lastname'];
+                                                        $name = $firstname . $middlename . $lastname;
+                                                        echo "<option value='$user_id'>$name</option>";
+                                                    }   
+                                                } else {
+                                                    echo "<option value='' disabled>No lessons available</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
-
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" name="addStudent">Add</button>
+                                        </div>
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="addStudentButton">Add</button>
                                 </div>
                             </div>
                         </div>
@@ -285,25 +301,99 @@ $user_id = $_SESSION['user_id'];
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card">
-                                <div class="card-header">
-                                    Questions
-                                </div>
                                 <div class="card-body">
-                                    <ul class="list-group">
-                                        <h1>Red</h1>
-                                    </ul>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-centered table-nowrap mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Question</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                if (isset($_GET['quiz_options_id'])) {
+                                                    $quiz_options_id = $_GET['quiz_options_id'];
+                                                    $sql = "SELECT tbl_quiz_question.question, tbl_quiz_options.quiz_options_id FROM tbl_quiz_question
+                                                    JOIN tbl_quiz_options ON tbl_quiz_question.quiz_options_id = tbl_quiz_options.quiz_options_id
+                                                    WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'";
+
+                                                    $result = mysqli_query($conn, $sql);
+
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="fw-semibold">
+                                                                        <?php echo $row['question']; ?>
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="#" class="edit-icon"><i class="fas fa-edit"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="#" class="archive-icon"><i class="fas fa-archive"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                            <?php
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card">
-                                <div class="card-header">
-                                    Students
-                                </div>
                                 <div class="card-body">
-                                    <ul class="list-group">
-                                        <h1>Red</h1>
-                                    </ul>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-centered table-nowrap mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Student</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                if (isset($_GET['quiz_options_id'])) {
+                                                    $quiz_options_id = $_GET['quiz_options_id'];
+                                                    $sql = "SELECT tbl_quiz_student.student, tbl_quiz_options.quiz_options_id, CONCAT(tbl_userinfo.firstname, ' ', tbl_userinfo.middlename, ' ', tbl_userinfo.lastname) AS name
+                                                    FROM tbl_quiz_student
+                                                    JOIN tbl_quiz_options ON tbl_quiz_student.quiz_options_id = tbl_quiz_options.quiz_options_id
+                                                    JOIN tbl_userinfo ON tbl_quiz_student.student = tbl_userinfo.user_id
+                                                    WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'";
+
+                                                    $result = mysqli_query($conn, $sql);
+
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="fw-semibold">
+                                                                        <?php echo $row['name']; ?>
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="#" class="edit-icon"><i class="fas fa-edit"></i></a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="#" class="archive-icon"><i class="fas fa-archive"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                            <?php
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -316,35 +406,6 @@ $user_id = $_SESSION['user_id'];
                     <script src="assets/js/vendor/quill.min.js"></script>
                     <!-- quill Init js-->
                     <script src="assets/js/pages/demo.quilljs.js"></script>
-                    <script>
-                    $(document).ready(function() {
-                        // Handle form submission when the "Add" button is clicked
-                        $("#addStudentButton").click(function() {
-                            // Serialize the form data
-                            var formData = $("#addStudentForm").serialize();
-
-                            // Send an AJAX request to submit the form data
-                            $.ajax({
-                                type: "POST",
-                                url: "process_add_quiz.php", // Replace with the URL to your PHP script to handle form submission
-                                data: formData,
-                                success: function(response) {
-                                    // Handle the response from the server
-                                    if (response == "success") {
-                                        // Close the modal and reset the form
-                                        $("#addStudentModal").modal("hide");
-                                        $("#addStudentForm")[0].reset();
-                                        // You can also reload or update the quiz list on success
-                                        // Example: window.location.reload();
-                                    } else {
-                                        // Display an error message
-                                        alert("Error occurred while adding quiz.");
-                                    }
-                                }
-                            });
-                        });
-                    });
-                    </script>
 </body>
 
 </html>

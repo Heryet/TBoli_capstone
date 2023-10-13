@@ -5,7 +5,7 @@
 <meta content="Coderthemes" name="author">
 <!-- App favicon -->
 <link rel="shortcut icon" href="assets/images/favicon.ico">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
 <!-- App css -->
 <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
 <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
