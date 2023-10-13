@@ -77,52 +77,82 @@ $user_id = $_SESSION['user_id'];
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <!-- Form for adding a new quiz assignment -->
-                                        <form id="addQuizForm">
-                                            <div class="modal-body">
-                                                <div id="msg"></div>
-                                                <div class="form-group">
-                                                    <label>Question</label>
-                                                    <!-- <input type="hidden" name="qid" value="<?php echo $_GET['id'] ?>" /> -->
-                                                    <input type="hidden" name="id" />
-                                                    <textarea rows='3' name="question" required="required"
-                                                        class="form-control"></textarea>
-                                                </div>
-                                                <label>Options:</label>
+                                        <div class="modal-body">
+                                            <?php 
+                                            ?>
+                                            <form id="" action="" method="POST">
+                                                <div class="modal-body">
+                                                    <div id="msg"></div>
+                                                    <div class="form-group">
+                                                        <label>Quiz Type</label>
+                                                        <select id="quizType" name="quiz_type" required="required" class="form-control">
+                                                            <option value="multiple_choice">Multiple Choice</option>
+                                                            <option value="true_false">True or False</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Question</label>
+                                                        <!-- <input type="hidden" name="qid" value="<?php echo $_GET['lesson_id'] ?>" /> -->
+                                                        <input type="hidden" name="id" />
+                                                        <textarea rows='3' name="question" required="required" class="form-control"></textarea>
+                                                    </div>
+                                                    <label>Options:</label>
 
-                                                <div class="form-group">
-                                                    <textarea rows="2" name="question_opt[0]" required=""
-                                                        class="form-control"></textarea>
-                                                    <span>
-                                                        <label><input type="radio" name="is_right[0]" class="is_right"
-                                                                value="1">
+                                                    <div class="form-group" id="options">
+                                                        <textarea rows="2" name="question_opt[0]" required="" class="form-control" value=""></textarea>
+                                                        <span>
+                                                            <label><input type="radio" name="is_right[0]" class="is_right" value="1">
+                                                                <small>Question Answer</small></label>
+                                                        </span>
+                                                        <br>
+                                                        <textarea rows="2" name="question_opt[1]" required="" class="form-control"></textarea>
+                                                        <label><input type="radio" name="is_right[1]" class="is_right" value="1">
                                                             <small>Question Answer</small></label>
-                                                    </span>
-                                                    <br>
-                                                    <textarea rows="2" name="question_opt[1]" required=""
-                                                        class="form-control"></textarea>
-                                                    <label><input type="radio" name="is_right[1]" class="is_right"
-                                                            value="1">
-                                                        <small>Question Answer</small></label>
-                                                    <br>
-                                                    <textarea rows="2" name="question_opt[2]" required=""
-                                                        class="form-control"></textarea>
-                                                    <label><input type="radio" name="is_right[2]" class="is_right"
-                                                            value="1">
-                                                        <small>Question Answer</small></label>
-                                                    <br>
-                                                    <textarea rows="2" name="question_opt[3]" required=""
-                                                        class="form-control"></textarea>
-                                                    <label><input type="radio" name="is_right[3]" class="is_right"
-                                                            value="1">
-                                                        <small>Question Answer</small></label>
+                                                        <br>
+                                                        <textarea rows="2" name="question_opt[2]" required="" class="form-control"></textarea>
+                                                        <label><input type="radio" name="is_right[2]" class="is_right" value="1">
+                                                            <small>Question Answer</small></label>
+                                                        <br>
+                                                        <textarea rows="2" name="question_opt[3]" required="" class="form-control"></textarea>
+                                                        <label><input type="radio" name="is_right[3]" class="is_right" value="1">
+                                                            <small>Question Answer</small></label>
+                                                    </div>
+
+                                                    <div class="form-group" id="trueFalseOptions" style="display: none;">
+                                                        <label>Question</label>
+                                                        <input type="text" name="question_opt[0]" class="form-control" value="True" readonly>
+                                                        <br>
+                                                        <label>Answer:</label>
+                                                        <label><input type="radio" name="is_right[0]" class="is_right" value="1">
+                                                            <small>True</small></label>
+                                                        <br>
+                                                        <input type="text" name="question_opt[1]" class="form-control" value="False" readonly>
+                                                        <br>
+                                                        <label>Answer:</label>
+                                                        <label><input type="radio" name="is_right[1]" class="is_right" value="0">
+                                                            <small>False</small></label>
+                                                    </div>
+
                                                 </div>
+                                            </form>
+                                        </div>
 
-                                            </div>
+                                        <script>
+                                            const quizTypeSelect = document.getElementById('quizType');
+                                            const options = document.getElementById('options');
+                                            const trueFalseOptions = document.getElementById('trueFalseOptions');
 
-                                        </form>
-                                    </div>
+                                            quizTypeSelect.addEventListener('change', function () {
+                                                if (quizTypeSelect.value === 'multiple_choice') {
+                                                    options.style.display = 'block';
+                                                    trueFalseOptions.style.display = 'none';
+                                                } else if (quizTypeSelect.value === 'true_false') {
+                                                    options.style.display = 'none';
+                                                    trueFalseOptions.style.display = 'block';
+                                                }
+                                            });
+                                        </script>
+
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
@@ -230,39 +260,6 @@ $user_id = $_SESSION['user_id'];
                     <script src="assets/js/vendor/quill.min.js"></script>
                     <!-- quill Init js-->
                     <script src="assets/js/pages/demo.quilljs.js"></script>
-                    <script>
-                    $(document).ready(function() {
-                        // Handle form submission when the "Add" button is clicked
-                        $("#addQuizButton").click(function() {
-                            // Serialize the form data
-                            var formData = $("#addQuizForm").serialize();
-
-                            // Send an AJAX request to submit the form data
-                            $.ajax({
-                                type: "POST",
-                                url: "save_question.php", // Replace with the URL to your PHP script to handle form submission
-                                data: formData,
-                                success: function(response) {
-                                    if (response == "success") {
-                                        // Close the modal and reset the form
-                                        $("#addQuizModal").modal("hide");
-                                        $("#addQuizForm")[0].reset();
-                                        // You can also reload or update the quiz list on success
-                                        // Example: window.location.reload();
-                                    } else {
-                                        // Display an error message based on the server's response
-                                        // You can also handle specific error cases here
-                                        alert("Error: " + response);
-                                    }
-                                },
-                                error: function(xhr, status, error) {
-                                    // Handle AJAX errors here (e.g., network issues)
-                                    alert("AJAX Error: " + error);
-                                }
-                            });
-                        });
-                    });
-                    </script>
                     <script>
                     $(document).ready(function() {
                         // Handle form submission when the "Add" button is clicked

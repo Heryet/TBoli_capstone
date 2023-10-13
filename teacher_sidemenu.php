@@ -57,33 +57,11 @@
         </a>
         <div class="collapse" id="sidebarLessons">
             <ul class="side-nav-second-level">
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarSecondLevel" aria-expanded="false"
-                        aria-controls="sidebarSecondLevel">
-                        <i class="uil-plus-circle"></i>
-                        <span>Add quiz</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarSecondLevel">
-                        <ul class="side-nav-third-level">
-                            <li>
-                                <a href="Teacher_Add_QuizMultipleC.php"><i class=" uil-list-ul"></i> Multiple Choice</a>
-                            </li>
-                            <li>
-                                <a href="Teacher_Add_QuizTrueOrfalse.php"><i class=" uil-check-circle"></i> <i
-                                        class="uil-times-circle"></i> True or False</a>
-                            </li>
-                            <li>
-                                <a href="Teacher_QuizView.php"><i class="uil-eye"></i> Quiz View</a>
-                            </li>
-                        </ul>
-                    </div>
+                <li>
+                    <a href="Teacher_Create_Quiz.php"><i class="uil-edit-alt"></i>Quiz List</a>
                 </li>
                 <li>
-                    <a href="Teacher_manage_lesson.php"><i class="uil-edit-alt"></i> Edit Lesson</a>
-                </li>
-                <li>
-                    <a href="Teacher_ManageLesson.php"><i class="uil-plus-circle"></i> Upload Lesson</a>
+                    <a href="Teacher_Create_Lesson.php"><i class="uil-edit-alt"></i>Lesson</a>
                 </li>
             </ul>
         </div>
