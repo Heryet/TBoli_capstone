@@ -317,13 +317,13 @@ $user_id = $_SESSION['user_id'];
                                         if ($result && mysqli_num_rows($result) > 0) {
                                             $row = mysqli_fetch_assoc($result);
                                             ?>
-                                            <span class="account-user-name">
-                                                <?php echo $row['firstname'] . ' ' . $row['lastname'] . ' ' . $row['lastname']; ?>
-                                            </span>
-                                            <span class="account-position">
-                                                <?php echo $row['level']; ?>
-                                            </span>
-                                            <?php
+                                    <span class="account-user-name">
+                                        <?php echo $row['firstname'] . ' ' . $row['lastname'] . ' ' . $row['lastname']; ?>
+                                    </span>
+                                    <span class="account-position">
+                                        <?php echo $row['level']; ?>
+                                    </span>
+                                    <?php
                                         } else {
                                             echo "No records found in tbl_admin";
                                         }
@@ -397,11 +397,11 @@ $user_id = $_SESSION['user_id'];
                 integrity="sha384-pzjw8+ua9bmDXzKrQl/Mv6D5stvOBbhddb5y3p4e9fJ8D4w5erhPvj6M2ybp7l3b"
                 crossorigin="anonymous"></script>
             <script>
-                $(document).ready(function () {
-                    $('#add-lesson-btn').click(function () {
-                        $('#add-quiz-modal').modal('show');
-                    });
+            $(document).ready(function() {
+                $('#add-lesson-btn').click(function() {
+                    $('#add-quiz-modal').modal('show');
                 });
+            });
             </script>
 
 

@@ -11,7 +11,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
-<?php
+    <?php
 
 include 'dbcon.php';
 if (isset($_GET['user_id'])) {
@@ -61,82 +61,95 @@ if (isset($_GET['user_id'])) {
 
     <div class="wrapper rounded bg-white">
         <form action="" method="POST" enctype="multipart/form-data">
-    <div class="h3" id="teacher-info">Update Teacher Information</div>
+            <div class="h3" id="teacher-info">Update Teacher Information</div>
 
-<div class="form">
-    <div class="row">
+            <div class="form">
+                <div class="row">
 
-    <div class="col-md-6 mt-md-0 mt-3">
-            <label for="teacher-id">Teacher ID</label>
-            <input type="text" id="teacher-id" class="form-control" name="teacher_id" value="<?php echo $row['teacher_id'] ?>" readonly required>
-        </div>
-  
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label for="first-name">First Name</label>
-            <input type="text" id="first-name" class="form-control" name="firstname" value="<?php echo $row['firstname'] ?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label for="middle-name">Middle Name</label>
-            <input type="text" id="middle-name" class="form-control" name="middlename" value="<?php echo $row['middlename'] ?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" class="form-control" name="lastname" value="<?php echo $row['lastname'] ?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label for="phone-number">Phone Number</label>
-            <input type="tel" id="phone-number" class="form-control" name="contact" value="<?php echo $row['contact'] ?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label for="email">Email</label>
-            <input type="email" id="email" class="form-control" name="email" value="<?php echo $row['email'] ?>" readonly  required>
-        </div>
-        
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="teacher-id">Teacher ID</label>
+                        <input type="text" id="teacher-id" class="form-control" name="teacher_id"
+                            value="<?php echo $row['teacher_id'] ?>" readonly required>
+                    </div>
+
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" class="form-control" name="firstname"
+                            value="<?php echo $row['firstname'] ?>" readonly required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="middle-name">Middle Name</label>
+                        <input type="text" id="middle-name" class="form-control" name="middlename"
+                            value="<?php echo $row['middlename'] ?>" readonly required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" class="form-control" name="lastname"
+                            value="<?php echo $row['lastname'] ?>" readonly required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="phone-number">Phone Number</label>
+                        <input type="tel" id="phone-number" class="form-control" name="contact"
+                            value="<?php echo $row['contact'] ?>" readonly required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" name="email"
+                            value="<?php echo $row['email'] ?>" readonly required>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="birthday">Birthday</label>
+                        <input type="date" id="birthday" class="form-control" name="birthday"
+                            value="<?php echo $row['birthday'] ?>" readonly required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="birthday">Gender</label>
+                        <input type="date" id="gender" class="form-control" name="gender"
+                            value="<?php echo $row['gender'] ?>" readonly required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="my-md-2 my-3">
+                        <label for="full-address">Full Address (street, barangay, city)</label>
+                        <input type="address" id="full-address" class="form-control" name="address"
+                            value="<?php echo $row['address'] ?>" readonly required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label for="valid-id">Valid ID</label>
+                        <a href="teachers/valid/<?php echo $row['id'] ?>" target="_blank">
+                            <input type="text" id="valid-id" class="form-control" name="valid"
+                                value="<?php echo $row['id'] ?>" readonly required>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <label>
+                        <h3>Update Teacher Password</h3>
+                    </label>
+                    <?php if (isset($_GET['error'])) { ?>
+                    <p class="error">
+                        <?php echo $_GET['error']; ?>
+                    </p>
+                    <?php } ?>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password"
+                            value="<?php echo $row['password']?>" required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" name="cfpassword" required>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary mt-3" value="Add Account" name="btnAdd">
+            </div>
+        </form>
     </div>
-    <div class="row">
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label for="birthday">Birthday</label>
-            <input type="date" id="birthday" class="form-control" name="birthday" value="<?php echo $row['birthday'] ?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label for="birthday">Gender</label>
-            <input type="date" id="gender" class="form-control" name="gender" value="<?php echo $row['gender'] ?>" readonly  required>
-        </div>
-    </div>
-    <div class="row">
-        <div class="my-md-2 my-3">
-            <label for="full-address">Full Address (street, barangay, city)</label>
-            <input type="address" id="full-address" class="form-control" name="address" value="<?php echo $row['address'] ?>" readonly  required>
-        </div>
-    </div>
-    <div class="row">
-    <div class="col-md-6 mt-md-0 mt-3">
-        <label for="valid-id">Valid ID</label>
-        <a href="teachers/valid/<?php echo $row['id'] ?>" target="_blank">
-            <input type="text" id="valid-id" class="form-control" name="valid" value="<?php echo $row['id'] ?>" readonly required>
-        </a>
-    </div>
-    </div>
-    <div class="row">
-    <label><h3>Update Teacher Password</h3></label> 
-    <?php if (isset($_GET['error'])) { ?>
-        <p class="error">
-        <?php echo $_GET['error']; ?>
-        </p>
-    <?php } ?>
-    <div class="col-md-6 mt-md-0 mt-3">
-        <label>Password</label>
-        <input type="password" class="form-control" name="password" value="<?php echo $row['password']?>" required>
-    </div>
-    <div class="col-md-6 mt-md-0 mt-3">
-        <label>Confirm Password</label>
-        <input type="password" class="form-control" name="cfpassword" required>
-    </div>
-  </div>
-    <input type="submit" class="btn btn-primary mt-3" value="Add Account" name="btnAdd">
-</div>
-</form>
-</div>
 </div>
 
 
