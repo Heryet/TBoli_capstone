@@ -25,7 +25,7 @@
 </head>
 
 <body class="authentication-bg"
-    data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: false}"
+    data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: true}"
     data-leftbar-theme="dark" style="visibility: visible;">
     <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
         <div class="container">
@@ -35,10 +35,10 @@
 
                         <!-- Logo -->
                         <div class="card-header text-center bg-white">
-                            <a href="Teacher_Login.php">
+                            <a href="Administrator_login.php">
                                 <span>
                                     <span><img src="assets/images/tboli.jpg" alt="" height="120" width="170"></span>
-                                    <h2 class="text-black">Teacher Login</h2>
+                                    <h3 class="text-black">Administrator Login</h3>
                                 </span>
                             </a>
                         </div>
@@ -51,54 +51,52 @@
                             </div>
                             <form action="#" method="POST">
                                 <?php
+                    session_start();
+                    include 'dbcon.php';
 
-                                $mailError = "";
+                    if (isset($_POST['btnLogin'])) {
+                        $email = $_POST['email'];
+                        $password = $_POST['password'];
 
-                                session_start();
-                                include 'dbcon.php';
+                        if (empty($email)) {
+                            header("Location: Administrator_login.php?error=Email must be filled");
+                            exit();
+                        } elseif (empty($password)) {
+                            header("Location: Administrator_login.php?error=Password must be filled");
+                            exit();
+                        } else {
+                            $sql = "SELECT tbl_userinfo.user_id, tbl_accounts.email, tbl_accounts.password, tbl_user_level.level, tbl_user_status.status
+                            FROM tbl_admin 
+                            JOIN tbl_userinfo ON tbl_admin.user_id = tbl_userinfo.user_id
+                            JOIN tbl_accounts ON tbl_admin.account_id = tbl_accounts.account_id
+                            JOIN tbl_user_level ON tbl_admin.level_id = tbl_user_level.level_id
+                            JOIN tbl_user_status ON tbl_admin.status_id = tbl_user_status.status_id
+                            WHERE tbl_accounts.email = '$email'
+                            AND tbl_user_status.status = 1 AND tbl_user_level.level = 'ADMIN'";
 
+                            $result = mysqli_query($conn, $sql);
 
+                            if ($result && mysqli_num_rows($result) > 0) {
+                                $row = mysqli_fetch_assoc($result);
+                                $storedPasswordHash = $row['password'];
+                                $level = $row['level'];
 
-                                if (isset($_POST['btnLogin'])) {
-                                    $email = $_POST['email'];
-                                    $password = $_POST['password'];
+                                if (password_verify($password, $storedPasswordHash) && $row['status'] == 1) {
+                                    $_SESSION['user_id'] = $row['user_id'];
+                                    $_SESSION['email'] = $email;
+                                    $_SESSION['user_level'] = $level;
 
-                                    if (empty($password) || empty($email)) {
-                                        header("Location: Teacher_Login.php?error=Email and password should not be empty!");
-                                        exit();
-                                    } else {
-                                        $sql = "SELECT tbl_userinfo.user_id, tbl_accounts.email, tbl_accounts.password, tbl_user_level.level, tbl_user_status.status
-        FROM tbl_teachers 
-        JOIN tbl_userinfo ON tbl_teachers.user_id = tbl_userinfo.user_id
-        JOIN tbl_accounts ON tbl_teachers.account_id = tbl_accounts.account_id
-        JOIN tbl_user_level ON tbl_teachers.level_id = tbl_user_level.level_id
-        JOIN tbl_user_status ON tbl_teachers.status_id = tbl_user_status.status_id
-        WHERE tbl_accounts.email = '$email'
-        AND tbl_user_status.status = 1 AND tbl_user_level.level = 'TEACHER'";
-
-                                        $result = mysqli_query($conn, $sql);
-
-                                        if ($result && mysqli_num_rows($result) > 0) {
-                                            $row = mysqli_fetch_assoc($result);
-                                            $storedPassword = $row['password'];
-                                            $level = $row['level'];
-
-                                            if (password_verify($password, $storedPassword) && $row['status'] == 1) {
-                                                $_SESSION['user_id'] = $row['user_id'];
-                                                $_SESSION['email'] = $email;
-                                                $_SESSION['user_level'] = $level;
-
-                                                if ($level === 'TEACHER') {
-                                                    header("Location: Teacher_index.php?Login Sucessfully");
-                                                    exit();
-                                                }
-                                            }
-                                        }
-                                        header("Location: Teacher_Login.php?error=Invalid email or password");
+                                    if ($level === 'ADMIN') {
+                                        header("Location: admin_dashboard.php?Login Successfully");
                                         exit();
                                     }
                                 }
-                                ?>
+                            }
+                            header("Location: Administrator_login.phperror=Invalid email or password");
+                            exit();
+                        }
+                    }
+                    ?>
                                 <div class="mb-3">
                                     <?php if (isset($_GET['error'])) { ?>
                                     <p class="error">

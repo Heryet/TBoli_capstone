@@ -9,7 +9,7 @@ $user_id = $_SESSION['user_id'];
 
 <head>
     <meta charset="utf-8">
-    <title>Starter Page | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <!-- <title>Starter Page | Hyper - Responsive Bootstrap 5 Admin Dashboard</title> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
     <meta content="Coderthemes" name="author">
@@ -114,6 +114,50 @@ $user_id = $_SESSION['user_id'];
 
             </div> <!-- content -->
 
+            <?php
+// Initialize variables to store validation messages
+$errors = array();
+
+if (isset($_POST['createquiz'])) { // Assuming 'createquiz' is your form submit button
+
+    // Title validation
+    if (empty($_POST['title'])) {
+        $errors['title'] = "Title is required.";
+    }
+
+    // Max Score validation
+    if (empty($_POST['max'])) {
+        $errors['max'] = "Max Score is required.";
+    } elseif (!is_numeric($_POST['max'])) {
+        $errors['max'] = "Max Score must be a numeric value.";
+    }
+
+    // Date Start validation
+    if (empty($_POST['date_start'])) {
+        $errors['date_start'] = "Date Start is required.";
+    }
+
+    // Due validation
+    if (empty($_POST['due'])) {
+        $errors['due'] = "Due date is required.";
+    }
+
+    // Lesson validation (if necessary)
+    if (empty($_POST['lesson'])) {
+        $errors['lesson'] = "Please select a lesson.";
+    }
+
+    // You can add more validation rules as needed for other fields
+
+    // Check if there are any validation errors
+    if (empty($errors)) {
+        // No validation errors, you can proceed with form processing
+        // Insert data into the database or perform other actions
+    }
+}
+?>
+
+
             <div class="row">
                 <div class="card">
                     <div class="card-header mb-3">
@@ -124,6 +168,10 @@ $user_id = $_SESSION['user_id'];
                         <div class="mb-3 me-5 ms-4">
                             <label for="simpleinput" class="form-label">Title</label>
                             <input type="text" id="simpleinput" class="form-control" name="title">
+                            <?php if (!empty($errors['title'])) : ?>
+                            <div class="text-danger"><?php echo $errors['title']; ?></div>
+                            <?php endif; ?>
+
                             <div class="col-lg-3 me-4">
                                 <?php
                                 include 'dbcon.php';
@@ -228,24 +276,25 @@ $user_id = $_SESSION['user_id'];
                                 <div class="card-body">
                                     <div class="row mt-4">
                                         <div class="col-sm-6 offset-sm-3 text-center">
-                                            <input type="submit" class="btn btn-primary" value="Create Quiz" name="createquiz">
+                                            <input type="submit" class="btn btn-primary" value="Create Quiz"
+                                                name="createquiz">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </div>
                 </form>
             </div>
         </div>
 
         <script>
-            $(document).ready(function () {
-                $("#multiple_choice").on("submit", function () {
-                    var hvalue = $('.instructions').text();
-                    $(this).append("<input type='hidden' name='instructions' value=' " + hvalue + " '/>");
-                });
+        $(document).ready(function() {
+            $("#multiple_choice").on("submit", function() {
+                var hvalue = $('.instructions').text();
+                $(this).append("<input type='hidden' name='instructions' value=' " + hvalue + " '/>");
             });
+        });
         </script>
 
 
@@ -263,9 +312,9 @@ $user_id = $_SESSION['user_id'];
     </div>
     <!-- END wrapper -->
     <script>
-        $(document).ready(function () {
-            $('#inputState').select2();
-        });
+    $(document).ready(function() {
+        $('#inputState').select2();
+    });
     </script>
 
 

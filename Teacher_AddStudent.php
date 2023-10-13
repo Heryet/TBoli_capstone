@@ -5,22 +5,25 @@ $user_id = $_SESSION['user_id'];
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $lrn = empty($_POST["lrn"]) ? "Please provide your LRN." : null;
-    $fname = empty($_POST["firstname"]) ? "Input field is empty! Please enter your first name." : null;
-    $md = empty($_POST["middlename"]) ? "Input field is empty! Please enter your middle name." : null;
-    $lastn = empty($_POST["lastname"]) ? "Input field is empty! Please enter your last name." : null;
+    $lrn = (!preg_match('/^[0-9]+$/', $_POST["lrn"])) ? "LRN should only contains numbers only and should not be empty" : null;
+    $fname = (!preg_match('/^[a-zA-Z]+$/', $_POST["firstname"])) ? "First Name should only contain letters and should not be empty" : null;
+    // $fname = empty($_POST["firstname"]) ? "Input field is empty! Please enter your first name." : null;
+    $md = (!preg_match('/^[a-zA-Z]+$/', $_POST["middlename"])) ? "Middle Name should only contain letters and should not be empty" : null;
+    $lastn = (!preg_match('/^[a-zA-Z]+$/', $_POST["lastname"])) ? "Last Name should only contain letters and should not be empty" : null;
     $bday = empty($_POST["birthday"]) ? "Please select your birthday." : null;
     $gen = ($_POST["gender"] !== "Chose") ? "Please select your gender." : null;
-    $emil = empty($_POST["email"]) ? "Input field is empty! Please enter your email address." : null;
+    $emil = (!preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/', $_POST["email"])) ? "Email should contains @ sign e.g., Juan@gmail.com" : null;
     $address = empty($_POST["address"]) ? "Input field is empty! Please enter your address." : null;
     $phone = (!preg_match('/^[0-9]+$/', $_POST["phone"])) ? "Please enter a valid phone number, e.g., 09123456789." : null;
-    $gfirstname = empty($_POST["gfirstname"]) ? "Input field is empty! Please enter the first name." : null;
-    $gmiddlename = empty($_POST["gmiddlename"]) ? "Input field is empty! Please enter the middle name." : null;
-    $glastname = empty($_POST["glastname"]) ? "Input field is empty! Please enter the last name." : null;
+    $gfirstname = (!preg_match('/^[a-zA-Z]+$/', $_POST["gfirstname"])) ? "First Name should only contain letters and should not be empty" : null;
+    $gmiddlename = (!preg_match('/^[a-zA-Z]+$/', $_POST["gmiddlename"])) ? "Middle Name should only contain letters and should not be empty" : null;
+    $glastname = (!preg_match('/^[a-zA-Z]+$/', $_POST["glastname"])) ? "Last Name should only contain letters and should not be empty" : null;
     $gbirthday = empty($_POST["gbirthday"]) ? "Please select the birthday." : null;
-    $gemail = empty($_POST["gemail"]) ? "Input field is empty! Please enter the email." : null;
+    $gemail = (!preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/', $_POST["gemail"])) ? "Email should contains @ sign e.g., Juan@gmail.com" : null;
     $gaddress = empty($_POST["gaddress"]) ? "Input field is empty! Please enter the address." : null;
-    $gphoneNumber = empty($_POST["gphoneNumber"]) ? "Input field is empty! Please enter the phone number, e.g., 09123456789." : null;
+    $gphoneNumber = (!preg_match('/^[0-9]+$/', $_POST["gphoneNumber"])) ? "Please enter a valid phone number, e.g., 09123456789." : null;
+
+    
 }
 
 
@@ -348,7 +351,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
-                            <script>document.write(new Date().getFullYear())</script>202320232023202320232023 © Hyper -
+                            <script>
+                            document.write(new Date().getFullYear())
+                            </script>202320232023202320232023 © Hyper -
                             Coderthemes.com
                         </div>
                         <div class="col-md-6">
