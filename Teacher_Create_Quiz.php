@@ -93,15 +93,13 @@ $user_id = $_SESSION['user_id'];
                                 </div>
                                 <div class="modal-body">
                                     <!-- Form for adding a new quiz assignment -->
-                                    <form id="addQuizForm">
+                                    <?php 
+
+                                    ?>
+                                    <form id="addQuizForm" action="" method="POST">
                                         <div class="mb-3">
                                             <label for="quizTitle" class="form-label">Title</label>
                                             <input type="text" class="form-control" id="quizTitle" name="quizTitle">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="pointsPerItem" class="form-label">Points per Item</label>
-                                            <input type="text" class="form-control" id="pointsPerItem"
-                                                name="pointsPerItem">
                                         </div>
                                         <div class="mb-3">
                                             <label for="inputState" class="form-label">Select Lesson</label>
@@ -109,26 +107,26 @@ $user_id = $_SESSION['user_id'];
                                                 <option selected disabled>Select a lesson</option>
                                                 <!-- Default option -->
                                                 <?php
-                            include 'dbcon.php';
+                                                include 'dbcon.php';
 
-                            $sql = "SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.type, tbl_lesson.level, tbl_lesson_files.status FROM tbl_lesson
-                                    JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_files_id
-                                    WHERE tbl_lesson_files.status = 1";
+                                                $sql = "SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.type, tbl_lesson.level, tbl_lesson_files.status FROM tbl_lesson
+                                                        JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_files_id
+                                                        WHERE tbl_lesson_files.status = 1";
 
-                            $result = mysqli_query($conn, $sql);
+                                                $result = mysqli_query($conn, $sql);
 
-                            if (mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    $lesson_id = $row['lesson_id'];
-                                    $name = $row['name'];
-                                    $type = $row['type'];
-                                    $level = $row['level'];
-                                    echo "<option value='$lesson_id'>$type: $level - $name</option>";
-                                }   
-                            } else {
-                                echo "<option value='' disabled>No lessons available</option>";
-                            }
-                            ?>
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $lesson_id = $row['lesson_id'];
+                                                        $name = $row['name'];
+                                                        $type = $row['type'];
+                                                        $level = $row['level'];
+                                                        echo "<option value='$lesson_id'>$type: $level - $name</option>";
+                                                    }   
+                                                } else {
+                                                    echo "<option value='' disabled>No lessons available</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </form>
