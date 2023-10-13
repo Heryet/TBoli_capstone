@@ -65,7 +65,7 @@ $user_id = $_SESSION['user_id'];
                     <div class="row">
                         <div class="col-md-6">
                             <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                data-bs-target="#addQuizModal">Add Quiz</button>
+                                data-bs-target="#addQuizModal">Add Multiple Choice</button>
                         </div>
                         <!-- Modal for adding a new quiz assignment -->
                         <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel"
@@ -74,89 +74,102 @@ $user_id = $_SESSION['user_id'];
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="addQuizModalLabel">Add Question</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                        <div class="modal-body">
-                                            <?php 
-                                            ?>
-                                            <form id="" action="" method="POST">
-                                                <div class="modal-body">
-                                                    <div id="msg"></div>
-                                                    <div class="form-group">
-                                                        <label>Quiz Type</label>
-                                                        <select id="quizType" name="quiz_type" required="required" class="form-control">
-                                                            <option value="multiple_choice">Multiple Choice</option>
-                                                            <option value="true_false">True or False</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Question</label>
-                                                        <!-- <input type="hidden" name="qid" value="<?php echo $_GET['lesson_id'] ?>" /> -->
-                                                        <input type="hidden" name="id" />
-                                                        <textarea rows='3' name="question" required="required" class="form-control"></textarea>
-                                                    </div>
-                                                    <label>Options:</label>
+                                    <div class="modal-body">
+                                        <?php 
+                                        include 'dbcon.php';
+                                        if (isset($_GET['quiz_options_id']) && isset($_POST['addQuiz'])) {
+                                            $quiz_options_id = $_GET['quiz_options_id'];
+                                            $question = $_POST['question'];
+                                            $question_opts = $_POST['question_opt'];
 
-                                                    <div class="form-group" id="options">
-                                                        <textarea rows="2" name="question_opt[0]" required="" class="form-control" value=""></textarea>
-                                                        <span>
-                                                            <label><input type="radio" name="is_right[0]" class="is_right" value="1">
-                                                                <small>Question Answer</small></label>
-                                                        </span>
-                                                        <br>
-                                                        <textarea rows="2" name="question_opt[1]" required="" class="form-control"></textarea>
-                                                        <label><input type="radio" name="is_right[1]" class="is_right" value="1">
-                                                            <small>Question Answer</small></label>
-                                                        <br>
-                                                        <textarea rows="2" name="question_opt[2]" required="" class="form-control"></textarea>
-                                                        <label><input type="radio" name="is_right[2]" class="is_right" value="1">
-                                                            <small>Question Answer</small></label>
-                                                        <br>
-                                                        <textarea rows="2" name="question_opt[3]" required="" class="form-control"></textarea>
-                                                        <label><input type="radio" name="is_right[3]" class="is_right" value="1">
-                                                            <small>Question Answer</small></label>
-                                                    </div>
+                                            $sql = "INSERT INTO tbl_quiz_question (quiz_options_id, question) VALUES ('$quiz_options_id', '$question')";
 
-                                                    <div class="form-group" id="trueFalseOptions" style="display: none;">
-                                                        <label>Question</label>
-                                                        <input type="text" name="question_opt[0]" class="form-control" value="True" readonly>
-                                                        <br>
-                                                        <label>Answer:</label>
-                                                        <label><input type="radio" name="is_right[0]" class="is_right" value="1">
-                                                            <small>True</small></label>
-                                                        <br>
-                                                        <input type="text" name="question_opt[1]" class="form-control" value="False" readonly>
-                                                        <br>
-                                                        <label>Answer:</label>
-                                                        <label><input type="radio" name="is_right[1]" class="is_right" value="0">
-                                                            <small>False</small></label>
-                                                    </div>
+                                            if ($conn->query($sql) === TRUE) {
+                                                $question_id = $conn->insert_id;
+                                                $options = $_POST['question_opt'];
+                                                $is_right = $_POST['is_right'];
 
-                                                </div>
-                                            </form>
-                                        </div>
+                                                // Loop through the options and insert them into the database
+                                                for ($i = 0; $i < count($options); $i++) {
+                                                    $choice = $options[$i];
+                                                    $is_right_value = isset($is_right[$i]) ? 1 : 0;
 
-                                        <script>
-                                            const quizTypeSelect = document.getElementById('quizType');
-                                            const options = document.getElementById('options');
-                                            const trueFalseOptions = document.getElementById('trueFalseOptions');
+                                                    $sql = "INSERT INTO tbl_quiz_choices (question_id, choices, is_right) VALUES ('$question_id', '$choice', '$is_right_value')";
 
-                                            quizTypeSelect.addEventListener('change', function () {
-                                                if (quizTypeSelect.value === 'multiple_choice') {
-                                                    options.style.display = 'block';
-                                                    trueFalseOptions.style.display = 'none';
-                                                } else if (quizTypeSelect.value === 'true_false') {
-                                                    options.style.display = 'none';
-                                                    trueFalseOptions.style.display = 'block';
+                                                    if ($conn->query($sql) !== TRUE) {
+                                                        echo "Error: " . $sql . "<br>" . $conn->error;
+                                                    }
                                                 }
-                                            });
-                                        </script>
+                                                header("Location: Teacher_Manage_Quiz.php?Quiz Added Successfully");
+                                                exit();
+                                            } else {
+                                                echo "Error: " . $sql . "<br>" . $conn->error;
+                                            }
+                                        } elseif (isset($_GET['quiz_options_id']) && isset($_POST['btnSave'])) {
+                                            $quiz_options_id = $_GET['quiz_options_id'];
+                                            $question = $_POST['question'];
+                                            $question_opts = $_POST['question_opt'];
+                                            
+                                            $sql = "INSERT INTO tbl_quiz_question (quiz_options_id, question) VALUES ('$quiz_options_id', '$question')";
+        
+                                            if($conn->query($sql) === TRUE) {
+                                                $question_id = $conn->insert_id;
+                                                $options = $_POST['question_opt'];
+                                                $is_right = $_POST['is_right'];
+        
+                                                // loop
+                                                for ($i = 0; $i < count($options); $i++) {
+                                                    $choice = $options[$i];
+                                                    $is_right_value = isset($is_right[$i]) ? 1 : 0;
+        
+                                                    $sql = "INSERT INTO tbl_quiz_choices (question_id, choices, is_right) VALUES ('$question_id', '$choice', '$is_right_value')";
+        
+                                                    if ($conn->query($sql) !== TRUE){
+                                                        echo "Error: " . $sql . "<br>" . $conn->error;
+                                                    }
+                                                }
+                                                header("Location: Teacher_Manage_quiz.php?msg=Added Succesfully");
+                                                exit();
+                                            } else {
+                                                echo "Error: " . $sql . "<br>" . $conn->error;
+                                            }
+                                        }
+                                        ?>
+                                        <form action="" method="POST">
+                                            <div id="msg"></div>
+                                            <div class="form-group">
+                                                <label for="question">Question</label>
+                                                <input type="hidden" name="id" />
+                                                <textarea rows='3' name="question" required="required" class="form-control"></textarea>
+                                            </div>
+                                            <label>Options:</label>
 
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="addQuizButton">Add</button>
+                                            <div class="form-group" id="options">
+                                                <textarea rows="2" name="question_opt[0]" required="" class="form-control" value=""></textarea>
+                                                <span>
+                                                    <label><input type="radio" name="is_right[0]" class="is_right" value="1">
+                                                        <small>Question Answer</small></label>
+                                                </span>
+                                                <br>
+                                                <textarea rows="2" name="question_opt[1]" required="" class="form-control"></textarea>
+                                                <label><input type="radio" name="is_right[1]" class="is_right" value="1">
+                                                    <small>Question Answer</small></label>
+                                                <br>
+                                                <textarea rows="2" name="question_opt[2]" required="" class="form-control"></textarea>
+                                                <label><input type="radio" name="is_right[2]" class="is_right" value="1">
+                                                    <small>Question Answer</small></label>
+                                                <br>
+                                                <textarea rows="2" name="question_opt[3]" required="" class="form-control"></textarea>
+                                                <label><input type="radio" name="is_right[3]" class="is_right" value="1">
+                                                    <small>Question Answer</small></label>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary" name="addQuiz">Add</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -191,12 +204,12 @@ $user_id = $_SESSION['user_id'];
                             $sql = "SELECT tbl_userinfo.user_id, tbl_learner.learner_id, tbl_learner.level_id, tbl_user_level.level, tbl_userinfo.firstname,
                             tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_user_status.status,
                             tbl_learner_id.lrn
-                        FROM tbl_learner
-                        JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
-                        JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
-                        JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
-                        JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
-                        WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
+                            FROM tbl_learner
+                            JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
+                            JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
+                            JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
+                            JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
+                            WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
 
                             $result = mysqli_query($conn, $sql);
 
@@ -225,7 +238,50 @@ $user_id = $_SESSION['user_id'];
                             </div>
                         </div>
                     </div>
-
+                    <!-- Button to open modal -->
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+                        data-bs-target="#addQuizTrueFalse">Add True or False</button>
+                    </div>
+                    <!-- Modal for adding a new quiz true or false -->
+                    <div class="modal fade" id="addQuizTrueFalse" tabindex="-1" role="dialog" aria-labelledby="addQuizTrueFalseLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addQuizTrueFalseLabel">Add True or False Question</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="" method="POST">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="trueFalseQuestion">Question</label>
+                                            <input type="text" id="trueFalseQuestion" name="question" class="form-control" placeholder="Enter your question here">
+                                            <br>
+                                            <label>Options:</label>
+                                            <div class="form-group" id="trueFalseOptions">
+                                                <input type="text" name="question_opt[0]" class="form-control" value="True" readonly>
+                                                <br>
+                                                <label>Answer:</label>
+                                                <label><input type="radio" name="is_right[0]" class="is_right" value="1"><small>True</small></label>
+                                                <br>
+                                                <input type="text" name="question_opt[1]" class="form-control" value="False" readonly>
+                                                <br>
+                                                <label>Answer:</label>
+                                                <label><input type="radio" name="is_right[1]" class="is_right" value="1"><small>False</small></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="btnSave">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card">
