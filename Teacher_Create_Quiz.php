@@ -94,9 +94,31 @@ $user_id = $_SESSION['user_id'];
                                 <div class="modal-body">
                                     <!-- Form for adding a new quiz assignment -->
                                     <?php 
+                                    include 'dbcon.php';
 
+                                    if(isset($_POST['addQuiz'])) {
+                                        session_start(); // Add session_start() to use $_SESSION
+                                        $user_id = $_SESSION['user_id'];
+                                        $quizTitle = $_POST['quizTitle'];
+                                        $lesson = $_POST['lesson'];
+                                        $dateStart = $_POST['dateStart'];
+                                        $due = $_POST['due'];
+                                        $attempts = $_POST['attempts'];
+                                        $instructions = $_POST['instructions'];
+
+                                        $sql = "INSERT INTO tbl_quiz_options (added_by, title, lesson, date_start, due, attempts, instructions) VALUES
+                                        ('$user_id', '$quizTitle', '$lesson', '$dateStart', '$due', '$attempts', '$instructions')";
+
+                                        if ($conn->query($sql) === TRUE) {
+                                            header("Location: Teacher_Create_Quiz.php?msg=Quiz - added successfully");
+                                            exit();
+                                        } else {
+                                            // Error occurred
+                                            echo "Error: " . mysqli_error($conn);
+                                        }
+                                    }
                                     ?>
-                                    <form id="addQuizForm" action="" method="POST">
+                                    <form action="" method="POST">
                                         <div class="mb-3">
                                             <label for="quizTitle" class="form-label">Title</label>
                                             <input type="text" class="form-control" id="quizTitle" name="quizTitle">
@@ -104,8 +126,7 @@ $user_id = $_SESSION['user_id'];
                                         <div class="mb-3">
                                             <label for="inputState" class="form-label">Select Lesson</label>
                                             <select id="inputState" class="form-select" name="lesson">
-                                                <option selected disabled>Select a lesson</option>
-                                                <!-- Default option -->
+                                                <option value="" selected disabled>Select a lesson</option>
                                                 <?php
                                                 include 'dbcon.php';
 
@@ -129,50 +150,37 @@ $user_id = $_SESSION['user_id'];
                                                 ?>
                                             </select>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="dateStart" class="form-label">Date Start</label>
+                                                <input type="datetime-local" class="form-control" id="dateStart" name="dateStart">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="due" class="form-label">Due</label>
+                                                <input type="datetime-local" class="form-control" id="due" name="due">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="attempts" class="form-label">Attempts</label>
+                                            <select id="attempts" class="form-select" name="attempts">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="instructions" class="form-label">Instructions</label> <!-- Changed the "for" attribute to match the textarea id -->
+                                            <textarea class="form-control" id="instructions" name="instructions"></textarea>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" name="addQuiz">Add</button> <!-- Changed "type" to "submit" for the "Add" button -->
+                                        </div>
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="addQuizButton">Add</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <script>
-                    $(document).ready(function() {
-                        // Handle form submission when the "Add" button is clicked
-                        $("#addQuizButton").click(function() {
-                            // Serialize the form data
-                            var formData = $("#addQuizForm").serialize();
-
-                            // Send an AJAX request to submit the form data
-                            $.ajax({
-                                type: "POST",
-                                url: "process_add_quiz.php", // Replace with the URL to your PHP script to handle form submission
-                                data: formData,
-                                success: function(response) {
-                                    // Handle the response from the server
-                                    if (response == "success") {
-                                        // Close the modal and reset the form
-                                        $("#addQuizModal").modal("hide");
-                                        $("#addQuizForm")[0].reset();
-                                        // You can also reload or update the quiz list on success
-                                        // Example: window.location.reload();
-                                    } else {
-                                        // Display an error message
-                                        alert("Error occurred while adding quiz.");
-                                    }
-                                }
-                            });
-                        });
-                    });
-                    </script>
-
-
-
-
                     <!-- Table to display quiz assignments -->
                     <div class="row">
                         <div class="col-12">
@@ -184,65 +192,84 @@ $user_id = $_SESSION['user_id'];
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Title</th>
-                                                    <th>Lesson Objectives</th>
-
-                                                    <th>Lesson</th>
-                                                    <th>Action</th>
+                                                    <th>Lesson Name</th>
+                                                    <th>Date Start</th>
+                                                    <th>Due</th>
+                                                    <th>Attempts</th>
+                                                    <th>Lesson Instructions</th>
+                                                    <th>Added By</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <?php
-                include 'dbcon.php';
+                                                <tbody>
+                                                    <?php
+                                                    include 'dbcon.php';
 
-                $sql = "SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.objective, tbl_lesson.level, tbl_lesson.type, tbl_lesson.added_by, tbl_lesson_files.lesson_files_id, tbl_lesson_files.lesson, 
-                tbl_lesson_files.status, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname
-                FROM tbl_content
-                JOIN tbl_lesson ON tbl_content.lesson_id = tbl_lesson.lesson_id
-                JOIN tbl_lesson_files ON tbl_content.lesson_files_id = tbl_lesson_files.lesson_files_id
-                JOIN tbl_userinfo ON tbl_lesson.added_by = tbl_userinfo.user_id
-                WHERE tbl_lesson_files.status = 1";
+                                                    $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.date_start,
+                                                    tbl_quiz_options.due, tbl_quiz_options.attempts, tbl_quiz_options.instructions, tbl_userinfo.firstname, tbl_userinfo.lastname, tbl_lesson.name FROM tbl_quiz_options
+                                                    JOIN tbl_userinfo ON tbl_quiz_options.added_by = tbl_userinfo.user_id
+                                                    JOIN tbl_lesson ON tbl_quiz_options.lesson = tbl_lesson.lesson_id
+                                                    WHERE tbl_quiz_options.lesson = tbl_lesson.lesson_id";
 
-                $result = mysqli_query($conn, $sql);
+                                                    $result = mysqli_query($conn, $sql);
 
-                if ($result && mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                                                <tr>
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
 
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['lesson_id'] ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['name'] ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['objective'] ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['type'] ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-
-                                                        <a href="Teacher_Manage_Quiz.php"
-                                                            class="btn btn-success btn-sm">Manage</a>
-                                                        <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                        <a href="#" class="btn btn-danger btn-sm">Archive</a>
-                                                    </td>
-                                                </tr>
-                                                <?php
-                    }
-                }
-                ?>
-                                                <!-- End of database-generated rows -->
-                                            </tbody>
+                                                    ?>
+                                                        <tr>
+                                                            <td>
+                                                                <span class="fw-semibold">
+                                                                    <?php echo $row['quiz_options_id']; ?>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold">
+                                                                    <?php echo $row['title']; ?>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold">
+                                                                    <?php echo $row['name']; ?>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold">
+                                                                    <?php echo $row['date_start']; ?>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold">
+                                                                    <?php echo $row['due']; ?>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold">
+                                                                    <?php echo $row['attempts']; ?>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold">
+                                                                    <?php echo $row['instructions']; ?>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="fw-semibold">
+                                                                    <?php echo $row['firstname'] . $row ['lastname']; ?>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <a href="Teacher_Manage_Quiz.php?quiz_options_id=<?php echo $row['quiz_options_id']; ?>" class="btn btn-success btn-sm">Manage</a>
+                                                                <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                                <a href="#" class="btn btn-danger btn-sm">Archive</a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <!-- End of database-generated rows -->
+                                                </tbody>
                                         </table>
                                     </div>
                                 </div>
