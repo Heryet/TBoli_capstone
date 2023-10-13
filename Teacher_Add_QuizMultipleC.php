@@ -169,7 +169,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                             </div>
                         </div>
                         <h3 class="ms-4 mt-3 mb-3">Options</h3>
-                        <div class="row">
+                        <div class="ms-4 mt-3 mb-3">
 
 
                             <div class="col-lg-2">
@@ -186,7 +186,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="ms-4 mt-3 mb-3">
 
                             <div class="col-lg-2">
                                 <div class="mb-3" style="width: 170px">
