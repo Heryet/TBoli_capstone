@@ -153,7 +153,8 @@ $user_id = $_SESSION['user_id'];
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label for="dateStart" class="form-label">Date Start</label>
-                                                <input type="datetime-local" class="form-control" id="dateStart" name="dateStart">
+                                                <input type="datetime-local" class="form-control" id="dateStart"
+                                                    name="dateStart">
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label for="due" class="form-label">Due</label>
@@ -169,12 +170,16 @@ $user_id = $_SESSION['user_id'];
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="instructions" class="form-label">Instructions</label> <!-- Changed the "for" attribute to match the textarea id -->
-                                            <textarea class="form-control" id="instructions" name="instructions"></textarea>
+                                            <label for="instructions" class="form-label">Instructions</label>
+                                            <!-- Changed the "for" attribute to match the textarea id -->
+                                            <textarea class="form-control" id="instructions"
+                                                name="instructions"></textarea>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary" name="addQuiz">Add</button> <!-- Changed "type" to "submit" for the "Add" button -->
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" name="addQuiz">Add</button>
+                                            <!-- Changed "type" to "submit" for the "Add" button -->
                                         </div>
                                     </form>
                                 </div>
@@ -201,8 +206,8 @@ $user_id = $_SESSION['user_id'];
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
-                                                <tbody>
-                                                    <?php
+                                            <tbody>
+                                                <?php
                                                     include 'dbcon.php';
 
                                                     $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.date_start,
@@ -217,59 +222,62 @@ $user_id = $_SESSION['user_id'];
                                                         while ($row = mysqli_fetch_assoc($result)) {
 
                                                     ?>
-                                                        <tr>
-                                                            <td>
-                                                                <span class="fw-semibold">
-                                                                    <?php echo $row['quiz_options_id']; ?>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="fw-semibold">
-                                                                    <?php echo $row['title']; ?>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="fw-semibold">
-                                                                    <?php echo $row['name']; ?>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="fw-semibold">
-                                                                    <?php echo $row['date_start']; ?>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="fw-semibold">
-                                                                    <?php echo $row['due']; ?>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="fw-semibold">
-                                                                    <?php echo $row['attempts']; ?>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="fw-semibold">
-                                                                    <?php echo $row['instructions']; ?>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span class="fw-semibold">
-                                                                    <?php echo $row['firstname'] . $row ['lastname']; ?>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <a href="Teacher_Manage_Quiz.php?quiz_options_id=<?php echo $row['quiz_options_id']; ?>" class="btn btn-success btn-sm">Manage</a>
-                                                                <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                                <a href="#" class="btn btn-danger btn-sm">Archive</a>
-                                                            </td>
-                                                        </tr>
-                                                    <?php
+                                                <tr>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['quiz_options_id']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['title']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['name']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['date_start']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['due']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['attempts']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['instructions']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['firstname'] . $row ['lastname']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="Teacher_Manage_Quiz.php?quiz_options_id=<?php echo $row['quiz_options_id']; ?>"
+                                                            class="btn btn-success btn-sm">Manage</a>
+                                                        <a href="Teacher_Add_QuizMultipleC.php?quiz_options_id=<?php echo $row['quiz_options_id']; ?>"
+                                                            class="btn btn-primary btn-sm">Edit</a>
+
+                                                        <a href="#" class="btn btn-danger btn-sm">Archive</a>
+                                                    </td>
+                                                </tr>
+                                                <?php
                                                         }
                                                     }
                                                     ?>
-                                                    <!-- End of database-generated rows -->
-                                                </tbody>
+                                                <!-- End of database-generated rows -->
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
