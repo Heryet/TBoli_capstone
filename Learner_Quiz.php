@@ -21,9 +21,7 @@ $user_id = $_SESSION['user_id'];
 
 </head>
 
-<body class=""
-    data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: false}"
-    style="visibility: visible;" data-leftbar-theme="dark">
+<body <?php include('dataconfig.php') ?>>
     <!-- Begin page -->
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
@@ -173,15 +171,15 @@ $user_id = $_SESSION['user_id'];
                                     if ($result && mysqli_num_rows($result) > 0) {
                                         $row = mysqli_fetch_assoc($result);
                                         ?>
-                                        <span>
-                                            <span class="account-user-name">
-                                                <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
-                                            </span>
-                                            <span class="account-position">
-                                                <?php echo $row['level']; ?>
-                                            </span>
-                                        </span>
-                                        <?php
+                                <span>
+                                    <span class="account-user-name">
+                                        <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
+                                    </span>
+                                    <span class="account-position">
+                                        <?php echo $row['level']; ?>
+                                    </span>
+                                </span>
+                                <?php
                                     } else {
                                         echo "No records found in tbl_learner";
                                     }
@@ -278,73 +276,73 @@ $user_id = $_SESSION['user_id'];
                                         $questionNumber = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             ?>
-                                            <div class="card card-body mb-0">
-                                                <h5 class="card-title">Question
-                                                    <?php echo $questionNumber; ?>
-                                                </h5>
-                                                <p class="mt-2">
-                                                    <?php echo $row['question'] ?>
-                                                </p>
-                                                <div class="list-group">
-                                                    <table class="table table-hover">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <!-- Set the input name to customRadio<?php echo $questionNumber; ?>[] -->
-                                                                        <input type="radio" id="customRadio1"
-                                                                            name="customRadio<?php echo $questionNumber; ?>[]"
-                                                                            class="form-check-input" value="a" required>
-                                                                        <label class="form-check-label" for="customRadio1">
-                                                                            <?php echo $row['choiceA'] ?>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <!-- Set the input name to customRadio<?php echo $questionNumber; ?>[] -->
-                                                                        <input type="radio" id="customRadio2"
-                                                                            name="customRadio<?php echo $questionNumber; ?>[]"
-                                                                            class="form-check-input" value="b" required>
-                                                                        <label class="form-check-label" for="customRadio2">
-                                                                            <?php echo $row['choiceB'] ?>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <!-- Set the input name to customRadio<?php echo $questionNumber; ?>[] -->
-                                                                        <input type="radio" id="customRadio3"
-                                                                            name="customRadio<?php echo $questionNumber; ?>[]"
-                                                                            class="form-check-input" value="c" required>
-                                                                        <label class="form-check-label" for="customRadio3">
-                                                                            <?php echo $row['choiceC'] ?>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <!-- Set the input name to customRadio<?php echo $questionNumber; ?>[] -->
-                                                                        <input type="radio" id="customRadio4"
-                                                                            name="customRadio<?php echo $questionNumber; ?>[]"
-                                                                            class="form-check-input" value="d" required>
-                                                                        <label class="form-check-label" for="customRadio4">
-                                                                            <?php echo $row['choiceD'] ?>
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <?php
+                                <div class="card card-body mb-0">
+                                    <h5 class="card-title">Question
+                                        <?php echo $questionNumber; ?>
+                                    </h5>
+                                    <p class="mt-2">
+                                        <?php echo $row['question'] ?>
+                                    </p>
+                                    <div class="list-group">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <!-- Set the input name to customRadio<?php echo $questionNumber; ?>[] -->
+                                                            <input type="radio" id="customRadio1"
+                                                                name="customRadio<?php echo $questionNumber; ?>[]"
+                                                                class="form-check-input" value="a" required>
+                                                            <label class="form-check-label" for="customRadio1">
+                                                                <?php echo $row['choiceA'] ?>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <!-- Set the input name to customRadio<?php echo $questionNumber; ?>[] -->
+                                                            <input type="radio" id="customRadio2"
+                                                                name="customRadio<?php echo $questionNumber; ?>[]"
+                                                                class="form-check-input" value="b" required>
+                                                            <label class="form-check-label" for="customRadio2">
+                                                                <?php echo $row['choiceB'] ?>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <!-- Set the input name to customRadio<?php echo $questionNumber; ?>[] -->
+                                                            <input type="radio" id="customRadio3"
+                                                                name="customRadio<?php echo $questionNumber; ?>[]"
+                                                                class="form-check-input" value="c" required>
+                                                            <label class="form-check-label" for="customRadio3">
+                                                                <?php echo $row['choiceC'] ?>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <!-- Set the input name to customRadio<?php echo $questionNumber; ?>[] -->
+                                                            <input type="radio" id="customRadio4"
+                                                                name="customRadio<?php echo $questionNumber; ?>[]"
+                                                                class="form-check-input" value="d" required>
+                                                            <label class="form-check-label" for="customRadio4">
+                                                                <?php echo $row['choiceD'] ?>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <?php
                                             $questionNumber++; // Increment the question number for the next iteration
                                         }
                                     } else {
@@ -360,43 +358,43 @@ $user_id = $_SESSION['user_id'];
                                             $questionNumber = 1; // Initialize the question number counter for true/false questions
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 ?>
-                                                <div class="card card-body mb-0">
-                                                    <h5 class="card-title">Question
-                                                        <?php echo $questionNumber; ?>
-                                                    </h5> <!-- Display the question number -->
-                                                    <p class="mt-2">
-                                                        <?php echo $row['question'] ?>
-                                                    </p>
-                                                    <div class="list-group">
-                                                        <table class="table table-hover">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input type="radio" id="customRadio1"
-                                                                                name="customRadio<?php echo $questionNumber; ?>"
-                                                                                class="form-check-input" required>
-                                                                            <label class="form-check-label"
-                                                                                for="customRadio1">True</label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input type="radio" id="customRadio2"
-                                                                                name="customRadio<?php echo $questionNumber; ?>"
-                                                                                class="form-check-input" required>
-                                                                            <label class="form-check-label"
-                                                                                for="customRadio2">False</label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <?php
+                                <div class="card card-body mb-0">
+                                    <h5 class="card-title">Question
+                                        <?php echo $questionNumber; ?>
+                                    </h5> <!-- Display the question number -->
+                                    <p class="mt-2">
+                                        <?php echo $row['question'] ?>
+                                    </p>
+                                    <div class="list-group">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <input type="radio" id="customRadio1"
+                                                                name="customRadio<?php echo $questionNumber; ?>"
+                                                                class="form-check-input" required>
+                                                            <label class="form-check-label"
+                                                                for="customRadio1">True</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <input type="radio" id="customRadio2"
+                                                                name="customRadio<?php echo $questionNumber; ?>"
+                                                                class="form-check-input" required>
+                                                            <label class="form-check-label"
+                                                                for="customRadio2">False</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <?php
                                                 $questionNumber++; // Increment the question number for the next iteration
                                             }
                                         }

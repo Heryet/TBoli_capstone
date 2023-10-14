@@ -2,7 +2,6 @@
 session_start();
 $user_id = $_SESSION['user_id'];
 ?>
-
 <!DOCTYPE html>
 <html lang="en" class="menuitem-active">
 
@@ -59,7 +58,7 @@ $user_id = $_SESSION['user_id'];
                                 <div class="simplebar-content" style="padding: 0px;">
 
                                     <!--- Sidemenu -->
-                                    <?php include('teacher_sidemenu.php') ?>
+                                    <?php include('learnerSideMenu.php') ?>
 
 
                                     <!-- Help Box -->
@@ -95,7 +94,7 @@ $user_id = $_SESSION['user_id'];
         <div class="content-page">
             <div class="content">
                 <!-- Topbar Start -->
-                <?php include('teacher_topbar.php') ?>
+                <?php include('learnerTopBar.php') ?>
 
                 <!-- Start Content-->
                 <div class="container-fluid">
@@ -266,15 +265,15 @@ $user_id = $_SESSION['user_id'];
 
                                             <div class="mb-3 col-md-6">
                                                 <label for="FName" class="form-label">First Name </label>
-                                                <h4 class="form-control"><?php echo $row['firstname']?></h4>
+                                                <h4 class="form-control"><?php echo $row ['firstname'] ?></h4>
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="MiddleName" class="form-label">Middle Name </label>
-                                                <h4 class="form-control"><?php echo $row['middlename']?></h4>
+                                                <h4 class="form-control"><?php echo $row ['middlename'] ?></h4>
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="LName" class="form-label">Last Name </label>
-                                                <h4 class="form-control"><?php echo $row['lastname']?></h4>
+                                                <h4 class="form-control"><?php echo $row ['lastname'] ?></h4>
                                             </div>
 
                                             <div class="mb-3 col-md-6">
@@ -286,11 +285,11 @@ $user_id = $_SESSION['user_id'];
                                         <div class="row g-2">
                                             <div class="mb-3 col-md-6">
                                                 <label for="inputbday" class="form-label">Birthdate </label>
-                                                <h4 class="form-control"><?php echo $row['birthday']?></h4>
+                                                <h4 class="form-control"><?php echo $row ['birthday'] ?></h4>
                                             </div>
                                             <div class="mb-3 col-md-4">
                                                 <label for="inputGender" class="form-label">Gender </label>
-                                                <h4 class="form-control"><?php echo $row['gender']?></h4>
+                                                <h4 class="form-control"><?php echo $row ['gender'] ?></h4>
                                             </div>
                                         </div>
 

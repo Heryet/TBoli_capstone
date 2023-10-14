@@ -21,9 +21,7 @@ $user_id = $_SESSION['user_id'];
 
 </head>
 
-<body class=""
-    data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: false}"
-    style="visibility: visible;" data-leftbar-theme="dark">
+<body <?php include('dataconfig.php') ?>>
     <!-- Begin page -->
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
@@ -173,15 +171,15 @@ $user_id = $_SESSION['user_id'];
                                     if ($result && mysqli_num_rows($result) > 0) {
                                         $row = mysqli_fetch_assoc($result);
                                         ?>
-                                        <span>
-                                            <span class="account-user-name">
-                                                <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
-                                            </span>
-                                            <span class="account-position">
-                                                <?php echo $row['level']; ?>
-                                            </span>
-                                        </span>
-                                        <?php
+                                <span>
+                                    <span class="account-user-name">
+                                        <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
+                                    </span>
+                                    <span class="account-position">
+                                        <?php echo $row['level']; ?>
+                                    </span>
+                                </span>
+                                <?php
                                     } else {
                                         echo "No records found in tbl_learner";
                                     }
@@ -283,36 +281,36 @@ $user_id = $_SESSION['user_id'];
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 ?>
-                                <div class="row g-0 align-items-center">
-                                    <div class="col-md-2">
-                                        <img src="assets/images/small/small-4.jpg" class="card-img" alt="...">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <?php echo $row['type'] . ': ' . $row['name']; ?>
-                                            </h5>
-                                            <p><b>Objective: </b>
-                                                <?php echo $row['objective']; ?>
-                                            </p>
-                                            <p><b>Level: </b>
-                                                <?php echo $row['level']; ?>
-                                            </p>
-                                            <div class="tab-content">
-                                                <?php
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-2">
+                                <img src="assets/images/small/small-4.jpg" class="card-img" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <?php echo $row['type'] . ': ' . $row['name']; ?>
+                                    </h5>
+                                    <p><b>Objective: </b>
+                                        <?php echo $row['objective']; ?>
+                                    </p>
+                                    <p><b>Level: </b>
+                                        <?php echo $row['level']; ?>
+                                    </p>
+                                    <div class="tab-content">
+                                        <?php
                                                 $collapseID = "collapseExample" . $row['lesson_id'];
                                                 ?>
-                                                <div class="tab-pane show active"
-                                                    id="collapse-preview<?php echo $row['lesson_id']; ?>">
-                                                    <p>
-                                                        <a class="btn btn-primary collapsed" data-bs-toggle="collapse"
-                                                            href="#<?php echo $collapseID; ?>" aria-expanded="false"
-                                                            aria-controls="<?php echo $collapseID; ?>">
-                                                            Manage Lesson
-                                                        </a>
-                                                    </p>
-                                                    <div class="collapse" id="<?php echo $collapseID; ?>" style="">
-                                                        <?php
+                                        <div class="tab-pane show active"
+                                            id="collapse-preview<?php echo $row['lesson_id']; ?>">
+                                            <p>
+                                                <a class="btn btn-primary collapsed" data-bs-toggle="collapse"
+                                                    href="#<?php echo $collapseID; ?>" aria-expanded="false"
+                                                    aria-controls="<?php echo $collapseID; ?>">
+                                                    Manage Lesson
+                                                </a>
+                                            </p>
+                                            <div class="collapse" id="<?php echo $collapseID; ?>" style="">
+                                                <?php
                                                         $lesson_id = $row['lesson_id'];
                                                         $lesson = "SELECT tbl_lesson.lesson_id, tbl_lesson_files.lesson, tbl_lesson_files.status
                                                                             FROM tbl_lesson
@@ -334,45 +332,45 @@ $user_id = $_SESSION['user_id'];
                                                         if (mysqli_num_rows($lesson_result) > 0) {
                                                             while ($lesson_row = mysqli_fetch_assoc($lesson_result)) {
                                                                 ?>
-                                                                <div class="mb-1">
-                                                                    <span>
-                                                                        <a href="teachers/lessons/<?php echo $lesson_row['lesson']; ?>"
-                                                                            target="_blank">
-                                                                            <?php echo substr($lesson_row['lesson'], 0, 15); ?>
-                                                                        </a>
-                                                                    </span>
-                                                                </div>
-                                                                <?php
+                                                <div class="mb-1">
+                                                    <span>
+                                                        <a href="teachers/lessons/<?php echo $lesson_row['lesson']; ?>"
+                                                            target="_blank">
+                                                            <?php echo substr($lesson_row['lesson'], 0, 15); ?>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <?php
                                                             }
                                                         }
 
                                                         if (mysqli_num_rows($quiz_result) > 0) {
                                                             while ($quiz_row = mysqli_fetch_assoc($quiz_result)) {
                                                                 ?>
-                                                                <div class="mb-1">
-                                                                    <span>
-                                                                        <a
-                                                                            href="Learner_InstructionsQuiz.php?quiz_options_id=<?php echo $quiz_row['quiz_options_id'] ?>">
-                                                                            <?php echo $quiz_row['title']; ?>
-                                                                        </a>
-                                                                    </span>
-                                                                </div>
-                                                                <?php
+                                                <div class="mb-1">
+                                                    <span>
+                                                        <a
+                                                            href="Learner_InstructionsQuiz.php?quiz_options_id=<?php echo $quiz_row['quiz_options_id'] ?>">
+                                                            <?php echo $quiz_row['title']; ?>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <?php
                                                             }
                                                         }
                                                         ?>
-                                                    </div>
-                                                </div> <!-- end preview-->
-
-                                                <div class="tab-pane" id="collapse-code2">
-                                                    <pre class="mb-0"> <!-- Your code here -->
-                                                                                                </pre>
-                                                </div> <!-- end preview code-->
                                             </div>
-                                        </div>
+                                        </div> <!-- end preview-->
+
+                                        <div class="tab-pane" id="collapse-code2">
+                                            <pre class="mb-0"> <!-- Your code here -->
+                                                                                                </pre>
+                                        </div> <!-- end preview code-->
                                     </div>
                                 </div>
-                                <?php
+                            </div>
+                        </div>
+                        <?php
                             }
                         }
                         ?>

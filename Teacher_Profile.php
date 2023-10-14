@@ -148,13 +148,8 @@ $user_id = $_SESSION['user_id'];
             <div class="row">
                 <div class="col-sm-4 mb-2 mb-sm-0">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active show" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home"
-                            role="tab" aria-controls="v-pills-home" aria-selected="true">
-                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                            <span class="d-none d-md-block">helo</span>
-                        </a>
-                        <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile"
-                            role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <a class="nav-link active show" id="v-pills-profile-tab" data-bs-toggle="pill"
+                            href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                             <i class="mdi mdi-account-circle d-md-none d-block"></i>
                             <span class="d-none d-md-block">Contact and basic Info</span>
                         </a>
@@ -168,36 +163,8 @@ $user_id = $_SESSION['user_id'];
                 <!-- end col-->
                 <div class="col-sm-8">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel"
-                            aria-labelledby="v-pills-home-tab">
-                            <h2>Overview</h2>
-                            <br>
-                            <br>
-                            <span class="h4">
-                                <i class=" uil-graduation-hat"></i> &nbsp;Studied at Mindanao Polytechnic College
-                            </span>
-                            <br>
-                            <br>
-                            <span class="h4">
-                                <i class=" uil-building"></i> &nbsp;Lives in General Santos, General Santos, Philippines
-                            </span>
-                            <br>
-                            <br>
-                            <span class="h4">
-                                <i class="  uil-location"></i> &nbsp;From Laguilayan, Sultan Kudarat, Philippines
-                            </span>
-                            <br>
-                            <br>
-                            <span class="h4">
-                                <i class="  uil-heart"></i> &nbsp;Single</span>
-                            <br>
-                            <br>
-                            <span class="h4">
-                                <i class="mdi mdi-cellphone-android"></i> &nbsp;09217381873 </span>
-                            <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mobile<br>
-                            <br>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+
+                        <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel"
                             aria-labelledby="v-pills-profile-tab">
 
 
@@ -230,11 +197,11 @@ $user_id = $_SESSION['user_id'];
                             <p class="h3 text-info">Basic info</p><br>
 
                             <span class="h4">
-                                <i class="dripicons-user"></i> &nbsp;Female</span>
+                                <i class="dripicons-user"></i> &nbsp;<?php echo $row['gender']?></span>
                             <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gender<br>
                             <br>
                             <span class="h4">
-                                <i class="mdi mdi-cake-variant"></i> &nbsp;February 23, 2005 </span>
+                                <i class="mdi mdi-cake-variant"></i> &nbsp;<?php echo $row['birthday']?></span>
                             <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Birth-date<br>
                             <br>
 

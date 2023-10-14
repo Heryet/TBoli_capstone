@@ -22,9 +22,7 @@ $user_id = $_SESSION['user_id'];
 
 </head>
 
-<body class=""
-    data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: false}"
-    style="visibility: visible;" data-leftbar-theme="dark">
+<body <?php include('dataconfig.php') ?>>
     <!-- Begin page -->
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
@@ -93,24 +91,25 @@ $user_id = $_SESSION['user_id'];
 
         <div class="content-page">
             <div class="content">
-               <!-- Topbar Start -->
+                <!-- Topbar Start -->
                 <div class="navbar-custom">
                     <ul class="list-unstyled topbar-menu float-end mb-0">
                         <li class="dropdown notification-list d-lg-none">
-                            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="false" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#"
+                                role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="dripicons-search noti-icon"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
                                 <form class="p-3">
-                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                    <input type="text" class="form-control" placeholder="Search ..."
+                                        aria-label="Recipient's username">
                                 </form>
                             </div>
                         </li>
 
                         <li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="false" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#"
+                                role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="dripicons-bell noti-icon"></i>
                                 <span class="noti-icon-badge"></span>
                             </a>
@@ -134,7 +133,8 @@ $user_id = $_SESSION['user_id'];
                                         </div>
                                         <div class="simplebar-mask">
                                             <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                                <div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;">
+                                                <div class="simplebar-content-wrapper"
+                                                    style="height: auto; overflow: hidden;">
                                                     <div class="simplebar-content" style="padding: 0px;">
 
                                                         <!-- All-->
@@ -148,8 +148,8 @@ $user_id = $_SESSION['user_id'];
 
 
                         <li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
-                                role="button" aria-haspopup="false" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown"
+                                href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <span class="account-user-avatar">
                                     <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                                 </span>
@@ -172,15 +172,15 @@ $user_id = $_SESSION['user_id'];
                                         if ($result && mysqli_num_rows($result) > 0) {
                                             $row = mysqli_fetch_assoc($result);
                                             ?>
-                                            <span>
-                                                <span class="account-user-name">
-                                                    <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
-                                                </span>
-                                                <span class="account-position">
-                                                    <?php echo $row['level']; ?>
-                                                </span>
-                                            </span>
-                                            <?php
+                                <span>
+                                    <span class="account-user-name">
+                                        <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?>
+                                    </span>
+                                    <span class="account-position">
+                                        <?php echo $row['level']; ?>
+                                    </span>
+                                </span>
+                                <?php
                                         } else {
                                             echo "No records found in tbl_learner";
                                         }
@@ -189,7 +189,8 @@ $user_id = $_SESSION['user_id'];
                                     }
                                 ?>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                            <div
+                                class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                                 <!-- item-->
                                 <div class=" dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">HI LEARNER</h6>
@@ -229,7 +230,8 @@ $user_id = $_SESSION['user_id'];
                     <div class="app-search dropdown d-none d-lg-block">
                         <form>
                             <div class="input-group">
-                                <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
+                                <input type="text" class="form-control dropdown-toggle" placeholder="Search..."
+                                    id="top-search">
                                 <span class="mdi mdi-magnify search-icon"></span>
                                 <button class="input-group-text btn-primary" type="submit">Search</button>
                             </div>
@@ -247,37 +249,37 @@ $user_id = $_SESSION['user_id'];
                         </div>
                     </div>
                 </div>
-                </div>
-                <!-- end Topbar -->
+            </div>
+            <!-- end Topbar -->
 
-                <!-- Start Content-->
-                <div class="container-fluid">
+            <!-- Start Content-->
+            <div class="container-fluid">
 
-                    <!-- start page title -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="page-title-box">
-                                <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
 
-                                        <!-- <li class="breadcrumb-item"><a href="Teacher_index.php">Dashboard</a></li> -->
+                                    <!-- <li class="breadcrumb-item"><a href="Teacher_index.php">Dashboard</a></li> -->
 
-                                    </ol>
-                                </div>
-                                <!-- <h4 class="page-title">TOPICS</h4> -->
+                                </ol>
                             </div>
+                            <!-- <h4 class="page-title">TOPICS</h4> -->
                         </div>
                     </div>
-                    <!-- end page title -->
+                </div>
+                <!-- end page title -->
 
-                    <div class="row col-sm-10">
-                        <div class="card">
-                            <!-- start card -->
-                            <div class="card-header">
-                                <p class="card-title h3"> Quiz Instructions</p>
-                            </div>
+                <div class="row col-sm-10">
+                    <div class="card">
+                        <!-- start card -->
+                        <div class="card-header">
+                            <p class="card-title h3"> Quiz Instructions</p>
+                        </div>
 
-                            <div class="mt-3 ">
+                        <div class="mt-3 ">
                             <?php
                                 include 'dbcon.php';
                                 if (isset($_GET['quiz_options_id'])) {
@@ -322,43 +324,45 @@ $user_id = $_SESSION['user_id'];
                                     exit();
                                 }
                             ?>
-                            </div>
                         </div>
-                        <!-- end card -->
                     </div>
+                    <!-- end card -->
+                </div>
 
 
 
 
-                </div> <!-- container -->
+            </div> <!-- container -->
 
-            </div> <!-- content -->
+        </div> <!-- content -->
 
-            <!-- Footer Start -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <script>document.write(new Date().getFullYear())</script>20232023202320232023 © Hyper -
-                            Coderthemes.com
-                        </div>
-                        <div class="col-md-6">
-                            <div class="text-md-end footer-links d-none d-md-block">
-                                <a href="javascript: void(0);">About</a>
-                                <a href="javascript: void(0);">Support</a>
-                                <a href="javascript: void(0);">Contact Us</a>
-                            </div>
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <script>
+                        document.write(new Date().getFullYear())
+                        </script>20232023202320232023 © Hyper -
+                        Coderthemes.com
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-end footer-links d-none d-md-block">
+                            <a href="javascript: void(0);">About</a>
+                            <a href="javascript: void(0);">Support</a>
+                            <a href="javascript: void(0);">Contact Us</a>
                         </div>
                     </div>
                 </div>
-            </footer>
-            <!-- end Footer -->
+            </div>
+        </footer>
+        <!-- end Footer -->
 
-        </div>
+    </div>
 
-        <!-- ============================================================== -->
-        <!-- End Page content -->
-        <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
 
 
     </div>

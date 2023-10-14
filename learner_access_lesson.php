@@ -26,9 +26,7 @@ $user_id = $_SESSION['user_id'];
 
 </head>
 
-<body class="show"
-    data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: true}"
-    data-leftbar-theme="dark" data-leftbar-compact-mode="condensed" style="visibility: visible;">
+<body <?php include('dataconfig.php') ?>>
     <!-- Begin page -->
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
@@ -100,94 +98,94 @@ $user_id = $_SESSION['user_id'];
                 <!-- Topbar Start -->
                 <?php include('learnerTopBar.php') ?>
 
-            <!-- Start Content-->
-            <div class="container-fluid">
+                <!-- Start Content-->
+                <div class="container-fluid">
 
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box">
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tboli</a></li>
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Learner Modules</li>
-                                </ol>
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Tboli</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">Learner Modules</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Modules</h4>
                             </div>
-                            <h4 class="page-title">Modules</h4>
                         </div>
                     </div>
-                </div>
-                <!-- end page title -->
+                    <!-- end page title -->
 
-                <div class="row">
-                    <div class="col-md-6 col-lg-3">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3">
 
-                        <!-- Simple card -->
-                        <div class="card d-block">
-                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Literacy</h5>
-                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1"
-                                    aria-expanded="true" aria-controls="collapseExample1">
-                                    View Contents
-                                </a>
-                                <div class="collapse" id="collapseExample1" style="">
-                                    <div class="card card-body mb-0">
-                                        <span>
-                                            <a href="#">01 Handout</a>
-                                        </span>
-                                        <span>
-                                            <a href="#">01 Quiz 1</a>
-                                        </span>
+                            <!-- Simple card -->
+                            <div class="card d-block">
+                                <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Literacy</h5>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1"
+                                        aria-expanded="true" aria-controls="collapseExample1">
+                                        View Contents
+                                    </a>
+                                    <div class="collapse" id="collapseExample1" style="">
+                                        <div class="card card-body mb-0">
+                                            <span>
+                                                <a href="#">01 Handout</a>
+                                            </span>
+                                            <span>
+                                                <a href="#">01 Quiz 1</a>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
+                                </div> <!-- end card-body-->
+                            </div> <!-- end card-->
+                        </div>
+
+                        <div class="col-md-6 col-lg-3">
+
+                            <!-- Simple card -->
+                            <div class="card d-block">
+                                <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Numeracy</h5>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample2"
+                                        aria-expanded="true" aria-controls="collapseExample2">
+                                        View Contents
+                                    </a>
+                                    <div class="collapse" id="collapseExample2" style="">
+                                        <div class="card card-body mb-0">
+                                            <span>
+                                                <a href="#">01 Handout</a>
+                                            </span>
+                                            <span>
+                                                <a href="#">01 Quiz 1</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> <!-- end card-body-->
+
+                            </div> <!-- end card-->
+                        </div><!-- end col -->
                     </div>
 
-                    <div class="col-md-6 col-lg-3">
 
-                        <!-- Simple card -->
-                        <div class="card d-block">
-                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Numeracy</h5>
-                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample2"
-                                    aria-expanded="true" aria-controls="collapseExample2">
-                                    View Contents
-                                </a>
-                                <div class="collapse" id="collapseExample2" style="">
-                                    <div class="card card-body mb-0">
-                                        <span>
-                                            <a href="#">01 Handout</a>
-                                        </span>
-                                        <span>
-                                            <a href="#">01 Quiz 1</a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div> <!-- end card-body-->
+                </div> <!-- container -->
 
-                        </div> <!-- end card-->
-                    </div><!-- end col -->
-                </div>
+            </div> <!-- content -->
 
 
-            </div> <!-- container -->
+            <!-- bundle -->
+            <script src="assets/js/vendor.min.js"></script>
+            <script src="assets/js/app.min.js"></script>
 
-        </div> <!-- content -->
-
-
-        <!-- bundle -->
-        <script src="assets/js/vendor.min.js"></script>
-        <script src="assets/js/app.min.js"></script>
-
-        <!-- quill js -->
-        <script src="assets/js/vendor/quill.min.js"></script>
-        <!-- quill Init js-->
-        <script src="assets/js/pages/demo.quilljs.js"></script>
+            <!-- quill js -->
+            <script src="assets/js/vendor/quill.min.js"></script>
+            <!-- quill Init js-->
+            <script src="assets/js/pages/demo.quilljs.js"></script>
 
 
 

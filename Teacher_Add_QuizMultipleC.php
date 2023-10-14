@@ -163,11 +163,18 @@ if (isset($_POST['createquiz'])) { // Assuming 'createquiz' is your form submit 
                     <div class="card-header mb-3">
                         <h4>Add Quiz</h4>
                     </div>
-                    <form action="teacher_add_quiz_multiplec.php?user_id=<?php echo $row['user_id'] ?>" method="POST"
+                    <form class="needs-validation" novalidate
+                        action="teacher_add_quiz_multiplec.php?user_id=<?php echo $row['user_id'] ?>" method="POST"
                         id="multiple_choice">
                         <div class="mb-3 me-5 ms-4">
-                            <label for="simpleinput" class="form-label">Title</label>
-                            <input type="text" id="simpleinput" class="form-control" name="title">
+                            <label for="simpleinput" class="form-label">Title *</label>
+                            <input type="text" id="simpleinput" class="form-control" name="title" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please provide a title
+                            </div>
                             <?php if (!empty($errors['title'])) : ?>
                             <div class="text-danger"><?php echo $errors['title']; ?></div>
                             <?php endif; ?>
@@ -189,10 +196,10 @@ if (isset($_POST['createquiz'])) { // Assuming 'createquiz' is your form submit 
                                 }
                                 ?>
                                 <div class="mb-3" style="width: 300px;">
-                                    <label for="inputState" class="form-label">Select Lesson</label>
-                                    <select id="inputState" class="form-select" name="lesson">
-                                        <option selected disabled></option>
-                                        <?php
+                                    <label for="1212" class="form-label">Select Lesson</label>
+                                    <select id="1212" class="form-select" name="lesson" required>
+                                        <option value="">
+                                            <?php
                                         if (mysqli_num_rows($result) > 0) {
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 $lesson_id = $row['lesson_id'];
@@ -200,10 +207,17 @@ if (isset($_POST['createquiz'])) { // Assuming 'createquiz' is your form submit 
                                                 $type = $row['type'];
                                                 $level = $row['level'];
                                                 echo "<option value='$lesson_id'>$type: $level - $name</option>";
+                                                
                                             }
                                         }
                                         ?>
                                     </select>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select lessons
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -212,19 +226,38 @@ if (isset($_POST['createquiz'])) { // Assuming 'createquiz' is your form submit 
                             <div class="col-lg-2 ms-4">
                                 <div class="mb-3">
                                     <label for="Max Score" class="form-label">Max Score</label>
-                                    <input type="text" id="Max Score" class="form-control" name="max">
+                                    <input type="text" pattern="[0-9]+" id="Max Score" class="form-control" name="max"
+                                        required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please enter max score
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3 position-relative" id="datepicker1">
                                     <label class="form-label">Date Start</label>
-                                    <input type="datetime-local" class="form-control" name="date_start">
+                                    <input type="datetime-local" class="form-control" name="date_start" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select start date
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3 position-relative" id="datepicker1">
                                     <label class="form-label">Due</label>
-                                    <input type="datetime-local" class="form-control" name="due">
+                                    <input type="datetime-local" class="form-control" name="due" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select due-date
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -238,32 +271,50 @@ if (isset($_POST['createquiz'])) { // Assuming 'createquiz' is your form submit 
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="Grading" class="form-label">Grading</label>
-                                    <select id="Grading" class="form-select" name="grading">
-                                        <option selected disabled>Select grading options</option>
-                                        <option>Latest Grade</option>
-                                        <option>Highest Grade</option>
+                                    <select id="Grading" class="form-select" name="grading" required>
+                                        <option value="" selected disabled>Select grading options</option>
+                                        <option value="Latest Grade">Latest Grade</option>
+                                        <option value="Highest Grade">Highest Grade</option>
                                     </select>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select grading
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-2 me-4">
                                 <div class="mb-3">
-                                    <label for="inputState" class="form-label">Grading Score</label>
-                                    <select id="inputState" class="form-select" name="grading_score">
-                                        <option selected disabled>Select score options</option>
+                                    <label for="inputState1" class="form-label">Grading Score</label>
+                                    <select id="inputState1" class="form-select" name="grading_score" required>
+                                        <option value="" selected disabled>Select score options</option>
                                         <option value="best score">Best Score</option>
                                         <option value="latest score">Latest Score</option>
                                     </select>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select grading score
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3" style="width: 170px">
                                     <label for="attempts" class="form-label">Attempts</label>
-                                    <select id="attempts" class="form-select" name="attempts">
-                                        <option selected disabled>Select attempts</option>
+                                    <select id="attempts" class="form-select" name="attempts" required>
+                                        <option value="" selected disabled>Select attempts</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                     </select>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please select attempts
+                                    </div>
                                 </div>
                             </div>
                         </div>

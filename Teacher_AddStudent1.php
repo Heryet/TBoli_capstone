@@ -2,6 +2,38 @@
 session_start();
 $user_id = $_SESSION['user_id'];
 
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $lrn = (!preg_match('/^[0-9]+$/', $_POST["lrn"])) ? "LRN should only contains numbers only and should not be empty" : null;
+    $fname = (!preg_match('/^[a-zA-Z]+$/', $_POST["firstname"])) ? "First Name should only contain letters and should not be empty" : null;
+    // $fname = empty($_POST["firstname"]) ? "Input field is empty! Please enter your first name." : null;
+    $md = (!preg_match('/^[a-zA-Z]+$/', $_POST["middlename"])) ? "Middle Name should only contain letters and should not be empty" : null;
+    $lastn = (!preg_match('/^[a-zA-Z]+$/', $_POST["lastname"])) ? "Last Name should only contain letters and should not be empty" : null;
+    $bday = empty($_POST["birthday"]) ? "Please select your birthday." : null;
+    $gen = ($_POST["gender"] === "Chose") ? "Please select your gender." : null;
+    $emil = (!preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/', $_POST["email"])) ? "Email should contains @ sign e.g., Juan@gmail.com" : null;
+    $address = empty($_POST["address"]) ? "Input field is empty! Please enter your address." : null;
+    $phone = (!preg_match('/^[0-9]+$/', $_POST["phone"])) ? "Please enter a valid phone number, e.g., 09123456789." : null;
+    $gfirstname = (!preg_match('/^[a-zA-Z]+$/', $_POST["gfirstname"])) ? "First Name should only contain letters and should not be empty" : null;
+    $gmiddlename = (!preg_match('/^[a-zA-Z]+$/', $_POST["gmiddlename"])) ? "Middle Name should only contain letters and should not be empty" : null;
+    $glastname = (!preg_match('/^[a-zA-Z]+$/', $_POST["glastname"])) ? "Last Name should only contain letters and should not be empty" : null;
+    $gbirthday = empty($_POST["gbirthday"]) ? "Please select the birthday." : null;
+    $ggen = ($_POST["ggender"] === "Chose") ? "Please select your gender." : null;
+    $gemail = (!preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/', $_POST["gemail"])) ? "Email should contains @ sign e.g., Juan@gmail.com" : null;
+    $gaddress = empty($_POST["gaddress"]) ? "Input field is empty! Please enter the address." : null;
+    $gphoneNumber = (!preg_match('/^[0-9]+$/', $_POST["gphoneNumber"])) ? "Please enter a valid phone number, e.g., 09123456789." : null;
+
+    
+}
+
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" class="menuitem-active">
@@ -133,72 +165,44 @@ $user_id = $_SESSION['user_id'];
 
                         <h3>Student Information</h3>
 
-                        <form class="needs-validation" novalidate method="POST">
+                        <form method="POST">
                             <div class="row g-2">
 
                                 <div class="mb-3">
                                     <label for="InputID" class="form-label">LRN<sup>*
-
+                                            <?php echo $lrn ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="InputID"
-                                        placeholder="02000221026" name="lrn" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        LRN should only contains numbers only and should not be empty
-                                    </div>
+                                    <input type="text" class="form-control" id="InputID" placeholder="02000221026"
+                                        name="lrn">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label for="FName" class="form-label">First Name <sup>*
+                                            <?php echo $fname ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="FName"
-                                        placeholder="First Name" name="firstname" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        First Name should only contain letters and should not be empty
-                                    </div>
+                                    <input type="text" class="form-control" id="FName" placeholder="First Name"
+                                        name="firstname">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="MiddleName" class="form-label">Middle Name <sup>*
+                                            <?php echo $md ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="MiddleName"
-                                        placeholder="MiddleName" name="middlename" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Middle Name should only contain letters and should not be empty
-                                    </div>
+                                    <input type="text" class="form-control" id="MiddleName" placeholder="MiddleName"
+                                        name="middlename">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="LName" class="form-label">Last Name <sup>*
                                             <?php echo $lastn ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="LName"
-                                        placeholder="Last Name" name="lastname" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Last Name should only contain letters and should not be empty
-                                    </div>
+                                    <input type="text" class="form-control" id="LName" placeholder="Last Name"
+                                        name="lastname">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label for="inputbday" class="form-label">Birthdate <sup>*
-
+                                            <?php echo $bday ?? ''; ?>
                                         </sup></label>
-                                    <input type="date" class="form-control" id="inputbday" name="birthday" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select your birthday.
-                                    </div>
+                                    <input type="date" class="form-control" id="inputbday" name="birthday">
                                 </div>
 
 
@@ -207,17 +211,15 @@ $user_id = $_SESSION['user_id'];
                             <div class="row g-2">
 
                                 <div class="mb-3 col-md-4">
-                                    <label for="inputGender" class="form-label">Gender <sup>*</sup></label>
-                                    <select id="inputGender" class="form-select" name="gender" required>
-                                        <option value="" disabled selected>Select</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Male">Male</option>
+                                    <label for="inputGender" class="form-label">Gender <sup>*
+                                            <?php echo $gen ?? ''; ?>
+                                        </sup></label>
+                                    <select id="inputGender" class="form-select" name="gender">
+                                        <option>Chose</option>
+                                        <option>Female</option>
+                                        <option>Male</option>
                                     </select>
-                                    <div class="invalid-feedback">
-                                        Please select your gender.
-                                    </div>
                                 </div>
-
                             </div>
 
                             <h4>Location</h4>
@@ -225,44 +227,25 @@ $user_id = $_SESSION['user_id'];
                             <div class="mb-3">
                                 <label for="inputAddress" class="form-label">Full address (street, barangay, city)
                                     <sup>*
-
+                                        <?php echo $address ?? ''; ?>
                                     </sup></label>
-                                <input type="text" pattern="[A-Za-z0-9\s]+" class="form-control" id="inputAddress"
-                                    placeholder="Enter Address" name="address" required>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please provide you address/location
-                                </div>
+                                <input type="text" class="form-control" id="inputAddress" placeholder="Enter Address"
+                                    name="address">
                             </div>
 
                             <h4>Contact Information</h4>
                             <div class="row g-2">
                                 <div class="mb-3 col-md-5">
                                     <label for="inputCity" class="form-label">Email Address <sup>*
-
+                                            <?php echo $emil ?? ''; ?>
                                         </sup></label>
-                                    <input type="email" class="form-control" id="inputCity" name="email" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Email should contains @ sign e.g., Juan@gmail.com"
-                                    </div>
+                                    <input type="text" class="form-control" id="inputCity" name="email">
                                 </div>
                                 <div class="mb-3 col-md-5">
                                     <label for="inputBarangay" class="form-label">Phone Number <sup>*
-
+                                            <?php echo $phone ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="phone" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please enter a valid phone number, e.g., 09123456789."
-                                    </div>
+                                    <input type="text" class="form-control" id="inputBarangay" name="phone">
                                 </div>
                             </div>
 
@@ -277,54 +260,31 @@ $user_id = $_SESSION['user_id'];
 
                                 <div class="mb-3 col-md-6">
                                     <label for="FName" class="form-label">First Name <sup>*
-
+                                            <?php echo $gfirstname ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="FName"
-                                        placeholder="First Name" name="gfirstname" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        First Name should only contain letters and should not be empty
-                                    </div>
+                                    <input type="text" class="form-control" id="FName" placeholder="First Name"
+                                        name="gfirstname">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="MiddleName" class="form-label">Middle Name <sup>*
-
+                                            <?php echo $gmiddlename ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="MiddleName"
-                                        placeholder="MiddleName" name="gmiddlename" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Middle Name should only contain letters and should not be empty
-                                    </div>
+                                    <input type="text" class="form-control" id="MiddleName" placeholder="MiddleName"
+                                        name="gmiddlename">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="LName" class="form-label">Last Name <sup>*
-
+                                            <?php echo $glastname ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="LName"
-                                        placeholder="Last Name" name="glastname" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Last Name should only contain letters and should not be empty
-                                    </div>
+                                    <input type="text" class="form-control" id="LName" placeholder="Last Name"
+                                        name="glastname">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label for="inputbday" class="form-label">Birthdate <sup>*
+                                            <?php echo $gbirthday ?? ''; ?>
                                         </sup></label>
-                                    <input type="date" class="form-control" id="inputbday" name="gbirthday" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select your birthday.
-                                    </div>
+                                    <input type="date" class="form-control" id="inputbday" name="gbirthday">
                                 </div>
 
 
@@ -333,16 +293,13 @@ $user_id = $_SESSION['user_id'];
                             <div class="row g-2">
 
                                 <div class="mb-3 col-md-4">
-                                    <label for="inputgGender" class="form-label">Gender <sup>*
-                                        </sup></label>
-                                    <select id="inputgGender" class="form-select" name="ggender" required>
-                                        <option value="" disabled selected>Select</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Male">Male</option>
+                                    <label for="inputGender" class="form-label">Gender <sup>*
+                                            <?php echo $ggen ?? ''; ?></sup></label>
+                                    <select id="inputGender" class="form-select" name="ggender">
+                                        <option>Chose</option>
+                                        <option>Female</option>
+                                        <option>Male</option>
                                     </select>
-                                    <div class="invalid-feedback">
-                                        Please select your gender.
-                                    </div>
                                 </div>
                             </div>
 
@@ -351,47 +308,28 @@ $user_id = $_SESSION['user_id'];
                             <div class="mb-3">
                                 <label for="inputAddress" class="form-label">Full address (street, barangay, city)
                                     <sup>*
+                                        <?php echo $gaddress ?? ''; ?>
                                     </sup></label>
-                                <input type="text" pattern="[A-Za-z0-9\s]+" class="form-control" id="inputAddress"
-                                    placeholder="Enter Address" name="gaddress" required>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please provide you address/location
-                                </div>
+                                <input type="text" class="form-control" id="inputAddress" placeholder="Enter Address"
+                                    name="gaddress">
                             </div>
 
                             <h4>Contact Information</h4>
                             <div class="row g-2">
                                 <div class="mb-3 col-md-5">
                                     <label for="inputCity" class="form-label">Email Address <sup>*
-
+                                            <?php echo $gemail ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="inputCity"
-                                        name="gemail" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Email should contains @ sign e.g., Juan@gmail.com"
-                                    </div>
+                                    <input type="text" class="form-control" id="inputCity" name="gemail">
                                 </div>
                                 <div class="mb-3 col-md-5">
                                     <label for="inputBarangay" class="form-label">Phone Number <sup>*
-
+                                            <?php echo $gphoneNumber ?? ''; ?>
                                         </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="gphoneNumber" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please enter a valid phone number, e.g., 09123456789."
-                                    </div>
+                                    <input type="text" class="form-control" id="inputBarangay" name="gphoneNumber">
                                 </div>
                             </div>
-                            <input type="submit" class="btn btn-primary" value="Create Account" name="submit">
+                            <input type="submit" class="btn btn-primary" value="Create Account" name="submit"></input>
                         </form>
 
 
@@ -411,13 +349,14 @@ $user_id = $_SESSION['user_id'];
 
 
             <!-- Footer Start -->
-            <!-- <footer class="footer">
+            <footer class="footer">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
                             <script>
                             document.write(new Date().getFullYear())
-                            </script>
+                            </script>202320232023202320232023 © Hyper -
+                            Coderthemes.com
                         </div>
                         <div class="col-md-6">
                             <div class="text-md-end footer-links d-none d-md-block">
@@ -428,7 +367,7 @@ $user_id = $_SESSION['user_id'];
                         </div>
                     </div>
                 </div>
-            </footer> -->
+            </footer>
             <!-- end Footer -->
 
 
