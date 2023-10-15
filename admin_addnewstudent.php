@@ -60,7 +60,7 @@ $user_id = $_SESSION['user_id'];
 
                                     <!--- Side Menu -->
 
-                                    <?php include('teacher_sidemenu.php') ?>
+                                    <?php include('admin_sidemenu.php') ?>
 
                                     <!-- Help Box -->
 
@@ -98,7 +98,7 @@ $user_id = $_SESSION['user_id'];
 
 
                 <!-- Topbar Start -->
-                <?php include('teacher_topbar.php') ?>
+                <?php include('admin_topbar.php') ?>
 
 
                 <!-- Start Content-->
@@ -110,10 +110,10 @@ $user_id = $_SESSION['user_id'];
                             <div class="page-title-box">
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="Teacher_index.php">Dashboard</a></li>
+                                        <!-- <li class="breadcrumb-item"><a href="Teacher_index.php">Dashboard</a></li>
 
                                         <li class="breadcrumb-item active">Enrollment Services</li>
-                                        <li class="breadcrumb-item active">Add Student</li>
+                                        <li class="breadcrumb-item active">Add Student</li> -->
                                     </ol>
                                 </div>
                                 <h4 class="page-title">Student Account Registration</h4>

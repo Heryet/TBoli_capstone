@@ -65,180 +65,7 @@ $user_id = $_SESSION['user_id'];
                                 <div class="simplebar-content" style="padding: 0px;">
 
                                     <!--- Sidemenu -->
-                                    <ul class="side-nav">
-
-
-                                        <li class="side-nav-item">
-                                            <a href="admin_dashboard.php" class="side-nav-link">
-                                                <i class="uil-home"></i>
-                                                <span>Dashboard</span>
-                                            </a>
-                                        </li>
-
-                                        <li class="side-nav-item">
-                                            <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false"
-                                                aria-controls="sidebarDashboards" class="side-nav-link collapsed">
-                                                <i class="uil-user-plus"></i>
-                                                <span class="badge bg-success float-end"></span>
-                                                <span> Users </span>
-                                                <span class="menu-arrow"></span>
-                                            </a>
-                                            <div class="collapse" id="sidebarDashboards" style="">
-                                                <ul class="side-nav-second-level">
-                                                    <li>
-                                                        <a href="admin_addAccount.php">Admin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_student.php">Student</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_teacher.php">Teacher</a>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </li>
-
-                                        <li class="side-nav-item">
-                                            <a href="admin_manage_lesson.php" class="side-nav-link">
-                                                <i class="fa fa-book"></i>
-                                                <span>Manage Lesson</span>
-                                            </a>
-                                        </li>
-
-                                        <li class="side-nav-item">
-                                            <a data-bs-toggle="collapse" href="#sidebarDashboardsLessons"
-                                                aria-expanded="false" aria-controls="sidebarDashboards"
-                                                class="side-nav-link collapsed">
-                                                <i class="uil-user-plus"></i>
-                                                <span class="badge bg-success float-end"></span>
-                                                <span> Manage Request Lessons </span>
-                                                <span class="menu-arrow"></span>
-                                            </a>
-                                            <div class="collapse" id="sidebarDashboardsLessons" style="">
-                                                <ul class="side-nav-second-level">
-                                                    <li>
-                                                        <a href="admin_accepted_lessons.php">Accepted Lessons</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_pending_lessons.php">Pending Lessons</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_archive_lessons.php">Archive Lessons</a>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </li>
-
-                                        <li class="side-nav-item">
-                                            <a data-bs-toggle="collapse" href="#sidebarquiz" aria-expanded="false"
-                                                aria-controls="sidebarquiz" class="side-nav-link collapsed">
-                                                <i class="uil-user-plus"></i>
-                                                <span class="badge bg-success float-end"></span>
-                                                <span> Manage Quiz </span>
-                                                <span class="menu-arrow"></span>
-                                            </a>
-                                            <div class="collapse" id="sidebarquiz">
-                                                <ul class="side-nav-third-level">
-                                                    <li>
-                                                        <a href="admin_Add_QuizMultiple.php"><i
-                                                                class=" uil-list-ul"></i> Multiple Choice</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_Add_QuizTrueOrfalse.php"><i
-                                                                class=" uil-check-circle"></i> <i
-                                                                class="uil-times-circle"></i> True or False</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_QuizView.php"><i class="uil-eye"></i> Quiz
-                                                            View</a>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </li>
-
-                                        <li class="side-nav-item">
-                                            <a href="admin_assign_lesson_to_teacher.php " class="side-nav-link">
-                                                <i class="uil-user-plus"></i>
-                                                <span>Assign Lesson to Teacher</span>
-                                            </a>
-                                        </li>
-                                        <li class="side-nav-item">
-                                            <a data-bs-toggle="collapse" href="#sidebarclass" aria-expanded="false"
-                                                aria-controls="sidebarclass" class="side-nav-link">
-                                                <i class="uil-folder-plus"></i>
-                                                <span> Manage Class/Section </span>
-                                                <span class="menu-arrow"></span>
-                                            </a>
-                                            <div class="collapse" id="sidebarclass">
-                                                <ul class="side-nav-second-level">
-                                                    <li>
-                                                        <a href="admin_class.php">Create Class/Section</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_assign_teacher_class.php">Assign Teacher to
-                                                            Class</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="side-nav-item">
-                                            <a data-bs-toggle="collapse" href="#sidebarArea" aria-expanded="false"
-                                                aria-controls="sidebarArea" class="side-nav-link">
-                                                <i class="uil-folder-plus"></i>
-                                                <span> Manage Area </span>
-                                                <span class="menu-arrow"></span>
-                                            </a>
-                                            <div class="collapse" id="sidebarArea">
-                                                <ul class="side-nav-second-level">
-                                                    <li>
-                                                        <a href="admin_manage_area.php">Create/Register Area</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_assign_teacher_lesson.php">Assign Teacher to
-                                                            Area</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="admin_assign_class_area.php">Assign Class to Area</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="side-nav-item">
-                                            <a href="#" class="side-nav-link">
-                                                <i class="uil-user-plus"></i>
-                                                <span>Progress</span>
-                                            </a>
-                                        </li>
-
-                                        <li class="side-nav-item">
-                                            <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false"
-                                                aria-controls="sidebarEmail" class="side-nav-link">
-                                                <i class="uil-folder-plus"></i>
-                                                <span> Reports </span>
-                                                <span class="menu-arrow"></span>
-                                            </a>
-                                            <div class="collapse" id="sidebarEmail">
-                                                <ul class="side-nav-second-level">
-                                                    <li>
-                                                        <a href="#">List of Teacher</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">List of Admin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">List of Learners</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">List of Lesson w/Content</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-
-                                    </ul>
+                                    <?php include("admin_sidemenu.php") ?>
 
 
 
@@ -273,89 +100,7 @@ $user_id = $_SESSION['user_id'];
         <div class="content-page">
             <div class="content">
                 <!-- Topbar Start -->
-                <div class="navbar-custom">
-                    <ul class="list-unstyled topbar-menu float-end mb-0">
-                        <li class="dropdown notification-list d-lg-none">
-                            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#"
-                                role="button" aria-haspopup="false" aria-expanded="false">
-                                <i class="dripicons-search noti-icon"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-                                <form class="p-3">
-                                    <input type="text" class="form-control" placeholder="Search ..."
-                                        aria-label="Recipient's username">
-                                </form>
-                            </div>
-                        </li>
-
-
-
-
-
-                        <li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown"
-                                href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <span class="account-user-avatar">
-                                    <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
-                                </span>
-                                <span>
-                                    <?php
-                                    include 'dbcon.php';
-
-                                    if (isset($_SESSION['user_id'])) {
-                                        $user_id = $_SESSION['user_id'];
-
-                                        $sql = "SELECT tbl_userinfo.user_id, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_user_level.level
-                                                    FROM tbl_admin
-                                                    JOIN tbl_userinfo ON tbl_admin.user_id = tbl_userinfo.user_id
-                                                    JOIN tbl_user_level ON tbl_admin.level_id = tbl_user_level.level_id
-                                                    WHERE tbl_user_level.level = 'ADMIN' AND tbl_userinfo.user_id = '$user_id'
-                                                    LIMIT 1;";
-
-                                        $result = mysqli_query($conn, $sql);
-
-                                        if ($result && mysqli_num_rows($result) > 0) {
-                                            $row = mysqli_fetch_assoc($result);
-                                            ?>
-                                    <span
-                                        class="account-user-name"><?php echo $row['firstname'] . ' ' . $row['lastname'] . ' ' . $row['lastname']; ?></span>
-                                    <span class="account-position"><?php echo $row['level']; ?></span>
-                                    <?php
-                                        } else {
-                                            echo "No records found in tbl_admin";
-                                        }
-                                    } else {
-                                        echo "No user ID provided";
-                                    }
-                                    ?>
-                                </span>
-                            </a>
-                            <div
-                                class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
-                                <!-- item-->
-                                <div class=" dropdown-header noti-title">
-                                    <h6 class="text-overflow m-0">Welcome !</h6>
-                                </div>
-
-                                <!-- item-->
-                                <a href="admin_profile.php" class="dropdown-item notify-item">
-                                    <i class="mdi mdi-account-circle me-1"></i>
-                                    <span>My Account</span>
-                                </a>
-                                <!-- item-->
-                                <a href="login.php?logout=true" class="dropdown-item notify-item">
-                                    <i class="mdi mdi-logout me-1"></i>
-                                    <span>Logout</span>
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-                    <button class="button-menu-mobile open-left">
-                        <i class="mdi mdi-menu"></i>
-                    </button>
-
-                </div>
+                <?php include("admin_topbar.php") ?>
                 <!-- end Topbar -->
                 <!-- Start Content-->
                 <div class="container-fluid">
@@ -384,13 +129,14 @@ $user_id = $_SESSION['user_id'];
                         <div class="card-body">
                             <div class="row mb-2">
                                 <div class="col-sm-4">
-                           
+
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="text-sm-end">
-                                    <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#assignTeacherModal">
-                                Assign Teacher
-                            </button>
+                                        <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal"
+                                            data-bs-target="#assignTeacherModal">
+                                            Assign Teacher
+                                        </button>
                                     </div>
                                 </div>
                                 <!-- end col -->
@@ -529,89 +275,90 @@ $user_id = $_SESSION['user_id'];
                 <!-- end col -->
             </div>
 
-           <!-- Modal -->
-           <?php
+            <!-- Modal -->
+            <?php
                     // Query to get all areas
                     $sql_areas = "SELECT * FROM tbl_area";
                     $result_areas = mysqli_query($conn, $sql_areas);
                         ?>
-<div class="modal fade" id="assignTeacherModal" tabindex="-1" role="dialog" aria-labelledby="assignTeacherModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="assignTeacherModalLabel">Assign Area to Teacher</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Add your content related to assigning an area here -->
-                <form>
-                <div class="mb-3">
-                        <label for="areaTeacher" class="form-label">Select Teacher:</label>
-                        <select class="form-select" id="areaTeacher">
-        <option value="">Select Teacher</option>
-        <?php
+            <div class="modal fade" id="assignTeacherModal" tabindex="-1" role="dialog"
+                aria-labelledby="assignTeacherModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="assignTeacherModalLabel">Assign Area to Teacher</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Add your content related to assigning an area here -->
+                            <form>
+                                <div class="mb-3">
+                                    <label for="areaTeacher" class="form-label">Select Teacher:</label>
+                                    <select class="form-select" id="areaTeacher">
+                                        <option value="">Select Teacher</option>
+                                        <?php
         // Iterate through the $teachers array and generate options
         foreach ($teachers as $teacher) {
             echo '<option value="' . $teacher['teacher_id'] . '">' . $teacher['firstname'] . ' ' . $teacher['middlename'] . ' ' . $teacher['lastname'] . '</option>';
         }
         ?>
-    </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="areaSelect" class="form-label">Assign Area:</label>
-                        <select class="form-select" id="areaSelect">
-                        <?php
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="areaSelect" class="form-label">Assign Area:</label>
+                                    <select class="form-select" id="areaSelect">
+                                        <?php
                             if (!empty($selectedArea)) {
                                 echo $selectedArea;
                             } else {
                                 echo 'Select Area';
                             }
                             ?>
-                               
-                        </select>
-                    </div>
-                    <!-- Add more form fields as needed for the assignment process -->
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Assign</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    // Function to populate the "Select Teacher" dropdown in the modal
-    function populateTeacherDropdown() {
-        // Assuming you have an API endpoint to fetch teacher data
-        // Replace 'api/teachers' with your actual API endpoint
-        fetch('api/teachers')
-            .then(response => response.json())
-            .then(data => {
-                const areaTeacherDropdown = document.getElementById('areaTeacherDropdown');
-                
-                // Clear existing options except the "Select Teacher" option
-                while (areaTeacherDropdown.options.length > 1) {
-                    areaTeacherDropdown.remove(1);
-                }
-                
-                // Populate the dropdown with teacher names and IDs
-                data.forEach(teacher => {
-                    const option = document.createElement('option');
-                    option.value = teacher.teacher_id;
-                    option.textContent = teacher.firstname + ' ' + teacher.lastname;
-                    areaTeacherDropdown.appendChild(option);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching teacher data:', error);
-            });
-    }
 
-    // Add an event listener to the "Assign Teacher" button
-    const assignTeacherButton = document.querySelector('.btn-info');
-    assignTeacherButton.addEventListener('click', populateTeacherDropdown);
-</script>
+                                    </select>
+                                </div>
+                                <!-- Add more form fields as needed for the assignment process -->
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Assign</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+            // Function to populate the "Select Teacher" dropdown in the modal
+            function populateTeacherDropdown() {
+                // Assuming you have an API endpoint to fetch teacher data
+                // Replace 'api/teachers' with your actual API endpoint
+                fetch('api/teachers')
+                    .then(response => response.json())
+                    .then(data => {
+                        const areaTeacherDropdown = document.getElementById('areaTeacherDropdown');
+
+                        // Clear existing options except the "Select Teacher" option
+                        while (areaTeacherDropdown.options.length > 1) {
+                            areaTeacherDropdown.remove(1);
+                        }
+
+                        // Populate the dropdown with teacher names and IDs
+                        data.forEach(teacher => {
+                            const option = document.createElement('option');
+                            option.value = teacher.teacher_id;
+                            option.textContent = teacher.firstname + ' ' + teacher.lastname;
+                            areaTeacherDropdown.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching teacher data:', error);
+                    });
+            }
+
+            // Add an event listener to the "Assign Teacher" button
+            const assignTeacherButton = document.querySelector('.btn-info');
+            assignTeacherButton.addEventListener('click', populateTeacherDropdown);
+            </script>
 
 
 
