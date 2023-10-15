@@ -121,16 +121,4 @@
             </ul>
         </div>
     </li>
-    <li class="side-nav-item">
-        <a href="Teacher_Create_Quiz.php" class="side-nav-link">
-            <i class="uil-user-plus"></i>
-            <span>Quiz</span>
-        </a>
-    </li>
-    <li class="side-nav-item">
-        <a href="Teacher_Create_Lesson.php" class="side-nav-link">
-            <i class="uil-user-plus"></i>
-            <span>Lesson</span>
-        </a>
-    </li>
 </ul>

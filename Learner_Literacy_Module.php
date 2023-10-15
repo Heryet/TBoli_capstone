@@ -317,7 +317,7 @@ $user_id = $_SESSION['user_id'];
                                                                             LEFT JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_id
                                                                             WHERE tbl_lesson_files.lesson_id = $lesson_id AND tbl_lesson_files.status = 1";
 
-                                                        $quiz = "SELECT DISTINCT tbl_lesson.lesson_id, tbl_quiz_options.quiz_options_id, tbl_quiz_options.title
+                                                        $quiz = "SELECT tbl_lesson.lesson_id, tbl_quiz_options.quiz_options_id, tbl_quiz_options.title
                                                                             FROM tbl_lesson
                                                                             LEFT JOIN tbl_quiz_options ON tbl_lesson.lesson_id = tbl_quiz_options.lesson
                                                                             WHERE tbl_quiz_options.lesson = $lesson_id";
@@ -332,15 +332,15 @@ $user_id = $_SESSION['user_id'];
                                                         if (mysqli_num_rows($lesson_result) > 0) {
                                                             while ($lesson_row = mysqli_fetch_assoc($lesson_result)) {
                                                                 ?>
-                                                <div class="mb-1">
-                                                    <span>
-                                                        <a href="teachers/lessons/<?php echo $lesson_row['lesson']; ?>"
-                                                            target="_blank">
-                                                            <?php echo substr($lesson_row['lesson'], 0, 15); ?>
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                                <?php
+                                                                <div class="mb-1">
+                                                                    <span>
+                                                                        <a href="teachers/lessons/<?php echo $lesson_row['lesson']; ?>"
+                                                                            target="_blank">
+                                                                            <?php echo substr($lesson_row['lesson'], 0, 15); ?>
+                                                                        </a>
+                                                                    </span>
+                                                                </div>
+                                                                <?php
                                                             }
                                                         }
 

@@ -235,7 +235,7 @@ $user_id = $_SESSION['user_id'];
                                                         $firstname = $row['firstname'];
                                                         $middlename = $row['middlename'];
                                                         $lastname = $row['lastname'];
-                                                        $name = $firstname . $middlename . $lastname;
+                                                        $name = $firstname . ' ' . $middlename . ' ' . $lastname;
                                                         echo "<option value='$user_id'>$name</option>";
                                                     }   
                                                 } else {

@@ -285,10 +285,10 @@ $user_id = $_SESSION['user_id'];
                                 if (isset($_GET['quiz_options_id'])) {
                                     $quiz_options_id = $_GET['quiz_options_id'];
 
-                                    $sql = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_multiple_choice.multiple_choice_id
+                                    $sql = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_question.question_id
                                     FROM tbl_quiz_options
-                                    JOIN tbl_quiz_multiple_choice ON tbl_quiz_options.quiz_options_id = tbl_quiz_multiple_choice.quiz_options_id
-                                    WHERE tbl_quiz_options.quiz_options_id = $quiz_options_id";
+                                    JOIN tbl_quiz_question ON tbl_quiz_options.quiz_options_id = tbl_quiz_question.quiz_options_id
+                                    WHERE tbl_quiz_options.quiz_options_id =  $quiz_options_id";
 
                                     $result = mysqli_query($conn, $sql);
 
@@ -312,7 +312,7 @@ $user_id = $_SESSION['user_id'];
                                             $row = mysqli_fetch_assoc($result);
                                             echo '<p>' . $row['instructions'] . '</p>';
                                             echo '<div class="card-footer text-md-end">';
-                                            echo '<a href="Learner_Quiz.php?quiz_options_id=' . $row['quiz_options_id'] . '">';
+                                            
                                             echo '<button type="button" class="btn btn-info">Take the quiz</button>';
                                             echo '</a>';
                                             echo '</div>';
