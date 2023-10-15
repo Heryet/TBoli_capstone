@@ -1,7 +1,6 @@
 <?php
 session_start();
 $user_id = $_SESSION['user_id'];
-
 ?>
 <!DOCTYPE html>
 <html lang="en" class="menuitem-active">
@@ -60,7 +59,7 @@ $user_id = $_SESSION['user_id'];
 
                                     <!--- Side Menu -->
 
-                                    <?php include('teacher_sidemenu.php') ?>
+                                    <?php include('admin_sidemenu.php') ?>
 
                                     <!-- Help Box -->
 
@@ -89,7 +88,7 @@ $user_id = $_SESSION['user_id'];
         <!-- Left Sidebar End -->
 
         <!-- ============================================================== -->
-        hello
+
         <!-- ============================================================== -->
 
         <div class="content-page">
@@ -98,7 +97,7 @@ $user_id = $_SESSION['user_id'];
 
 
                 <!-- Topbar Start -->
-                <?php include('teacher_topbar.php') ?>
+                <?php include('admin_topbar.php') ?>
 
 
                 <!-- Start Content-->
@@ -110,13 +109,13 @@ $user_id = $_SESSION['user_id'];
                             <div class="page-title-box">
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="Teacher_index.php">Dashboard</a></li>
+                                        <!-- <li class="breadcrumb-item"><a href="Teacher_index.php">Dashboard</a></li>
 
                                         <li class="breadcrumb-item active">Enrollment Services</li>
-                                        <li class="breadcrumb-item active">Add Student</li>
+                                        <li class="breadcrumb-item active">Add Student</li> -->
                                     </ol>
                                 </div>
-                                <h4 class="page-title">Student Account Registration</h4>
+                                <h4 class="page-title">Admin Account Registration</h4>
                             </div>
                         </div>
                     </div>
@@ -127,71 +126,64 @@ $user_id = $_SESSION['user_id'];
             </div> <!-- content -->
 
             <?php
-include 'dbcon.php';
+        include 'dbcon.php';
 
-if (isset($_POST['btnAdd'])) {
-    $lrn = $_POST['lrn'];
-    $firstname = $_POST['firstname'];
-    $middlename = $_POST['middlename'];
-    $lastname = $_POST['lastname'];
-    $birthday = $_POST['birthday'];
-    $gender = $_POST['gender'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $gfirstname = $_POST['gfirstname'];
-    $gmiddlename = $_POST['gmiddlename'];
-    $glastname = $_POST['glastname'];
-    $gbirthday = $_POST['gbirthday'];
-    $ggender = $_POST['ggender'];
-    $gnumber = $_POST['gphoneNumber'];
-    $gemail = $_POST['gemail'];
-    $gaddress = $_POST['gaddress'];
-    $address = $_POST['address'];
-    
-    // Determine the next available learner_auto_id
-    $result = $conn->query("SELECT MAX(SUBSTRING(student_auto_id, 4)) AS max_id FROM tbl_student");
-    $row = $result->fetch_assoc();
-    $next_id = intval($row['max_id']) + 1;
-    $student_auto_id = 'stud' . sprintf('%03d', $next_id);
+        if (isset($_POST['submit'])) {
+            // Determine the next available admin_auto_id
+            $result = $conn->query("SELECT MAX(SUBSTRING(admin_auto_id, 3)) AS max_id FROM tbl_admin");
+            $row = $result->fetch_assoc();
+            $next_id = intval($row['max_id']) + 1;
+            $admin_auto_id = 'ad' . sprintf('%03d', $next_id); // Format ID with leading zeros
+        
+            // Collect form data
+            $firstname = $_POST['firstname'];
+            $middlename = $_POST['middlename'];
+            $lastname = $_POST['lastname'];
+            $birthday = $_POST['birthday'];
+            $gender = $_POST['gender'];
+            $email = $_POST['email'];
+            $contact = $_POST['phone'];
+            $address = $_POST['address'];
+            $password = $lastname . $gender;
+            $encrypted = password_hash($password, PASSWORD_DEFAULT);
 
-
-    // Insert other learner information
-    $sql = "INSERT INTO tbl_userinfo (firstname, middlename, lastname, birthday, gender) VALUES ('$firstname', '$middlename', '$lastname', '$birthday', '$gender')";
-    if ($conn->query($sql) === TRUE) {
-        $user_info_id = $conn->insert_id;
-
-        $sql = "INSERT INTO tbl_usercredentials (email, contact) VALUES ('$email', '$phone')";
-        if ($conn->query($sql) === TRUE) {
-            $usercredentials_id = $conn->insert_id;
-
-            $sql = "INSERT INTO tbl_learner_guardian_info (firstname, middlename, lastname, birthday, gender) VALUES ('$gfirstname', '$gmiddlename', '$glastname', '$gbirthday', '$ggender')";
+            // Insert data into tbl_userinfo
+            $sql = "INSERT INTO tbl_userinfo (firstname, middlename, lastname, birthday, gender) VALUES ('$firstname', '$middlename', '$lastname', '$birthday', '$gender')";
             if ($conn->query($sql) === TRUE) {
-                $guardian_info_id = $conn->insert_id;
+                $user_info_id = $conn->insert_id;
 
-                $sql = "INSERT INTO tbl_learner_guardian_contact (contact_num, email, address) VALUES ('$gnumber', '$gemail', '$gaddress')";
+                // Insert data into tbl_usercredentials
+                $sql = "INSERT INTO tbl_usercredentials (email, contact) VALUES ('$email', '$contact')";
                 if ($conn->query($sql) === TRUE) {
-                    $guardian_contact_id = $conn->insert_id;
+                    $credentials_id = $conn->insert_id;
 
+                    // Insert data into tbl_address
                     $sql = "INSERT INTO tbl_address (address) VALUES ('$address')";
                     if ($conn->query($sql) === TRUE) {
                         $address_id = $conn->insert_id;
 
-                        $sql = "INSERT INTO tbl_user_level (level) VALUES ('LEARNER')";
+                        // Insert data into tbl_user_level
+                        $sql = "INSERT INTO tbl_user_level (level) VALUES ('ADMIN')";
                         if ($conn->query($sql) === TRUE) {
                             $level_id = $conn->insert_id;
 
+                            // Insert data into tbl_user_status
                             $sql = "INSERT INTO tbl_user_status (status) VALUES ('1')";
                             if ($conn->query($sql) === TRUE) {
                                 $status_id = $conn->insert_id;
 
-                                // Insert learner information into tbl_learner with the generated learner_auto_id
-                                $sql = "INSERT INTO tbl_student (student_auto_id, lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
-            VALUES ('$next_id', '$lrn', '$user_id', '$guardian_info_id', '$guardian_contact_id', '$address_id', '$level_id', '$status_id', '$account_id', '$usercredentials_id')";
+                                // Insert data into tbl_accounts
+                                $sql = "INSERT INTO tbl_accounts (email, password) VALUES ('$email', '$encrypted')";
                                 if ($conn->query($sql) === TRUE) {
-                                    header("Location: admin_student.php?msg=Account added successfully");
-                                    exit();
-                                } else {
-                                    echo "Error: " . $sql . "<br>" . $conn->error;
+                                    $account_id = $conn->insert_id;
+
+                                    // Insert data into tbl_admin with generated admin_auto_id
+                                    $sql = "INSERT INTO tbl_admin (admin_auto_id, user_id, credentials_id, address_id, level_id, status_id, account_id) 
+                                    VALUES ('$admin_auto_id', '$user_info_id', '$credentials_id', '$address_id', '$level_id', '$status_id', '$account_id')";
+                                    if ($conn->query($sql) === TRUE) {
+                                        header("Location:admin_addAccount.php?msg=Account added successfully");
+                                        exit();
+                                    }
                                 }
                             }
                         }
@@ -199,35 +191,19 @@ if (isset($_POST['btnAdd'])) {
                 }
             }
         }
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
-?>
+        ?>
+
+
 
 
             <div class="col-">
                 <div class="card">
                     <div class="card-body">
 
-                        <h3>Student Information</h3>
+                        <h3>Add Admin</h3>
 
                         <form class="needs-validation" novalidate method="POST">
                             <div class="row g-2">
-
-                                <div class="mb-3">
-                                    <label for="InputID" class="form-label">LRN<sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="InputID"
-                                        placeholder="02000221026" name="lrn" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        LRN should only contains numbers only and should not be empty
-                                    </div>
-                                </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label for="FName" class="form-label">First Name <sup>*
@@ -299,23 +275,6 @@ if (isset($_POST['btnAdd'])) {
 
                             </div>
 
-                            <h4>Location</h4>
-
-                            <div class="mb-3">
-                                <label for="inputAddress" class="form-label">Full address (street, barangay, city)
-                                    <sup>*
-
-                                    </sup></label>
-                                <input type="text" pattern="[A-Za-z0-9\s]+" class="form-control" id="inputAddress"
-                                    placeholder="Enter Address" name="address" required>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please provide your address or location
-                                </div>
-                            </div>
-
                             <h4>Contact Information</h4>
                             <div class="row g-2">
                                 <div class="mb-3 col-md-5">
@@ -344,130 +303,20 @@ if (isset($_POST['btnAdd'])) {
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-                            <h3>Parents Information</h3>
-
-                            <div class="row g-2">
-
-
-
-                                <div class="mb-3 col-md-6">
-                                    <label for="FName" class="form-label">First Name <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="FName"
-                                        placeholder="First Name" name="gfirstname" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        First Name should only contain letters and should not be empty
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="MiddleName" class="form-label">Middle Name <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="MiddleName"
-                                        placeholder="MiddleName" name="gmiddlename" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Middle Name should only contain letters and should not be empty
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="LName" class="form-label">Last Name <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="LName"
-                                        placeholder="Last Name" name="glastname" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Last Name should only contain letters and should not be empty
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputbday" class="form-label">Birthdate <sup>*
-                                        </sup></label>
-                                    <input type="date" class="form-control" id="inputbday" name="gbirthday" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please select your birthday.
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="row g-2">
-
-                                <div class="mb-3 col-md-4">
-                                    <label for="inputgGender" class="form-label">Gender <sup>*
-                                        </sup></label>
-                                    <select id="inputgGender" class="form-select" name="ggender" required>
-                                        <option value="" disabled selected>Select</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Male">Male</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please select your gender.
-                                    </div>
-                                </div>
-                            </div>
-
                             <h4>Location</h4>
 
                             <div class="mb-3">
                                 <label for="inputAddress" class="form-label">Full address (street, barangay, city)
                                     <sup>*
+
                                     </sup></label>
                                 <input type="text" pattern="[A-Za-z0-9\s]+" class="form-control" id="inputAddress"
-                                    placeholder="Enter Address" name="gaddress" required>
+                                    placeholder="Enter Address" name="address" required>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
                                     Please provide your address or location
-                                </div>
-                            </div>
-
-                            <h4>Contact Information</h4>
-                            <div class="row g-2">
-                                <div class="mb-3 col-md-5">
-                                    <label for="inputCity" class="form-label">Email Address <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="inputCity"
-                                        name="gemail" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Email should contains @ sign e.g., Juan@gmail.com"
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-5">
-                                    <label for="inputBarangay" class="form-label">Phone Number <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="gphoneNumber" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Please enter a valid phone number, e.g., 09123456789."
-                                    </div>
                                 </div>
                             </div>
                             <input type="submit" class="btn btn-primary" value="Create Account" name="submit">

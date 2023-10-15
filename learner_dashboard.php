@@ -30,7 +30,8 @@ $user_id = $_SESSION['user_id'];
 </head>
 
 
-<body <?php include('dataconfig.php') ?>>
+<body <?php include('dataconfig.php') ?>
+>
     <!-- Begin page -->
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
