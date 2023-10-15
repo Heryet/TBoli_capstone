@@ -273,7 +273,7 @@ $user_id = $_SESSION['user_id'];
                         if ($result_correct_answer) {
                             $correct_answer = mysqli_fetch_assoc($result_correct_answer);
 
-                            // Highlight and display the score
+                            // Highlight and display the score hakdog
                             echo '<div class="card col-sm-10">';
                             echo '<div class="card-body">';
                             echo '<h2>Question ID: ' . $question_id . '</h2>';
