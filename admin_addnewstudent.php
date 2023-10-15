@@ -447,8 +447,7 @@ if (isset($_POST['btnAdd'])) {
                                     <label for="inputCity" class="form-label">Email Address <sup>*
 
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="inputCity"
-                                        name="gemail" required>
+                                    <input type="email" class="form-control" id="inputCity" name="gemail" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>

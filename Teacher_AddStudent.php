@@ -129,7 +129,7 @@ $user_id = $_SESSION['user_id'];
             <?php
 include 'dbcon.php';
 
-if (isset($_POST['btnAdd'])) {
+if (isset($_POST['submit'])) {
     $lrn = $_POST['lrn'];
     $firstname = $_POST['firstname'];
     $middlename = $_POST['middlename'];
@@ -225,7 +225,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        LRN should only contains numbers only and should not be empty
+                                        Please enter numeric values only.
                                     </div>
                                 </div>
 
@@ -238,7 +238,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        First Name should only contain letters and should not be empty
+                                        First Name should only contain letters
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -250,7 +250,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Middle Name should only contain letters and should not be empty
+                                        Middle Name should only contain letters
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -263,7 +263,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Last Name should only contain letters and should not be empty
+                                        Last Name should only contain letters
                                     </div>
                                 </div>
 
@@ -331,11 +331,9 @@ if (isset($_POST['btnAdd'])) {
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-5">
-                                    <label for="inputBarangay" class="form-label">Phone Number <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="phone" required>
+                                    <label class="form-label">Phone Number <sup>*</sup></label>
+                                    <input type="text" class="form-control" data-toggle="input-mask"
+                                        data-mask-format="(+63) 000-000-0000" name="phone" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -364,7 +362,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        First Name should only contain letters and should not be empty
+                                        First Name should only contain letters
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -377,7 +375,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Middle Name should only contain letters and should not be empty
+                                        Middle Name should only contain letters
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -390,7 +388,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Last Name should only contain letters and should not be empty
+                                        Last Name should only contain letters
                                     </div>
                                 </div>
 
@@ -447,8 +445,7 @@ if (isset($_POST['btnAdd'])) {
                                     <label for="inputCity" class="form-label">Email Address <sup>*
 
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="inputCity"
-                                        name="gemail" required>
+                                    <input type="email" class="form-control" id="inputCity" name="gemail" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -457,11 +454,9 @@ if (isset($_POST['btnAdd'])) {
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-5">
-                                    <label for="inputBarangay" class="form-label">Phone Number <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="gphoneNumber" required>
+                                    <label class="form-label">Phone Number <sup>*</sup></label>
+                                    <input type="text" class="form-control" data-toggle="input-mask"
+                                        data-mask-format="(+63) 000-000-0000" name="phone" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
