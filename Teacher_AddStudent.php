@@ -149,10 +149,10 @@ if (isset($_POST['submit'])) {
     $address = $_POST['address'];
     
     // Determine the next available learner_auto_id
-    $result = $conn->query("SELECT MAX(SUBSTRING(student_auto_id, 4)) AS max_id FROM tbl_student");
+    $result = $conn->query("SELECT MAX(SUBSTRING(learner_auto_id, 4)) AS max_id FROM tbl_learner");
     $row = $result->fetch_assoc();
     $next_id = intval($row['max_id']) + 1;
-    $student_auto_id = 'stud' . sprintf('%03d', $next_id);
+    $learner_auto_id = 'stud' . sprintf('%03d', $next_id);
 
 
     // Insert other learner information
@@ -185,7 +185,7 @@ if (isset($_POST['submit'])) {
                                 $status_id = $conn->insert_id;
 
                                 // Insert learner information into tbl_learner with the generated learner_auto_id
-                                $sql = "INSERT INTO tbl_student (student_auto_id, lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
+                                $sql = "INSERT INTO tbl_learner (learner_auto_id, lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
             VALUES ('$next_id', '$lrn', '$user_id', '$guardian_info_id', '$guardian_contact_id', '$address_id', '$level_id', '$status_id', '$account_id', '$usercredentials_id')";
                                 if ($conn->query($sql) === TRUE) {
                                     header("Location: admin_student.php?msg=Account added successfully");
@@ -333,7 +333,7 @@ if (isset($_POST['submit'])) {
                                 <div class="mb-3 col-md-5">
                                     <label class="form-label">Phone Number <sup>*</sup></label>
                                     <input type="text" class="form-control" data-toggle="input-mask"
-                                        data-mask-format="(+63) 000-000-0000" name="phone" required>
+                                        data-mask-format="00000000000" name="phone" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -456,7 +456,7 @@ if (isset($_POST['submit'])) {
                                 <div class="mb-3 col-md-5">
                                     <label class="form-label">Phone Number <sup>*</sup></label>
                                     <input type="text" class="form-control" data-toggle="input-mask"
-                                        data-mask-format="(+63) 000-000-0000" name="phone" required>
+                                        data-mask-format="00000000000" name="gphoneNumber" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
