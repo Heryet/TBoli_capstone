@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2023 at 04:43 AM
+-- Generation Time: Oct 15, 2023 at 05:14 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -101,6 +101,14 @@ CREATE TABLE `lessons` (
   `lesson_objectives` text NOT NULL,
   `lesson_type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lessons`
+--
+
+INSERT INTO `lessons` (`id`, `uid`, `user_type`, `lesson_name`, `lesson_objectives`, `lesson_type`) VALUES
+(1, 0, 0, '[value-4]', '[value-5]', '[value-6]'),
+(2, 0, 0, '[value-4]', '[value-5]', '[value-6]');
 
 -- --------------------------------------------------------
 
@@ -449,7 +457,8 @@ INSERT INTO `tbl_content` (`content_id`, `lesson_id`, `lesson_files_id`) VALUES
 (7, 7, 7),
 (8, 7, 8),
 (9, 8, 9),
-(10, 9, 10);
+(10, 9, 10),
+(11, 10, 11);
 
 -- --------------------------------------------------------
 
@@ -584,7 +593,8 @@ CREATE TABLE `tbl_lesson` (
 INSERT INTO `tbl_lesson` (`lesson_id`, `name`, `objective`, `level`, `type`, `added_by`) VALUES
 (7, 'multi', 'test', 'Advance', 'Literacy', 11),
 (8, 'Blackpink', 'Hakdog', 'Advance', 'Numeracy', 1),
-(9, 'Secrer', 'Wala', 'Literacy', 'Numeracy', 1);
+(9, 'Secrer', 'Wala', 'Literacy', 'Numeracy', 1),
+(10, 'Red', 'Redss', 'Literacy', 'Literacy', 1);
 
 -- --------------------------------------------------------
 
@@ -608,36 +618,110 @@ INSERT INTO `tbl_lesson_files` (`lesson_files_id`, `lesson_id`, `lesson`, `added
 (7, 7, 'cred.png', 11, 1),
 (8, 7, 'spicyuuu1.jpg', 11, 1),
 (9, 8, 'barcode.png', 1, 1),
-(10, 9, '01_Assignment_1(4).docx', 1, 1);
+(10, 9, '01_Assignment_1(4).docx', 1, 3),
+(11, 10, '01 Laboratory Exercise 1 FERNANDEZ.docx', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_quiz_multiple_choice`
+-- Table structure for table `tbl_quiz_choices`
 --
 
-CREATE TABLE `tbl_quiz_multiple_choice` (
-  `multiple_choice_id` int(11) NOT NULL,
-  `quiz_options_id` int(11) NOT NULL,
-  `question` text NOT NULL,
-  `choiceA` varchar(244) NOT NULL,
-  `choiceB` varchar(244) NOT NULL,
-  `choiceC` varchar(244) NOT NULL,
-  `choiceD` varchar(244) NOT NULL,
-  `correct_answer` varchar(99) NOT NULL COMMENT '1 = right, 0 = wrong'
+CREATE TABLE `tbl_quiz_choices` (
+  `choices_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `choices` varchar(244) NOT NULL,
+  `is_right` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbl_quiz_multiple_choice`
+-- Dumping data for table `tbl_quiz_choices`
 --
 
-INSERT INTO `tbl_quiz_multiple_choice` (`multiple_choice_id`, `quiz_options_id`, `question`, `choiceA`, `choiceB`, `choiceC`, `choiceD`, `correct_answer`) VALUES
-(12, 6, 'Youngest', 'Jennie', 'Lisa', 'Rose', 'Jisoo', '0'),
-(13, 6, 'Oldest', 'Jisoo', 'Jennie', 'Lisa', 'Rose', '0'),
-(14, 7, 'Sana', 'Japanese', 'Koean', 'Philippines', 'USA', '0'),
-(15, 7, 'Jihyo', 'Japanese', 'Vietnam', 'Korea', 'Philippines', '0'),
-(16, 8, 'Mina', 'Japanese', 'Koean', 'Philippines', 'USA', ''),
-(17, 8, 'Dahyun', 'Japanese', 'Vietnam', 'Korea', 'Philippines', '');
+INSERT INTO `tbl_quiz_choices` (`choices_id`, `question_id`, `choices`, `is_right`) VALUES
+(1, 4, 'True', 1),
+(2, 4, 'False', 0),
+(3, 4, '22', 0),
+(4, 4, '22211', 0),
+(5, 5, 'True', 0),
+(6, 5, 'False', 0),
+(7, 5, '3', 0),
+(8, 5, '4', 1),
+(9, 6, 'True', 0),
+(10, 6, 'False', 0),
+(11, 6, '1', 0),
+(12, 6, 'aaa', 1),
+(13, 7, 'True', 0),
+(14, 7, 'False', 0),
+(15, 7, '3', 0),
+(16, 7, '4', 1),
+(17, 8, 'True', 1),
+(18, 8, 'False', 0),
+(19, 9, '1', 0),
+(20, 9, '2', 0),
+(21, 9, '31', 0),
+(22, 9, '1111', 1),
+(23, 9, 'True', 1),
+(24, 9, 'False', 0),
+(25, 10, 'a', 0),
+(26, 10, '3s', 0),
+(27, 10, '41dsa', 1),
+(28, 10, 'aawd', 0),
+(29, 10, 'True', 0),
+(30, 10, 'False', 0),
+(31, 11, 'True', 1),
+(32, 11, 'False', 0),
+(33, 11, '3', 0),
+(34, 11, '11', 1),
+(35, 12, 'True', 1),
+(36, 12, 'False', 0),
+(37, 12, '2', 0),
+(38, 12, 'asdzxczxc', 1),
+(39, 13, 'True', 0),
+(40, 13, 'False', 0),
+(41, 13, 'z', 0),
+(42, 13, 'xca', 1),
+(43, 14, '2', 0),
+(44, 14, '1', 0),
+(45, 14, '3', 1),
+(46, 14, '1', 1),
+(47, 14, 'True', 1),
+(48, 14, 'False', 0),
+(49, 15, 'True', 0),
+(50, 15, 'False', 0),
+(51, 15, 's', 0),
+(52, 15, 'dasd', 1),
+(53, 0, 'True', 1),
+(54, 0, 'False', 0),
+(55, 17, '1', 0),
+(56, 18, 'aaa', 0),
+(57, 18, '2www', 0),
+(58, 18, 'qweq', 0),
+(59, 18, 'qwqqwe', 1),
+(60, 0, 'True', 1),
+(61, 0, 'True', 1),
+(62, 0, 'True', 1),
+(63, 0, 'False', 0),
+(64, 0, 'True', 1),
+(65, 0, 'False', 0),
+(66, 23, 'aslkjd', 0),
+(67, 23, 'askdj', 0),
+(68, 23, 'askdlj', 0),
+(69, 23, 'aslkdjaskd', 1),
+(70, 0, 'True', 1),
+(71, 0, 'False', 0),
+(72, 25, 'True', 1),
+(73, 25, 'False', 1),
+(74, 26, 'bb', 0),
+(75, 26, 'ff', 0),
+(76, 26, 'gg', 0),
+(77, 26, 'dd', 1),
+(78, 27, 'a', 0),
+(79, 27, 'w', 0),
+(80, 27, 'asdasd', 0),
+(81, 27, 'das', 1),
+(82, 28, 'True', 1),
+(83, 28, 'False', 0);
 
 -- --------------------------------------------------------
 
@@ -650,12 +734,8 @@ CREATE TABLE `tbl_quiz_options` (
   `added_by` int(11) NOT NULL,
   `title` varchar(244) NOT NULL,
   `lesson` int(11) NOT NULL,
-  `max_score` int(11) NOT NULL,
   `date_start` date NOT NULL,
-  `allow_late` tinyint(1) NOT NULL,
-  `grading` varchar(244) NOT NULL,
   `due` date NOT NULL,
-  `grading_score` varchar(244) NOT NULL,
   `attempts` int(11) NOT NULL,
   `instructions` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -664,23 +744,93 @@ CREATE TABLE `tbl_quiz_options` (
 -- Dumping data for table `tbl_quiz_options`
 --
 
-INSERT INTO `tbl_quiz_options` (`quiz_options_id`, `added_by`, `title`, `lesson`, `max_score`, `date_start`, `allow_late`, `grading`, `due`, `grading_score`, `attempts`, `instructions`) VALUES
-(6, 1, 'Blackpink', 8, 2, '2023-09-14', 0, 'Latest Grade', '2023-09-14', 'best score', 1, ' BP QUIZ '),
-(7, 1, 'Tewice', 8, 2, '2023-09-14', 0, 'Latest Grade', '2023-09-22', 'best score', 1, ' Twice QUIZ '),
-(8, 1, 'Quiz', 8, 2, '2023-09-15', 0, 'Latest Grade', '2023-09-16', 'best score', 1, ' Quiz ni ');
+INSERT INTO `tbl_quiz_options` (`quiz_options_id`, `added_by`, `title`, `lesson`, `date_start`, `due`, `attempts`, `instructions`) VALUES
+(6, 1, 'Blackpink', 8, '2023-09-14', '2023-09-14', 1, ' BP QUIZ '),
+(7, 1, 'Tewice', 8, '2023-09-14', '2023-09-22', 1, ' Twice QUIZ '),
+(8, 1, 'Quiz', 8, '2023-09-15', '2023-09-16', 1, ' Quiz ni '),
+(13, 1, 'test new', 7, '2023-10-10', '2023-10-10', 1, ' tttt '),
+(14, 1, 'test', 7, '2023-10-13', '2023-10-13', 1, 'test'),
+(15, 1, 'tt', 9, '2023-10-13', '2023-10-13', 1, 'tttt');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_quiz_true_or_false`
+-- Table structure for table `tbl_quiz_question`
 --
 
-CREATE TABLE `tbl_quiz_true_or_false` (
-  `true_or_false_id` int(11) NOT NULL,
+CREATE TABLE `tbl_quiz_question` (
+  `question_id` int(11) NOT NULL,
   `quiz_options_id` int(11) NOT NULL,
-  `question` text NOT NULL,
-  `correct_choice` varchar(244) NOT NULL
+  `question` varchar(244) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_quiz_question`
+--
+
+INSERT INTO `tbl_quiz_question` (`question_id`, `quiz_options_id`, `question`) VALUES
+(1, 13, 'test'),
+(2, 13, 'test'),
+(3, 13, 't'),
+(4, 13, '111'),
+(5, 13, 'q2'),
+(6, 6, 'test'),
+(7, 13, 'testqq'),
+(8, 13, 'True or False'),
+(9, 13, 'yes'),
+(10, 13, 'zzz'),
+(11, 7, 'test'),
+(12, 13, 'testte'),
+(13, 7, 'twx'),
+(14, 7, '1'),
+(15, 7, 'zzsdxa'),
+(16, 13, 'test'),
+(17, 13, 'zzzz'),
+(18, 13, 'awdawdwa'),
+(19, 13, 'gwapo ko'),
+(20, 15, 'gwapo ko'),
+(21, 15, 'gwapo ko'),
+(22, 15, 'gwapo ko'),
+(23, 15, 'alskjhd'),
+(24, 8, 'aasdwa'),
+(25, 8, 'gwapo ko'),
+(26, 13, 'multi'),
+(27, 6, 'multi'),
+(28, 6, 'ttt');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_quiz_score`
+--
+
+CREATE TABLE `tbl_quiz_score` (
+  `quiz_score_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `score` int(11) NOT NULL,
+  `max_score` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_quiz_student`
+--
+
+CREATE TABLE `tbl_quiz_student` (
+  `quiz_student_id` int(11) NOT NULL,
+  `quiz_options_id` int(11) NOT NULL,
+  `student` varchar(244) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_quiz_student`
+--
+
+INSERT INTO `tbl_quiz_student` (`quiz_student_id`, `quiz_options_id`, `student`) VALUES
+(1, 13, '17'),
+(2, 13, '17'),
+(3, 13, '40');
 
 -- --------------------------------------------------------
 
@@ -1212,26 +1362,35 @@ ALTER TABLE `tbl_lesson_files`
   ADD KEY `lesson_id` (`lesson_id`);
 
 --
--- Indexes for table `tbl_quiz_multiple_choice`
+-- Indexes for table `tbl_quiz_choices`
 --
-ALTER TABLE `tbl_quiz_multiple_choice`
-  ADD PRIMARY KEY (`multiple_choice_id`),
-  ADD KEY `quiz_options_id` (`quiz_options_id`);
+ALTER TABLE `tbl_quiz_choices`
+  ADD PRIMARY KEY (`choices_id`);
 
 --
 -- Indexes for table `tbl_quiz_options`
 --
 ALTER TABLE `tbl_quiz_options`
   ADD PRIMARY KEY (`quiz_options_id`),
-  ADD KEY `added_by` (`added_by`),
-  ADD KEY `lesson` (`lesson`);
+  ADD KEY `added_by` (`added_by`);
 
 --
--- Indexes for table `tbl_quiz_true_or_false`
+-- Indexes for table `tbl_quiz_question`
 --
-ALTER TABLE `tbl_quiz_true_or_false`
-  ADD PRIMARY KEY (`true_or_false_id`),
-  ADD KEY `quiz_options_id` (`quiz_options_id`);
+ALTER TABLE `tbl_quiz_question`
+  ADD PRIMARY KEY (`question_id`);
+
+--
+-- Indexes for table `tbl_quiz_score`
+--
+ALTER TABLE `tbl_quiz_score`
+  ADD PRIMARY KEY (`quiz_score_id`);
+
+--
+-- Indexes for table `tbl_quiz_student`
+--
+ALTER TABLE `tbl_quiz_student`
+  ADD PRIMARY KEY (`quiz_student_id`);
 
 --
 -- Indexes for table `tbl_section`
@@ -1319,19 +1478,19 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `question_opt`
 --
 ALTER TABLE `question_opt`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `quizzes`
@@ -1343,7 +1502,7 @@ ALTER TABLE `quizzes`
 -- AUTO_INCREMENT for table `quiz_list`
 --
 ALTER TABLE `quiz_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `quiz_student_list`
@@ -1397,7 +1556,7 @@ ALTER TABLE `tbl_auto_id`
 -- AUTO_INCREMENT for table `tbl_content`
 --
 ALTER TABLE `tbl_content`
-  MODIFY `content_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `content_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_learner`
@@ -1427,31 +1586,43 @@ ALTER TABLE `tbl_learner_id`
 -- AUTO_INCREMENT for table `tbl_lesson`
 --
 ALTER TABLE `tbl_lesson`
-  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_lesson_files`
 --
 ALTER TABLE `tbl_lesson_files`
-  MODIFY `lesson_files_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `lesson_files_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `tbl_quiz_multiple_choice`
+-- AUTO_INCREMENT for table `tbl_quiz_choices`
 --
-ALTER TABLE `tbl_quiz_multiple_choice`
-  MODIFY `multiple_choice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+ALTER TABLE `tbl_quiz_choices`
+  MODIFY `choices_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `tbl_quiz_options`
 --
 ALTER TABLE `tbl_quiz_options`
-  MODIFY `quiz_options_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `quiz_options_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `tbl_quiz_true_or_false`
+-- AUTO_INCREMENT for table `tbl_quiz_question`
 --
-ALTER TABLE `tbl_quiz_true_or_false`
-  MODIFY `true_or_false_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `tbl_quiz_question`
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `tbl_quiz_score`
+--
+ALTER TABLE `tbl_quiz_score`
+  MODIFY `quiz_score_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_quiz_student`
+--
+ALTER TABLE `tbl_quiz_student`
+  MODIFY `quiz_student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_section`
@@ -1557,23 +1728,10 @@ ALTER TABLE `tbl_lesson_files`
   ADD CONSTRAINT `tbl_lesson_files_ibfk_2` FOREIGN KEY (`lesson_id`) REFERENCES `tbl_lesson` (`lesson_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_quiz_multiple_choice`
---
-ALTER TABLE `tbl_quiz_multiple_choice`
-  ADD CONSTRAINT `tbl_quiz_multiple_choice_ibfk_1` FOREIGN KEY (`quiz_options_id`) REFERENCES `tbl_quiz_options` (`quiz_options_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `tbl_quiz_options`
 --
 ALTER TABLE `tbl_quiz_options`
-  ADD CONSTRAINT `tbl_quiz_options_ibfk_1` FOREIGN KEY (`added_by`) REFERENCES `tbl_userinfo` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_quiz_options_ibfk_2` FOREIGN KEY (`lesson`) REFERENCES `tbl_lesson` (`lesson_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tbl_quiz_true_or_false`
---
-ALTER TABLE `tbl_quiz_true_or_false`
-  ADD CONSTRAINT `tbl_quiz_true_or_false_ibfk_1` FOREIGN KEY (`quiz_options_id`) REFERENCES `tbl_quiz_options` (`quiz_options_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_quiz_options_ibfk_1` FOREIGN KEY (`added_by`) REFERENCES `tbl_userinfo` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_teachers`

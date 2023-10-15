@@ -161,7 +161,7 @@ $user_id = $_SESSION['user_id'];
                                                                 </span>
                                                             </td>
                                                             <td>
-                                                                <a href="Teacher_Manage_Quiz.php?lesson_id=<?php echo $row['lesson_id']; ?>" class="btn btn-success btn-sm">Manage</a>
+                                                                <a href="Teacher_ManageLesson.php?lesson_id=<?php echo $row['lesson_id']; ?>" class="btn btn-success btn-sm">Manage</a>
                                                                 <a href="#" class="btn btn-primary btn-sm">Edit</a>
                                                                 <a href="#" class="btn btn-danger btn-sm">Archive</a>
                                                             </td>

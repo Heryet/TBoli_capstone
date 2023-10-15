@@ -174,6 +174,7 @@ $user_id = $_SESSION['user_id'];
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- Add button to open the modal -->
                         <div class="col-md-6">
                             <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
@@ -299,105 +300,184 @@ $user_id = $_SESSION['user_id'];
                     </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-centered table-nowrap mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Question</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if (isset($_GET['quiz_options_id'])) {
-                                                    $quiz_options_id = $_GET['quiz_options_id'];
-                                                    $sql = "SELECT tbl_quiz_question.question, tbl_quiz_options.quiz_options_id FROM tbl_quiz_question
-                                                    JOIN tbl_quiz_options ON tbl_quiz_question.quiz_options_id = tbl_quiz_options.quiz_options_id
-                                                    WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'";
+    <!-- Question Table -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-centered table-nowrap mb-0">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (isset($_GET['quiz_options_id'])) {
+                                $quiz_options_id = $_GET['quiz_options_id'];
 
-                                                    $result = mysqli_query($conn, $sql);
+                                // Define the current page and the number of rows to display
+                                $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                                $rowsPerPage = 9;
 
-                                                    if ($result && mysqli_num_rows($result) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($result)) {
-                                                            ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="fw-semibold">
-                                                                        <?php echo $row['question']; ?>
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="edit-icon"><i class="fas fa-edit"></i></a>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="archive-icon"><i class="fas fa-archive"></i></a>
-                                                                </td>
-                                                            </tr>
-                                                            <?php
-                                                        }
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-centered table-nowrap mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Student</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if (isset($_GET['quiz_options_id'])) {
-                                                    $quiz_options_id = $_GET['quiz_options_id'];
-                                                    $sql = "SELECT tbl_quiz_student.student, tbl_quiz_options.quiz_options_id, CONCAT(tbl_userinfo.firstname, ' ', tbl_userinfo.middlename, ' ', tbl_userinfo.lastname) AS name
-                                                    FROM tbl_quiz_student
-                                                    JOIN tbl_quiz_options ON tbl_quiz_student.quiz_options_id = tbl_quiz_options.quiz_options_id
-                                                    JOIN tbl_userinfo ON tbl_quiz_student.student = tbl_userinfo.user_id
-                                                    WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'";
+                                // Calculate the offset based on the current page and rows per page
+                                $offset = ($currentPage - 1) * $rowsPerPage;
 
-                                                    $result = mysqli_query($conn, $sql);
+                                $sql = "SELECT tbl_quiz_question.question, tbl_quiz_options.quiz_options_id
+                                        FROM tbl_quiz_question
+                                        JOIN tbl_quiz_options ON tbl_quiz_question.quiz_options_id = tbl_quiz_options.quiz_options_id
+                                        WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'
+                                        LIMIT $offset, $rowsPerPage";
 
-                                                    if ($result && mysqli_num_rows($result) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($result)) {
-                                                            ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="fw-semibold">
-                                                                        <?php echo $row['name']; ?>
-                                                                    </span>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="edit-icon"><i class="fas fa-edit"></i></a>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="archive-icon"><i class="fas fa-archive"></i></a>
-                                                                </td>
-                                                            </tr>
-                                                            <?php
-                                                        }
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                $result = mysqli_query($conn, $sql);
+
+                                if ($result && mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <span class="fw-semibold">
+                                                    <?php echo $row['question']; ?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="edit-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="archive-icon"><i class="fas fa-archive"></i></a>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination links for the Question table -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item <?php echo ($currentPage == 1) ? 'disabled' : ''; ?>">
+                            <a class="page-link" href="<?php echo ($currentPage > 1) ? "Teacher_Manage_Quiz.php?quiz_options_id=$quiz_options_id&page=" . ($currentPage - 1) : '#'; ?>" tabindex="-1">Previous</a>
+                        </li>
+                        <?php
+                        // Calculate the total number of pages
+                        $sqlCount = "SELECT COUNT(*) as total FROM tbl_quiz_question
+                                    JOIN tbl_quiz_options ON tbl_quiz_question.quiz_options_id = tbl_quiz_options.quiz_options_id
+                                    WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'";
+                        $countResult = mysqli_query($conn, $sqlCount);
+                        $totalRecords = mysqli_fetch_assoc($countResult)['total'];
+                        $totalPages = ceil($totalRecords / $rowsPerPage);
+
+                        for ($i = 1; $i <= $totalPages; $i++) {
+                            echo "<li class='page-item " . (($currentPage == $i) ? 'active' : '') . "'>";
+                            echo "<a class='page-link' href='Teacher_Manage_Quiz.php?quiz_options_id=$quiz_options_id&page=$i'>$i</a>";
+                            echo "</li>";
+                        }
+                        ?>
+                        <li class="page-item <?php echo ($currentPage == $totalPages) ? 'disabled' : ''; ?>">
+                            <a class="page-link" href="<?php echo ($currentPage < $totalPages) ? "Teacher_Manage_Quiz.php?quiz_options_id=$quiz_options_id&page=" . ($currentPage + 1) : '#'; ?>">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Table -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-centered table-nowrap mb-0">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (isset($_GET['quiz_options_id'])) {
+                                $quiz_options_id = $_GET['quiz_options_id'];
+
+                                // Define the current page and the number of rows to display
+                                $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                                $rowsPerPage = 6;
+
+                                // Calculate the offset based on the current page and rows per page
+                                $offset = ($currentPage - 1) * $rowsPerPage;
+
+                                $sql = "SELECT tbl_quiz_student.student, tbl_quiz_options.quiz_options_id, CONCAT(tbl_userinfo.firstname, ' ', tbl_userinfo.middlename, ' ', tbl_userinfo.lastname) AS name
+                                        FROM tbl_quiz_student
+                                        JOIN tbl_quiz_options ON tbl_quiz_student.quiz_options_id = tbl_quiz_options.quiz_options_id
+                                        JOIN tbl_userinfo ON tbl_quiz_student.student = tbl_userinfo.user_id
+                                        WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'
+                                        LIMIT $offset, $rowsPerPage";
+
+                                $result = mysqli_query($conn, $sql);
+
+                                if ($result && mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <span class="fw-semibold">
+                                                    <?php echo $row['name']; ?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="edit-icon"><i class="fas fa-edit"></i></a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="archive-icon"><i class="fas fa-archive"></i></a>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination links for the Student table -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item <?php echo ($currentPage == 1) ? 'disabled' : ''; ?>">
+                            <a class="page-link" href="<?php echo ($currentPage > 1) ? "Teacher_Manage_Quiz.php?quiz_options_id=$quiz_options_id&page=" . ($currentPage - 1) : '#'; ?>" tabindex="-1">Previous</a>
+                        </li>
+                        <?php
+                        // Calculate the total number of pages
+                        $sqlCount = "SELECT COUNT(*) as total FROM tbl_quiz_student
+                                    JOIN tbl_quiz_options ON tbl_quiz_student.quiz_options_id = tbl_quiz_options.quiz_options_id
+                                    WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'";
+                        $countResult = mysqli_query($conn, $sqlCount);
+                        $totalRecords = mysqli_fetch_assoc($countResult)['total'];
+                        $totalPages = ceil($totalRecords / $rowsPerPage);
+
+                        for ($i = 1; $i <= $totalPages; $i++) {
+                            echo "<li class='page-item " . (($currentPage == $i) ? 'active' : '') . "'>";
+                            echo "<a class='page-link' href='Teacher_Manage_Quiz.php?quiz_options_id=$quiz_options_id&page=$i'>$i</a>";
+                            echo "</li>";
+                        }
+                        ?>
+                        <li class="page-item <?php echo ($currentPage == $totalPages) ? 'disabled' : ''; ?>">
+                            <a class="page-link" href="<?php echo ($currentPage < $totalPages) ? "Teacher_Manage_Quiz.php?quiz_options_id=$quiz_options_id&page=" . ($currentPage + 1) : '#'; ?>">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
                     <!-- bundle -->
                     <script src="assets/js/vendor.min.js"></script>
                     <script src="assets/js/app.min.js"></script>
