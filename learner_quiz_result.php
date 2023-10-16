@@ -313,7 +313,6 @@ $user_id = $_SESSION['user_id'];
                 </div>
                 <!-- end page title -->
                 <form action="learner_submit_quiz.php" method="post">
-                    <input type="hidden" name="quiz_options_id" value="<?php echo $quiz_options_id; ?>">
                     <div class="row justify-content-md-center mt-4">
                         <div class="card col-sm-10">
                             <div class="card-body">
