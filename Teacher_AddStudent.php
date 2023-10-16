@@ -69,10 +69,6 @@ $user_id = $_SESSION['user_id'];
 
                                     <div class="clearfix"></div>
 
-                                    <script>
-                                    window.location.href = 'Teacher_AddStudent.php';
-                                    </script>
-
                                 </div>
                             </div>
                         </div>
@@ -198,10 +194,9 @@ $user_id = $_SESSION['user_id'];
                                             $sql = "INSERT INTO tbl_learner (lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
                                                     VALUES ('$learner_id', '$user_info_id', '$guardian_info_id', '$guardian_contact_id', '$address_id', '$level_id', '$status_id', '$account_id', '$usercredentials_id')";
                                             if ($conn->query($sql) === TRUE) {
-                                                
-                                                header("Location: Teacher_index.php? msg=Account added successfully");
-                                                
-                                                exit();
+                                                echo "<script>alert('Added successfully');</script>";
+                                                echo "<script> window.location.href='Teacher_AddStudent.php'; </script>" ;
+                                            
                                             } else {
                                                 echo "Error: " . $sql . "<br>" . $conn->error;
                                             }
@@ -219,8 +214,6 @@ $user_id = $_SESSION['user_id'];
         }
     }
     ?>
-
-
 
 
             <div class="col-">
@@ -487,6 +480,8 @@ $user_id = $_SESSION['user_id'];
 
 
 
+
+
                         <div class="table-responsive">
 
                         </div> <!-- end table-responsive-->
@@ -508,7 +503,8 @@ $user_id = $_SESSION['user_id'];
                         <div class="col-md-6">
                             <script>
                             document.write(new Date().getFullYear())
-                            </script>
+                            </script>202320232023202320232023 © Hyper -
+                            Coderthemes.com
                         </div>
                         <div class="col-md-6">
                             <div class="text-md-end footer-links d-none d-md-block">

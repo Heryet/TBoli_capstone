@@ -40,7 +40,7 @@ $user_id = $_SESSION['user_id'];
         <div class="leftside-menu menuitem-active">
 
             <!-- LOGO -->
-            <a href="index.php" class="logo text-primary logo-light">
+            <a href="index.php" class="logo text-center text-primary logo-light">
                 <span class="logo-lg">
                     <img src="assets/images/logo.png" alt="" height="16">
                 </span>
@@ -50,7 +50,7 @@ $user_id = $_SESSION['user_id'];
             </a>
 
             <!-- LOGO -->
-            <a href="index.php" class="logo text-primary logo-dark">
+            <a href="index.php" class="logo text-center text-primary logo-dark">
                 <span class="logo-lg">
                     <img src="assets/images/logo-dark.png" alt="" height="16">
                 </span>
@@ -134,7 +134,23 @@ $user_id = $_SESSION['user_id'];
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <div class="row me-1 ms-1 mb-2">
+                                <div class="col-sm-4 border border-secondary align-middle text-center ">
+                                    <h6>Assignment</h6>
+                                </div>
 
+                                <div class="col-sm-2 border border-secondary align-middle text-center text-primary">
+                                    <h6>02 Quiz 1</h6>
+                                </div>
+
+                                <div class="col-sm-2 border border-secondary align-middle text-center text-primary">
+                                    <h6>03 Quiz 2</h6>
+                                </div>
+
+                                <div class="col-sm-2 border border-secondary align-middle text-center text-primary">
+                                    <h6> 01 Task Performace</h6>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <table
                                     class="table table-centered table-borderless table-hover w-100 dt-responsive nowrap"
@@ -148,21 +164,9 @@ $user_id = $_SESSION['user_id'];
                                                 </div>
                                             </th>
                                             <th>Student</th>
-                                            <th>
-                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
-                                                    02 Quiz 1
-                                                </h6>
-                                            </th>
-                                            <th>
-                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
-                                                    03 Quiz 2
-                                                </h6>
-                                            </th>
-                                            <th>
-                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
-                                                    01 Task Performace
-                                                </h6>
-                                            </th>
+                                            <th>File 1 img</th>
+                                            <th>File 2 img</th>
+                                            <th>File 3 img</th>
 
 
 
@@ -187,11 +191,59 @@ $user_id = $_SESSION['user_id'];
                                             <td>
                                                 <div class="row">
                                                     <div class="col-sm-1 me-1">
+                                                        <!-- Info Alert Modal -->
+                                                        <a href="" data-bs-toggle="modal"
+                                                            data-bs-target="#login-modal"><i class="uil-pen"></i></a>
 
 
+                                                        <!-- Login modal -->
+
+                                                        <div id="login-modal" class="modal fade" tabindex="-1"
+                                                            role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-body">
+
+
+                                                                        <form class="needs-validation" novalidate
+                                                                            action="POST" class="ps-3 pe-3">
+
+                                                                            <div class="mb-3">
+                                                                                <label for="emailaddress1"
+                                                                                    class="form-label">Edit
+                                                                                    Score</label>
+                                                                                <input class="form-control" type="text"
+                                                                                    pattern="[0-9]+" id="emailaddress1"
+                                                                                    required placeholder="Enter score">
+                                                                                <div class="valid-feedback">
+                                                                                    Looks good!
+                                                                                </div>
+                                                                                <div class="invalid-feedback">
+                                                                                    Oops! Only numbers are allowed.
+                                                                                </div>
+
+
+                                                                            </div>
+
+
+
+
+
+                                                                            <div class="mb-3 text-center">
+                                                                                <button
+                                                                                    class="btn btn-rounded btn-primary"
+                                                                                    type="submit">Okay</button>
+                                                                            </div>
+
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div><!-- /.modal-content -->
+                                                            </div><!-- /.modal-dialog modal-sm -->
+                                                        </div><!-- /.modal -->
 
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-7 border border-secondary text-center">
                                                         10
                                                     </div>
                                                 </div>
@@ -199,12 +251,57 @@ $user_id = $_SESSION['user_id'];
                                             <td>
                                                 <div class="row">
                                                     <div class="col-sm-1 me-1">
+                                                        <!-- Info Alert Modal -->
+                                                        <a href="" data-bs-toggle="modal"
+                                                            data-bs-target="#login-modal"><i class="uil-pen"></i></a>
+                                                        <!-- Login modal -->
+
+                                                        <div id="login-modal" class="modal fade" tabindex="-1"
+                                                            role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-body">
+
+
+                                                                        <form class="needs-validation" novalidate
+                                                                            action="POST" class="ps-3 pe-3">
+
+                                                                            <div class="mb-3">
+                                                                                <label for="emailaddress1"
+                                                                                    class="form-label">Edit
+                                                                                    Score</label>
+                                                                                <input class="form-control" type="text"
+                                                                                    pattern="[0-9]+" id="emailaddress1"
+                                                                                    required placeholder="Enter score">
+                                                                                <div class="valid-feedback">
+                                                                                    Looks good!
+                                                                                </div>
+                                                                                <div class="invalid-feedback">
+                                                                                    Oops! Only numbers are allowed.
+                                                                                </div>
+
+
+                                                                            </div>
 
 
 
+
+
+                                                                            <div class="mb-3 text-center">
+                                                                                <button
+                                                                                    class="btn btn-rounded btn-primary"
+                                                                                    type="submit">Okay</button>
+                                                                            </div>
+
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div><!-- /.modal-content -->
+                                                            </div><!-- /.modal-dialog modal-sm -->
+                                                        </div><!-- /.modal -->
 
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-7 border border-secondary text-center">
                                                         10
                                                     </div>
                                                 </div>
@@ -212,12 +309,57 @@ $user_id = $_SESSION['user_id'];
                                             <td>
                                                 <div class="row">
                                                     <div class="col-sm-1 me-1">
+                                                        <!-- Info Alert Modal -->
+                                                        <a href="" data-bs-toggle="modal"
+                                                            data-bs-target="#login-modal"><i class="uil-pen"></i></a>
+                                                        <!-- Login modal -->
+
+                                                        <div id="login-modal" class="modal fade" tabindex="-1"
+                                                            role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-body">
+
+
+                                                                        <form class="needs-validation" novalidate
+                                                                            action="POST" class="ps-3 pe-3">
+
+                                                                            <div class="mb-3">
+                                                                                <label for="emailaddress1"
+                                                                                    class="form-label">Edit
+                                                                                    Score</label>
+                                                                                <input class="form-control" type="text"
+                                                                                    pattern="[0-9]+" id="emailaddress1"
+                                                                                    required placeholder="Enter score">
+                                                                                <div class="valid-feedback">
+                                                                                    Looks good!
+                                                                                </div>
+                                                                                <div class="invalid-feedback">
+                                                                                    Oops! Only numbers are allowed.
+                                                                                </div>
+
+
+                                                                            </div>
 
 
 
+
+
+                                                                            <div class="mb-3 text-center">
+                                                                                <button
+                                                                                    class="btn btn-rounded btn-primary"
+                                                                                    type="submit">Okay</button>
+                                                                            </div>
+
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div><!-- /.modal-content -->
+                                                            </div><!-- /.modal-dialog modal-sm -->
+                                                        </div><!-- /.modal -->
 
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-7 border border-secondary text-center">
                                                         10
                                                     </div>
                                                 </div>
