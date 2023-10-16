@@ -144,8 +144,6 @@ $user_id = $_SESSION['user_id'];
 
                                                     </div>
                         </li>
-
-
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown"
                                 href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -184,7 +182,7 @@ $user_id = $_SESSION['user_id'];
                                         echo "No records found in tbl_learner";
                                     }
                                 } else {
-                                    echo "No user ID provided";
+                                    echo "No user ID ";
                                 }
                                 ?>
                             </a>
@@ -241,13 +239,13 @@ $user_id = $_SESSION['user_id'];
         <?php
         include 'dbcon.php';
 
-        if (isset($_SESSION['quiz_score_id'])) {
-            $quiz_score_id = $_SESSION['quiz_score_id'];
+        if (isset($_GET['quiz_options_id'])) {
+            $quiz_options_id = $_GET['quiz_options_id'];
 
             // Retrieve the learner's scores from the tbl_quiz_score table
             $sql = "SELECT tbl_quiz_score.quiz_score_id, tbl_quiz_score.question_id, tbl_quiz_score.score, tbl_quiz_score.max_score
                 FROM `tbl_quiz_score`
-                WHERE quiz_score_id = '$quiz_score_id'";
+                WHERE quiz_score_id = '$quiz_options_id'";
 
             $result = mysqli_query($conn, $sql);
 
@@ -278,7 +276,6 @@ $user_id = $_SESSION['user_id'];
                             echo '<div class="card-body">';
                             echo '<h2>Question ID: ' . $question_id . '</h2>';
                             echo '<p>Your Score: ' . $score . '/' . $max_score . '</p>';
-                            echo '<p>Correct Answer: ' . $correct_answer['choices'] . '</p>';
                             echo '</div>';
                             echo '</div>';
                         }
@@ -385,10 +382,10 @@ $user_id = $_SESSION['user_id'];
                                 }
                                 ?>
                              <div class="row">
-    <div class="col-sm-6 text-md-end">
-        <a href="Learner_index.php" class="btn btn-primary">Dashboard</a>
-    </div>
-</div>
+                                <div class="col-sm-6 text-md-end">
+                                    <a href="Learner_index.php" class="btn btn-primary">Dashboard</a>
+                                </div>
+                            </div>
 
                             </div>
                         </div>
