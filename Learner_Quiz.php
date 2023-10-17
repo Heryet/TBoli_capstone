@@ -254,8 +254,58 @@ $user_id = $_SESSION['user_id'];
                     </div>
                 </div>
                 <!-- end page title -->
-                <form action="learner_submit_quiz.php" method="post">
-                    <input type="hidden" name="quiz_options_id" value="<?php echo $quiz_options_id; ?>">
+                <?php
+                include 'dbcon.php';
+
+                if (isset($_POST['btnSubmit']) && isset($_GET['quiz_options_id']) && isset($_SESSION['user_id'])) {
+                    $quiz_options_id = $_GET['quiz_options_id'];
+                    $user_id = $_SESSION['user_id'];
+                    $score = 0;
+
+                    for ($questionNumber = 1; isset($_POST['customRadio' . $questionNumber]); $questionNumber++) {
+                        $user_answer = $_POST['customRadio' . $questionNumber];
+                        $correct_answer = $_POST['correct_answer_' . $questionNumber];
+
+                        if ($user_answer === $correct_answer) {
+                            $score++;
+                        }
+
+                        $sql = "SELECT tbl_quiz_question.question_id FROM tbl_quiz_question 
+                        WHERE tbl_quiz_question.quiz_options_id = '$quiz_options_id'";
+
+                        $result = mysqli_query($conn, $sql); // Use a different variable for the query result
+
+                        if ($result && mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $question_id = $row['question_id'];
+
+                                $insertSql = "INSERT INTO tbl_quiz_answer (question_id, selected_answer, user_id) VALUES ('$question_id', '$user_answer', '$user_id')";
+                                $insertResult = mysqli_query($conn, $insertSql); // Use a different variable for the query result
+
+                                if (!$insertResult) {
+                                    echo "Error inserting user answer for question $questionNumber: " . mysqli_error($conn);
+                                    exit();
+                                }
+                            }
+                        }
+                    }
+
+                    $questionNumber--;
+                    $max_score = $questionNumber;
+
+                    $scoreSql = "INSERT INTO tbl_quiz_score (question_id, score, max_score, attempts, user_id) VALUES ('$quiz_options_id', '$score', '$max_score', 1, '$user_id')";
+                    $scoreResult = mysqli_query($conn, $scoreSql); // Use a different variable for the query result
+
+                    if ($scoreResult) {
+                        $url = "learner_quiz_result.php?quiz_options_id=" . $quiz_options_id;
+                        echo '<script>window.location.href = "' . $url . '";</script>';
+                        exit();
+                    } else {
+                        echo "Error inserting user score: " . mysqli_error($conn);
+                    }
+                }
+                ?>
+                <form action="" method="post">
                     <div class="row justify-content-md-center mt-4">
                         <div class="card col-sm-10">
                             <div class="card-body">

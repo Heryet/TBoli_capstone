@@ -66,7 +66,7 @@
                     <span>My Account</span>
                 </a>
                 <!-- item-->
-                <a href="login.php?logout=true" class="dropdown-item notify-item">
+                <a href="administrator_login.php?logout=true" class="dropdown-item notify-item">
                     <i class="mdi mdi-logout me-1"></i>
                     <span>Logout</span>
                 </a>

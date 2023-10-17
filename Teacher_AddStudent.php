@@ -127,14 +127,18 @@ $user_id = $_SESSION['user_id'];
             </div> <!-- content -->
 
             <?php
-include 'dbcon.php';
+    include 'dbcon.php';
 
-if (isset($_POST['btnAdd'])) {
+    
+
+    if (isset($_POST['submit'])) {
+
     $lrn = $_POST['lrn'];
     $firstname = $_POST['firstname'];
     $middlename = $_POST['middlename'];
     $lastname = $_POST['lastname'];
     $birthday = $_POST['birthday'];
+    $password_birthday = preg_replace("/[^a-zA-Z0-9]/", "", $birthday);
     $gender = $_POST['gender'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
@@ -147,63 +151,69 @@ if (isset($_POST['btnAdd'])) {
     $gemail = $_POST['gemail'];
     $gaddress = $_POST['gaddress'];
     $address = $_POST['address'];
+    $password = $lastname . $password_birthday;
+    $encrypted = password_hash($password, PASSWORD_DEFAULT);
     
-    // Determine the next available learner_auto_id
-    $result = $conn->query("SELECT MAX(SUBSTRING(student_auto_id, 4)) AS max_id FROM tbl_student");
-    $row = $result->fetch_assoc();
-    $next_id = intval($row['max_id']) + 1;
-    $student_auto_id = 'stud' . sprintf('%03d', $next_id);
-
-
-    // Insert other learner information
-    $sql = "INSERT INTO tbl_userinfo (firstname, middlename, lastname, birthday, gender) VALUES ('$firstname', '$middlename', '$lastname', '$birthday', '$gender')";
-    if ($conn->query($sql) === TRUE) {
-        $user_info_id = $conn->insert_id;
-
-        $sql = "INSERT INTO tbl_usercredentials (email, contact) VALUES ('$email', '$phone')";
+        // Determine the next available learner_auto_id
+        $result = $conn->query("SELECT MAX(SUBSTRING(learner_auto_id, 4)) AS max_id FROM tbl_learner");
+        $row = $result->fetch_assoc();
+        $next_id = intval($row['max_id']) + 1;
+        $learner_auto_id = 'lrn' . sprintf('%03d', $next_id); // Format ID with leading zeros
+    
+        // Insert learner_auto_id into tbl_learner_id
+        $sql = "INSERT INTO tbl_learner_id (learner_auto_id) VALUES ('$learner_auto_id')";
         if ($conn->query($sql) === TRUE) {
-            $usercredentials_id = $conn->insert_id;
+            $learner_id = $conn->insert_id;
 
-            $sql = "INSERT INTO tbl_learner_guardian_info (firstname, middlename, lastname, birthday, gender) VALUES ('$gfirstname', '$gmiddlename', '$glastname', '$gbirthday', '$ggender')";
+            // Insert other learner information
+            $sql = "INSERT INTO tbl_userinfo (firstname, middlename, lastname, birthday, gender) VALUES ('$firstname', '$middlename', '$lastname', '$birthday' ,'$gender')";
             if ($conn->query($sql) === TRUE) {
-                $guardian_info_id = $conn->insert_id;
-
-                $sql = "INSERT INTO tbl_learner_guardian_contact (contact_num, email, address) VALUES ('$gnumber', '$gemail', '$gaddress')";
+                $user_info_id = $conn->insert_id;
+                $sql = "INSERT INTO tbl_usercredentials (email, contact) VALUES ('$email', '$phone')";
                 if ($conn->query($sql) === TRUE) {
-                    $guardian_contact_id = $conn->insert_id;
-
-                    $sql = "INSERT INTO tbl_address (address) VALUES ('$address')";
+                    $usercredentials_id = $conn->insert_id;
+                    $sql = "INSERT INTO tbl_learner_guardian_info (firstname, middlename, lastname, birthday, gender) VALUES ('$gfirstname', '$gmiddlename', '$glastname', '$gbirthday', '$ggender')";
                     if ($conn->query($sql) === TRUE) {
-                        $address_id = $conn->insert_id;
-
-                        $sql = "INSERT INTO tbl_user_level (level) VALUES ('LEARNER')";
+                        $guardian_info_id = $conn->insert_id;
+                        $sql = "INSERT INTO tbl_learner_guardian_contact (contact_num, email, address) VALUES ('$gnumber', '$gemail', '$gaddress')";
                         if ($conn->query($sql) === TRUE) {
-                            $level_id = $conn->insert_id;
-
-                            $sql = "INSERT INTO tbl_user_status (status) VALUES ('1')";
+                            $guardian_contact_id = $conn->insert_id;
+                            $sql = "INSERT INTO tbl_address (address) VALUES ('$address')";
                             if ($conn->query($sql) === TRUE) {
-                                $status_id = $conn->insert_id;
-
-                                // Insert learner information into tbl_learner with the generated learner_auto_id
-                                $sql = "INSERT INTO tbl_student (student_auto_id, lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
-            VALUES ('$next_id', '$lrn', '$user_id', '$guardian_info_id', '$guardian_contact_id', '$address_id', '$level_id', '$status_id', '$account_id', '$usercredentials_id')";
+                                $address_id = $conn->insert_id;
+                                $sql = "INSERT INTO tbl_user_level (level) VALUES ('LEARNER')";
                                 if ($conn->query($sql) === TRUE) {
-                                    header("Location: admin_student.php?msg=Account added successfully");
-                                    exit();
-                                } else {
-                                    echo "Error: " . $sql . "<br>" . $conn->error;
+                                    $level_id = $conn->insert_id;
+                                    $sql = "INSERT INTO tbl_user_status (status) VALUES ('1')";
+                                    if ($conn->query($sql) === TRUE) {
+                                        $status_id = $conn->insert_id;
+                                        $sql = "INSERT INTO tbl_accounts (email, password) VALUES ('$email', '$encrypted')";
+                                        if ($conn->query($sql) === TRUE) {
+                                            $account_id = $conn->insert_id;
+                                            // Insert learner information into tbl_learner
+                                            $sql = "INSERT INTO tbl_learner (lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
+                                                    VALUES ('$learner_id', '$user_info_id', '$guardian_info_id', '$guardian_contact_id', '$address_id', '$level_id', '$status_id', '$account_id', '$usercredentials_id')";
+                                            if ($conn->query($sql) === TRUE) {
+                                                echo "<script>alert('Added successfully');</script>";
+                                                echo "<script> window.location.href='Teacher_AddStudent.php'; </script>" ;
+                                            
+                                            } else {
+                                                echo "Error: " . $sql . "<br>" . $conn->error;
+                                            }
+                                            
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
     }
-}
-?>
+    ?>
 
 
             <div class="col-">
@@ -225,7 +235,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        LRN should only contains numbers only and should not be empty
+                                        Please enter numeric values only.
                                     </div>
                                 </div>
 
@@ -238,7 +248,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        First Name should only contain letters and should not be empty
+                                        First Name should only contain letters
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -250,7 +260,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Middle Name should only contain letters and should not be empty
+                                        Middle Name should only contain letters
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -263,7 +273,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Last Name should only contain letters and should not be empty
+                                        Last Name should only contain letters
                                     </div>
                                 </div>
 
@@ -331,11 +341,9 @@ if (isset($_POST['btnAdd'])) {
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-5">
-                                    <label for="inputBarangay" class="form-label">Phone Number <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="phone" required>
+                                    <label class="form-label">Phone Number <sup>*</sup></label>
+                                    <input type="text" class="form-control" data-toggle="input-mask"
+                                        data-mask-format="00000000000" name="phone" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -364,7 +372,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        First Name should only contain letters and should not be empty
+                                        First Name should only contain letters
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -377,7 +385,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Middle Name should only contain letters and should not be empty
+                                        Middle Name should only contain letters
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -390,7 +398,7 @@ if (isset($_POST['btnAdd'])) {
                                         Looks good!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Last Name should only contain letters and should not be empty
+                                        Last Name should only contain letters
                                     </div>
                                 </div>
 
@@ -447,8 +455,7 @@ if (isset($_POST['btnAdd'])) {
                                     <label for="inputCity" class="form-label">Email Address <sup>*
 
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="inputCity"
-                                        name="gemail" required>
+                                    <input type="email" class="form-control" id="inputCity" name="gemail" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -457,11 +464,9 @@ if (isset($_POST['btnAdd'])) {
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-5">
-                                    <label for="inputBarangay" class="form-label">Phone Number <sup>*
-
-                                        </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="gphoneNumber" required>
+                                    <label class="form-label">Phone Number <sup>*</sup></label>
+                                    <input type="text" class="form-control" data-toggle="input-mask"
+                                        data-mask-format="00000000000" name="gphoneNumber" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -472,6 +477,8 @@ if (isset($_POST['btnAdd'])) {
                             </div>
                             <input type="submit" class="btn btn-primary" value="Create Account" name="submit">
                         </form>
+
+
 
 
 
@@ -496,7 +503,8 @@ if (isset($_POST['btnAdd'])) {
                         <div class="col-md-6">
                             <script>
                             document.write(new Date().getFullYear())
-                            </script>
+                            </script>202320232023202320232023 © Hyper -
+                            Coderthemes.com
                         </div>
                         <div class="col-md-6">
                             <div class="text-md-end footer-links d-none d-md-block">

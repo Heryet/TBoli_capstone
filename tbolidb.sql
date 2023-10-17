@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Oct 15, 2023 at 05:14 PM
+=======
+-- Generation Time: Oct 16, 2023 at 06:10 AM
+>>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -808,9 +812,48 @@ CREATE TABLE `tbl_quiz_score` (
   `quiz_score_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
   `score` int(11) NOT NULL,
+<<<<<<< HEAD
   `max_score` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+=======
+  `max_score` int(11) NOT NULL,
+  `attempts` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_quiz_score`
+--
+
+INSERT INTO `tbl_quiz_score` (`quiz_score_id`, `question_id`, `score`, `max_score`, `attempts`) VALUES
+(1, 0, 3, 3, 0),
+(2, 0, 3, 3, 0),
+(3, 0, 3, 3, 0),
+(4, 0, 3, 3, 0),
+(5, 0, 3, 3, 0),
+(6, 6, 3, 3, 2),
+(7, 6, 3, 3, 2),
+(8, 0, 3, 3, 0),
+(9, 0, 3, 3, 0),
+(10, 6, 3, 3, 2),
+(11, 0, 3, 3, 0),
+(12, 0, 3, 3, 0),
+(13, 6, 3, 3, 2),
+(14, 6, 3, 3, 2),
+(15, 6, 3, 3, 2),
+(16, 6, 3, 3, 3),
+(17, 6, 3, 3, 2),
+(18, 6, 3, 3, 2),
+(19, 6, 3, 3, 1),
+(20, 6, 3, 3, 1),
+(21, 6, 3, 3, 1),
+(22, 6, 3, 3, 1),
+(23, 6, 3, 3, 1),
+(24, 6, 3, 3, 1),
+(25, 6, 3, 3, 1),
+(26, 6, 3, 3, 1);
+
+>>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
 -- --------------------------------------------------------
 
 --
@@ -1616,7 +1659,11 @@ ALTER TABLE `tbl_quiz_question`
 -- AUTO_INCREMENT for table `tbl_quiz_score`
 --
 ALTER TABLE `tbl_quiz_score`
+<<<<<<< HEAD
   MODIFY `quiz_score_id` int(11) NOT NULL AUTO_INCREMENT;
+=======
+  MODIFY `quiz_score_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+>>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
 
 --
 -- AUTO_INCREMENT for table `tbl_quiz_student`
