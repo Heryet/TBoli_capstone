@@ -181,8 +181,8 @@ $user_id = $_SESSION['user_id'];
                                     $sql = "INSERT INTO tbl_admin (admin_auto_id, user_id, credentials_id, address_id, level_id, status_id, account_id) 
                                     VALUES ('$admin_auto_id', '$user_info_id', '$credentials_id', '$address_id', '$level_id', '$status_id', '$account_id')";
                                     if ($conn->query($sql) === TRUE) {
-                                        header("Location:admin_addAccount.php?msg=Account added successfully");
-                                        exit();
+                                        echo "<script>alert('Added successfully');</script>";
+                                        echo "<script>window.location.href='admin_addnewadmin.php';</script>";
                                     }
                                 }
                             }

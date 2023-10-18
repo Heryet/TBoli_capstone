@@ -5,7 +5,7 @@ $user_id = $_SESSION['user_id'];
 if (isset($_GET['logout'])) {
     session_unset();
     session_destroy();
-    header("Location: login.php?Logout");
+    header("Location: Administrator_login.php?Logout");
     exit();
 }
 ?>
@@ -34,18 +34,16 @@ if (isset($_GET['logout'])) {
 
 </head>
 
-<body class="show"
-    data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: false}"
-    data-leftbar-theme="dark" data-leftbar-compact-mode="condensed" style="visibility: visible;">
+<body <?php include('dataconfig.php') ?>>
     <!-- Begin page -->
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
-        <div class="leftside-menu menuitem-active">
+        <div class="leftside-menu">
 
             <!-- LOGO -->
-            <a href="index.html" class="logo text-center logo-light">
+            <a href="index.php" class="logo text-center logo-light">
                 <span class="logo-lg">
-                    <img src="assets/images/logo.png" alt="" height="16">
+                    <img src="assets/images/" alt="" height="16">
                 </span>
                 <span class="logo-sm">
                     <img src="assets/images/logo_sm.png" alt="" height="16">
@@ -53,7 +51,7 @@ if (isset($_GET['logout'])) {
             </a>
 
             <!-- LOGO -->
-            <a href="index.html" class="logo text-center logo-dark">
+            <a href="index.php" class="logo text-center logo-dark">
                 <span class="logo-lg">
                     <img src="assets/images/logo-dark.png" alt="" height="16">
                 </span>
@@ -62,18 +60,20 @@ if (isset($_GET['logout'])) {
                 </span>
             </a>
 
-            <div class="h-100 show" id="leftside-menu-container" data-simplebar="init">
+            <div class="h-100" id="leftside-menu-container" data-simplebar="init">
                 <div class="simplebar-wrapper" style="margin: 0px;">
                     <div class="simplebar-height-auto-observer-wrapper">
                         <div class="simplebar-height-auto-observer"></div>
                     </div>
                     <div class="simplebar-mask">
                         <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                            <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;">
+                            <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;">
                                 <div class="simplebar-content" style="padding: 0px;">
 
                                     <!--- Sidemenu -->
-                                    <?php include("admin_sidemenu.php") ?>
+                                    <?php include('admin_sidemenu.php') ?>
+
+
                                     <!-- End Sidebar -->
 
                                     <div class="clearfix"></div>
@@ -82,14 +82,14 @@ if (isset($_GET['logout'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="simplebar-placeholder" style="width: 70px; height: 1150px;"></div>
+                    <div class="simplebar-placeholder" style="width: 260px; height: 1512px;"></div>
                 </div>
                 <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
                     <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
                 </div>
-                <div class="simplebar-track simplebar-vertical" style="visibility: hidden;">
+                <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
                     <div class="simplebar-scrollbar"
-                        style="height: 0px; transform: translate3d(0px, 0px, 0px); display: none;"></div>
+                        style="height: 344px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
                 </div>
             </div>
             <!-- Sidebar -left -->
@@ -101,28 +101,149 @@ if (isset($_GET['logout'])) {
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
 
-        <div class="content-page">
+        <div class="content-page"> 
             <div class="content">
                 <!-- Topbar Start -->
-                <?php include("admin_topbar.php") ?>
+                <?php include('admin_topbar.php') ?>
                 <!-- end Topbar -->
 
+                <!-- Start Content-->
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                                        <li class="breadcrumb-item active">Starter</li> -->
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Modules</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                </div> <!-- container -->
+
+            </div> <!-- content -->
+
+            
 
 
 
-                <!-- /End-bar -->
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="row mt-3" >
+                        <div class="col-md-6 col-lg-3">
+
+                                                <!-- Simple card -->
+                                                <div class="card d-block">
+                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Literacy</h5>
+                                <p class="card-text">When: Feb 13 - June 2024</p><a href="#"
+                                    class="btn btn-primary">View Module</a>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                        </div>
 
 
-                <!-- bundle -->
-                <script src="assets/js/vendor.min.js"></script>
-                <script src="assets/js/app.min.js"></script>
+                        <div class="col-md-6 col-lg-3">
 
-                <!-- quill js -->
-                <script src="assets/js/vendor/quill.min.js"></script>
-                <!-- quill Init js-->
-                <script src="assets/js/pages/demo.quilljs.js"></script>
+                        <!-- Simple card -->
+                        <div class="card d-block">
+                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Numeracy</h5>
+                                <p class="card-text">When: Feb 13 - June 2024</p><a href="#"
+                                    class="btn btn-primary">View Module</a>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                        </div><!-- end col -->
+
+                        
+
+                        </div>
+                    </div>
+                    
+                <div class="col-sm-3 border-start border-top border-dark rounded-top">
+                    <div class="col-sm-12 mt-3" >
+                        <div class="card" >
+                            <div class="card-body" ><h5>TO-DO</h5> 
+                                
+                                        <p>
+                                        <a class="" data-bs-toggle="collapse"
+                                            href="#todo" aria-expanded="false"
+                                            aria-controls="todo">
+                                            <span class="uil-file-check">Assignment</span>
+                                        </a>
+                                    </p>
+                                    <div class="collapse" id="todo">
+                                        <div class="card card-body mb-0">
+                                        
+                                        <div class="card ribbon-box align-middle " >
+                                        <div class="body-card">
+                                        <div class="ribbon ribbon-success float-end"><i class="mdi mdi-access-point me-1"></i>1</div>
+                                           <a href="Literacy Task Performace">01 Literacy Task Performace</a> 
+                                        </div> <!-- end card-body -->
+                                        </div>
+                                        
+                                        
+                                            
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Start -->
+            <!-- <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <script>
+                            document.write(new Date().getFullYear())
+                            </script> © Hyper - Coderthemes.com
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-md-end footer-links d-none d-md-block">
+                                <a href="javascript: void(0);">About</a>
+                                <a href="javascript: void(0);">Support</a>
+                                <a href="javascript: void(0);">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer> -->
+            <!-- end Footer -->
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
 
 
+    </div>
+    <!-- END wrapper -->
+
+
+
+    <!-- Start right sidebar -->
+    <?php //include('Teacher_Settings.php'); ?>
+    <!-- End right side bar -->
+
+
+
+    <!-- bundle -->
+    <script src="assets/js/vendor.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
 
 </body>
 
