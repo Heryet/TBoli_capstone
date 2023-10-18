@@ -75,11 +75,20 @@ $user_id = $_SESSION['user_id'];
 
                     <!-- Add button to open the modal -->
                     <div class="row">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                data-bs-target="#addQuizModal">Add Quiz</button>
-                        </div>
-                    </div>
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+            data-bs-target="#addQuizModal">Add Quiz</button>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="searchButton">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
                     <!-- Modal for adding a new quiz assignment -->
                     <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel"
@@ -341,6 +350,42 @@ $user_id = $_SESSION['user_id'];
         </div>
 
 
+        <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const tableRows = document.querySelectorAll('.table tbody tr');
+
+        searchButton.addEventListener('click', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            for (const row of tableRows) {
+                const cells = row.querySelectorAll('td');
+                let match = false;
+
+                for (const cell of cells) {
+                    const cellText = cell.textContent.toLowerCase();
+                    if (cellText.includes(searchTerm)) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+
+        searchInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+    });
+</script>
 
 
 

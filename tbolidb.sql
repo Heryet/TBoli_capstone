@@ -3,9 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
+-- Generation Time: Oct 15, 2023 at 05:14 PM
+=======
 -- Generation Time: Oct 16, 2023 at 06:10 AM
+>>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -808,6 +812,11 @@ CREATE TABLE `tbl_quiz_score` (
   `quiz_score_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
   `score` int(11) NOT NULL,
+<<<<<<< HEAD
+  `max_score` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+=======
   `max_score` int(11) NOT NULL,
   `attempts` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -844,6 +853,7 @@ INSERT INTO `tbl_quiz_score` (`quiz_score_id`, `question_id`, `score`, `max_scor
 (25, 6, 3, 3, 1),
 (26, 6, 3, 3, 1);
 
+>>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
 -- --------------------------------------------------------
 
 --
@@ -1649,7 +1659,11 @@ ALTER TABLE `tbl_quiz_question`
 -- AUTO_INCREMENT for table `tbl_quiz_score`
 --
 ALTER TABLE `tbl_quiz_score`
+<<<<<<< HEAD
+  MODIFY `quiz_score_id` int(11) NOT NULL AUTO_INCREMENT;
+=======
   MODIFY `quiz_score_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+>>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
 
 --
 -- AUTO_INCREMENT for table `tbl_quiz_student`
