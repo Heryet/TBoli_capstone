@@ -140,7 +140,7 @@ if (isset($_GET['logout'])) {
                             <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">Literacy</h5>
-                                <p class="card-text">When: Feb 13 - June 2024</p><a href="learner_Literacy_Module.php"
+                                <p class="card-text">When: Feb 13 - June 2024</p><a href="Learner_Literacy_Module.php"
                                     class="btn btn-primary">View Module</a>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -154,7 +154,7 @@ if (isset($_GET['logout'])) {
                             <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">Numeracy</h5>
-                                <p class="card-text">When: Feb 13 - June 2024</p><a href="learner_Numeracy_Module.php"
+                                <p class="card-text">When: Feb 13 - June 2024</p><a href="Learner_Numeracy_Module.php"
                                     class="btn btn-primary">View Module</a>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
@@ -216,7 +216,7 @@ if (isset($_GET['logout'])) {
             </div>
 
             <!-- Footer Start -->
-            <footer class="footer">
+            <!-- <footer class="footer">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6">
@@ -233,7 +233,7 @@ if (isset($_GET['logout'])) {
                         </div>
                     </div>
                 </div>
-            </footer>
+            </footer> -->
             <!-- end Footer -->
 
         </div>
@@ -249,7 +249,7 @@ if (isset($_GET['logout'])) {
 
 
     <!-- Start right sidebar -->
-    <?php include('leanerSettings.php'); ?>
+    <?php include('learnerSettings.php'); ?>
     <!-- End right side bar -->
 
 

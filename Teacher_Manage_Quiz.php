@@ -56,7 +56,7 @@ $user_id = $_SESSION['user_id'];
         <div class="content-page">
             <div class="content">
                 <!-- Topbar Start -->
-                <?php include('teacher_topbar.php') ?>
+                <?php include('teacher_topbar.php')?>
 
                 <!-- Start Content-->
                 <!-- Add button to open the modal -->

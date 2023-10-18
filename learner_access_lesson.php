@@ -177,6 +177,10 @@ $user_id = $_SESSION['user_id'];
 
             </div> <!-- content -->
 
+            <!-- Start right sidebar -->
+    <?php include('learnerSettings.php'); ?>
+    <!-- End right side bar -->
+
 
             <!-- bundle -->
             <script src="assets/js/vendor.min.js"></script>
