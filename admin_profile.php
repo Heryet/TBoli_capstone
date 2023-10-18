@@ -1,6 +1,7 @@
 <?php
 session_start();
 $user_id = $_SESSION['user_id'];
+
 ?>
 
 
@@ -23,6 +24,7 @@ include 'profileinfo.php';
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
     <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" disabled="disabled">
 </head>
+<<<<<<< HEAD
 
 <body <?php include('dataconfig.php') ?>>
     <!-- Begin page -->
@@ -62,23 +64,165 @@ include 'profileinfo.php';
                                     <!-- end Help Box -->
                                     <!-- End Sidebar -->
                                     <div class="clearfix"></div>
+=======
+<?php
+include 'dbcon.php';
+
+$sql = "SELECT tbl_userinfo.user_id, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname, 
+tbl_userinfo.birthday, tbl_userinfo.gender, tbl_usercredentials.email, tbl_usercredentials.contact, tbl_address.*
+FROM tbl_userinfo
+JOIN tbl_usercredentials ON tbl_userinfo.user_id = '$user_id'
+JOIN tbl_address ON tbl_userinfo.user_id = tbl_address.address_id;";
+
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $firstname = $row['firstname'];
+        $middlename = $row['middlename'];
+        $lastname = $row['lastname'];
+        $name = $firstname . ' ' . $middlename . ' ' . $lastname;
+        $birthday = $row['birthday'];
+        $gender = $row['gender'];
+        $email = $row['email'];
+        $contact = $row['contact'];
+        $address = $row['address'];
+    }
+}
+?>
+<div class="container">
+    <form action="profile_update.php" method="POST">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <label for="profilePicture">
+                                        <img id="profileImage" src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                            alt="Maxwell Admin">
+                                    </label>
+                                    <input type="file" class="form-control-file" id="profilePicture"
+                                        style="display: none;">
+                                </div>
+                                <div class="form-group">
+                                    <h5 class="user-name">
+                                        <?php echo $name?>
+                                    </h5>
+>>>>>>> 12e09c54707996372dbdab6211120947a22e9ea8
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="simplebar-required placeholder" style="width: 260px; height: 234px;"></div>
                 </div>
+<<<<<<< HEAD
                 <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
                     <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
                 </div>
                 <div class="simplebar-track simplebar-vertical" style="visibility: hidden;">
                     <div class="simplebar-scrollbar"
                         style="height: 0px; transform: translate3d(0px, 0px, 0px); display: none;">
+=======
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">First Name</label>
+                                    <input type="text" class="form-control" id="fullName" name="firstname"
+                                        placeholder="<?php echo $firstname ?>">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">Middle Name</label>
+                                    <input type="text" class="form-control" id="fullName" name="middlename"
+                                        placeholder="<?php echo $middlename ?>">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">Last Name</label>
+                                    <input type="text" class="form-control" id="fullName" name="lastname"
+                                        placeholder="<?php echo $lastname ?>">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="website">Gender</label>
+                                    <input type="text" class="form-control" id="website" name="gender" placeholder="<?php echo $gender ?>">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="website">Birthdate</label>
+                                    <input type="text" class="form-control" id="website" name="birthday" placeholder="<?php echo $birthday ?>">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="eMail">Email</label>
+                                    <input type="email" class="form-control" id="eMail" name="email" placeholder="<?php echo $email ?>">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="number" class="form-control" id="phone" name="contact_number"
+                                        placeholder="<?php echo $contact ?>">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="<?php echo $address ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Change Password</h6>
+                            </div>
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">New Password</label>
+                                    <input type="password" class="form-control" id="fullName" name="password"
+                                        placeholder="Enter new password">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">Confirm Password</label>
+                                    <input type="text" class="form-control" id="fullName" name="cfpassword"
+                                        placeholder="Confirm password">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right">
+                                    <button type="button" id="submit" name="submit" class="btn btn-secondary"
+                                        onclick="window.history.back();">Cancel</button>
+                                    <button type="submit" id="submit" name="btnUpdate"
+                                        class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+>>>>>>> 12e09c54707996372dbdab6211120947a22e9ea8
                     </div>
                 </div>
             </div>
             <!-- Sidebar -left -->
         </div>
+<<<<<<< HEAD
         <!-- Left Sidebar End -->
         <!-- ============================================================== --> 
         <!-- ============================================================== -->
@@ -171,6 +315,13 @@ include 'profileinfo.php';
 
                         <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel"
                             aria-labelledby="v-pills-profile-tab">
+=======
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+>>>>>>> 12e09c54707996372dbdab6211120947a22e9ea8
 
 
                             <h2>Contact and basic Info</h2>
