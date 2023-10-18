@@ -168,50 +168,50 @@ $user_id = $_SESSION['user_id'];
                                         if ($result && mysqli_num_rows($result) > 0) {
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 ?>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="customCheck2">
-                                                            <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['lrn'] ?>
-                                                    </td>
-                                                    <td class="table-user">
-                                                        <img src="assets/images/users/avatar-4.jpg" alt="table-user"
-                                                            class="me-2 rounded-circle">
-                                                        <a href="javascript:void(0);" class="text-body fw-semibold">
-                                                            <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname'] ?>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['birthday'] ?>
-                                                        </span>
-                                                    </td>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="customCheck2">
+                                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['lrn'] ?>
+                                            </td>
+                                            <td class="table-user">
+                                                <img src="assets/images/users/avatar-4.jpg" alt="table-user"
+                                                    class="me-2 rounded-circle">
+                                                <a href="javascript:void(0);" class="text-body fw-semibold">
+                                                    <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname'] ?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="fw-semibold">
+                                                    <?php echo $row['birthday'] ?>
+                                                </span>
+                                            </td>
 
-                                                    <td>
-                                                        <a href="teacher_view_student.php?user_id=<?php echo $row['user_id'] ?>"
-                                                            class="action-icon">
-                                                            <i class="uil-eye"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <?php
+                                            <td>
+                                                <a href="teacher_view_student.php?user_id=<?php echo $row['user_id'] ?>"
+                                                    class="action-icon">
+                                                    <i class="uil-eye"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <?php
                                                         if ($row['status'] == 1) {
                                                             ?>
-                                                            <span class="badge bg-success">Active</span>
-                                                            <?php
+                                                <span class="badge bg-success">Active</span>
+                                                <?php
                                                         } else {
                                                             ?>
-                                                            <span class="badge bg-warning">Inactive</span>
-                                                            <?php
+                                                <span class="badge bg-warning">Inactive</span>
+                                                <?php
                                                         }
                                                         ?>
-                                                    </td>
-                                                </tr>
-                                                <?php
+                                            </td>
+                                        </tr>
+                                        <?php
                                             }
                                         }
                                         ?>

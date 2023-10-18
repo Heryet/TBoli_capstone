@@ -127,83 +127,88 @@ $user_id = $_SESSION['user_id'];
             </div> <!-- content -->
 
             <?php
-include 'dbcon.php';
+                include 'dbcon.php';
 
-if (isset($_POST['btnAdd'])) {
-    $lrn = $_POST['lrn'];
-    $firstname = $_POST['firstname'];
-    $middlename = $_POST['middlename'];
-    $lastname = $_POST['lastname'];
-    $birthday = $_POST['birthday'];
-    $gender = $_POST['gender'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $gfirstname = $_POST['gfirstname'];
-    $gmiddlename = $_POST['gmiddlename'];
-    $glastname = $_POST['glastname'];
-    $gbirthday = $_POST['gbirthday'];
-    $ggender = $_POST['ggender'];
-    $gnumber = $_POST['gphoneNumber'];
-    $gemail = $_POST['gemail'];
-    $gaddress = $_POST['gaddress'];
-    $address = $_POST['address'];
-    
-    // Determine the next available learner_auto_id
-    $result = $conn->query("SELECT MAX(SUBSTRING(student_auto_id, 4)) AS max_id FROM tbl_student");
-    $row = $result->fetch_assoc();
-    $next_id = intval($row['max_id']) + 1;
-    $student_auto_id = 'stud' . sprintf('%03d', $next_id);
-
-
-    // Insert other learner information
-    $sql = "INSERT INTO tbl_userinfo (firstname, middlename, lastname, birthday, gender) VALUES ('$firstname', '$middlename', '$lastname', '$birthday', '$gender')";
-    if ($conn->query($sql) === TRUE) {
-        $user_info_id = $conn->insert_id;
-
-        $sql = "INSERT INTO tbl_usercredentials (email, contact) VALUES ('$email', '$phone')";
-        if ($conn->query($sql) === TRUE) {
-            $usercredentials_id = $conn->insert_id;
-
-            $sql = "INSERT INTO tbl_learner_guardian_info (firstname, middlename, lastname, birthday, gender) VALUES ('$gfirstname', '$gmiddlename', '$glastname', '$gbirthday', '$ggender')";
-            if ($conn->query($sql) === TRUE) {
-                $guardian_info_id = $conn->insert_id;
-
-                $sql = "INSERT INTO tbl_learner_guardian_contact (contact_num, email, address) VALUES ('$gnumber', '$gemail', '$gaddress')";
-                if ($conn->query($sql) === TRUE) {
-                    $guardian_contact_id = $conn->insert_id;
-
-                    $sql = "INSERT INTO tbl_address (address) VALUES ('$address')";
+                if (isset($_POST['submit'])) {
+                    $lrn = $_POST['lrn'];
+                    $firstname = $_POST['firstname'];
+                    $middlename = $_POST['middlename'];
+                    $lastname = $_POST['lastname'];
+                    $birthday = $_POST['birthday'];
+                    $password_birthday = preg_replace("/[^a-zA-Z0-9]/", "", $birthday);
+                    $gender = $_POST['gender'];
+                    $email = $_POST['email'];
+                    $phone = $_POST['phone'];
+                    $gfirstname = $_POST['gfirstname'];
+                    $gmiddlename = $_POST['gmiddlename'];
+                    $glastname = $_POST['glastname'];
+                    $gbirthday = $_POST['gbirthday'];
+                    $ggender = $_POST['ggender'];
+                    $gnumber = $_POST['gphoneNumber'];
+                    $gemail = $_POST['gemail'];
+                    $gaddress = $_POST['gaddress'];
+                    $address = $_POST['address'];
+                    $password = $lastname . $password_birthday;
+                    $encrypted = password_hash($password, PASSWORD_DEFAULT);
+                    
+                    // Determine the next available learner_auto_id
+                    $result = $conn->query("SELECT MAX(SUBSTRING(learner_auto_id, 4)) AS max_id FROM tbl_learner");
+                    $row = $result->fetch_assoc();
+                    $next_id = intval($row['max_id']) + 1;
+                    $learner_auto_id = 'lrn' . sprintf('%03d', $next_id); // Format ID with leading zeros
+                    
+                    // Insert learner_auto_id into tbl_learner_id
+                    $sql = "INSERT INTO tbl_learner_id (learner_auto_id) VALUES ('$learner_auto_id')";
                     if ($conn->query($sql) === TRUE) {
-                        $address_id = $conn->insert_id;
+                        $learner_id = $conn->insert_id;
 
-                        $sql = "INSERT INTO tbl_user_level (level) VALUES ('LEARNER')";
+                        // Insert other learner information
+                        $sql = "INSERT INTO tbl_userinfo (firstname, middlename, lastname, birthday, gender) VALUES ('$firstname', '$middlename', '$lastname', '$birthday', '$gender')";
                         if ($conn->query($sql) === TRUE) {
-                            $level_id = $conn->insert_id;
-
-                            $sql = "INSERT INTO tbl_user_status (status) VALUES ('1')";
+                            $user_info_id = $conn->insert_id;
+                            $sql = "INSERT INTO tbl_usercredentials (email, contact) VALUES ('$email', '$phone')";
                             if ($conn->query($sql) === TRUE) {
-                                $status_id = $conn->insert_id;
-
-                                // Insert learner information into tbl_learner with the generated learner_auto_id
-                                $sql = "INSERT INTO tbl_student (student_auto_id, lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
-            VALUES ('$next_id', '$lrn', '$user_id', '$guardian_info_id', '$guardian_contact_id', '$address_id', '$level_id', '$status_id', '$account_id', '$usercredentials_id')";
+                                $usercredentials_id = $conn->insert_id;
+                                $sql = "INSERT INTO tbl_learner_guardian_info (firstname, middlename, lastname, birthday, gender) VALUES ('$gfirstname', '$gmiddlename', '$glastname', '$gbirthday', '$ggender')";
                                 if ($conn->query($sql) === TRUE) {
-                                    header("Location: admin_student.php?msg=Account added successfully");
-                                    exit();
-                                } else {
-                                    echo "Error: " . $sql . "<br>" . $conn->error;
+                                    $guardian_info_id = $conn->insert_id;
+                                    $sql = "INSERT INTO tbl_learner_guardian_contact (contact_num, email, address) VALUES ('$gnumber', '$gemail', '$gaddress')";
+                                    if ($conn->query($sql) === TRUE) {
+                                        $guardian_contact_id = $conn->insert_id;
+                                        $sql = "INSERT INTO tbl_address (address) VALUES ('$address')";
+                                        if ($conn->query($sql) === TRUE) {
+                                            $address_id = $conn->insert_id;
+                                            $sql = "INSERT INTO tbl_user_level (level) VALUES ('LEARNER')";
+                                            if ($conn->query($sql) === TRUE) {
+                                                $level_id = $conn->insert_id;
+                                                $sql = "INSERT INTO tbl_user_status (status) VALUES ('1')";
+                                                if ($conn->query($sql) === TRUE) {
+                                                    $status_id = $conn->insert_id;
+                                                    $sql = "INSERT INTO tbl_accounts (email, password) VALUES ('$email', '$encrypted')";
+                                                    if ($conn->query($sql) === TRUE) {
+                                                        $account_id = $conn->insert_id;
+                                                        // Insert learner information into tbl_learner
+                                                        $sql = "INSERT INTO tbl_learner (lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
+                                                                VALUES ('$learner_id', '$user_info_id', '$guardian_info_id', '$guardian_contact_id', '$address_id', '$level_id', '$status_id', '$account_id', '$usercredentials_id')";
+                                                        if ($conn->query($sql) === TRUE) {
+                                                            echo "<script>alert('Added successfully');</script>";
+                                                            echo "<script>window.location.href='admin_addnewstudent.php';</script>"; 
+                                                        } else {
+                                                            echo "Error: " . $sql . "<br>" . $conn->error;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
+                    } else {
+                        echo "Error: " . $sql . "<br>" . $conn->error;
                     }
                 }
-            }
-        }
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
-?>
+                ?>
 
 
             <div class="col-">

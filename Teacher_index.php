@@ -98,7 +98,7 @@ if (isset($_GET['logout'])) {
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
 
-        <div class="content-page">
+        <div class="content-page"> 
             <div class="content">
                 <!-- Topbar Start -->
                 <?php include('teacher_topbar.php') ?>
