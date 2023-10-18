@@ -1,6 +1,7 @@
 <?php
 session_start();
 $user_id = $_SESSION['user_id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,7 @@ $user_id = $_SESSION['user_id'];
 
 
     <title>Profile</title>
-    <meta disabled name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
     body {
@@ -85,6 +86,31 @@ $user_id = $_SESSION['user_id'];
     }
     </style>
 </head>
+<?php
+include 'dbcon.php';
+
+$sql = "SELECT tbl_userinfo.user_id, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname, 
+tbl_userinfo.birthday, tbl_userinfo.gender, tbl_usercredentials.email, tbl_usercredentials.contact, tbl_address.*
+FROM tbl_userinfo
+JOIN tbl_usercredentials ON tbl_userinfo.user_id = '$user_id'
+JOIN tbl_address ON tbl_userinfo.user_id = tbl_address.address_id;";
+
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $firstname = $row['firstname'];
+        $middlename = $row['middlename'];
+        $lastname = $row['lastname'];
+        $name = $firstname . ' ' . $middlename . ' ' . $lastname;
+        $birthday = $row['birthday'];
+        $gender = $row['gender'];
+        $email = $row['email'];
+        $contact = $row['contact'];
+        $address = $row['address'];
+    }
+}
+?>
 <div class="container">
     <form action="profile_update.php" method="POST">
         <div class="row gutters">
@@ -103,7 +129,7 @@ $user_id = $_SESSION['user_id'];
                                 </div>
                                 <div class="form-group">
                                     <h5 class="user-name">
-                                        <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname'] ?>
+                                        <?php echo $name?>
                                     </h5>
                                 </div>
                             </div>
@@ -121,79 +147,83 @@ $user_id = $_SESSION['user_id'];
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="fullName">First Name</label>
-                                    <input type="text" class="form-control" id="fullName" disabled name="firstname"
-                                        value="<?php echo $row['firstname'] ?>">
+                                    <input type="text" class="form-control" id="fullName" name="firstname"
+                                        placeholder="<?php echo $firstname ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="fullName">Middle Name</label>
-                                    <input type="text" class="form-control" id="fullName" disabled name="middlename"
-                                        value="<?php echo $row['middlename'] ?>">
+                                    <input type="text" class="form-control" id="fullName" name="middlename"
+                                        placeholder="<?php echo $middlename ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="fullName">Last Name</label>
-                                    <input type="text" class="form-control" id="fullName" disabled name="lastname"
-                                        value="<?php echo $row['lastname'] ?>">
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="fullName">Suffix Name</label>
-                                    <input type="text" class="form-control" id="fullName" disabled name="suffixname"
-                                        value="<?php echo $row['suffixname'] ?>">
+                                    <input type="text" class="form-control" id="fullName" name="lastname"
+                                        placeholder="<?php echo $lastname ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="website">Gender</label>
-                                    <input type="text" class="form-control" id="website" disabled name="gender"
-                                        value="<?php echo $row['gender'] ?>">
+                                    <input type="text" class="form-control" id="website" name="gender" placeholder="<?php echo $gender ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="website">Birthdate</label>
-                                    <input type="text" class="form-control" id="website" disabled name="birthday"
-                                        value="<?php echo $row['birthday'] ?>">
+                                    <input type="text" class="form-control" id="website" name="birthday" placeholder="<?php echo $birthday ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="eMail">Email</label>
-                                    <input type="email" class="form-control" id="eMail" disabled name="email"
-                                        value="<?php echo $row['email'] ?>">
+                                    <input type="email" class="form-control" id="eMail" name="email" placeholder="<?php echo $email ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
-                                    <input type="number" class="form-control" id="phone" disabled name="contact_number"
-                                        value="<?php echo $row['contact_number'] ?>">
+                                    <input type="number" class="form-control" id="phone" name="contact_number"
+                                        placeholder="<?php echo $contact ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address" disabled name="address"
-                                        value="<?php echo $row['address'] ?>">
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="<?php echo $address ?>">
                                 </div>
                             </div>
 
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Change Password</h6>
+                            </div>
 
-
-
-
-
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">New Password</label>
+                                    <input type="password" class="form-control" id="fullName" name="password"
+                                        placeholder="Enter new password">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">Confirm Password</label>
+                                    <input type="text" class="form-control" id="fullName" name="cfpassword"
+                                        placeholder="Confirm password">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-xl-12 ">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-right">
-                                    <a href="admin_profile.php"><button type="button" class="btn btn-secondary">Edit
-                                            Profile</button></a>
+                                    <button type="button" id="submit" name="submit" class="btn btn-secondary"
+                                        onclick="window.history.back();">Cancel</button>
+                                    <button type="submit" id="submit" name="btnUpdate"
+                                        class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +233,6 @@ $user_id = $_SESSION['user_id'];
         </div>
     </form>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

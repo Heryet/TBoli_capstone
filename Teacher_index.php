@@ -131,36 +131,88 @@ if (isset($_GET['logout'])) {
 
 
             <div class="row">
-                <div class="col-md-6 col-lg-3">
+                <div class="col-sm-9 border-top border-primary rounded-top">
+                    <div class="row mt-3  " >
+                        <div class="col-md-6 col-lg-4">
 
-                    <!-- Simple card -->
-                    <div class="card d-block">
-                        <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Literacy</h5>
-                            <p class="card-text">When: Feb 13 - June 2024</p><a href="Teacher_Literacy_Module.php"
-                                class="btn btn-primary">View Module</a>
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
+                                                <!-- Simple card -->
+                                                <div class="card d-block">
+                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Literacy</h5>
+                                <p class="card-text">When: Feb 13 - June 2024</p><a href="Teacher_Literacy_Module.php"
+                                    class="btn btn-primary">View Module</a>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                        </div>
+
+
+                        <div class="col-md-6 col-lg-4">
+
+                        <!-- Simple card -->
+                        <div class="card d-block">
+                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Numeracy</h5>
+                                <p class="card-text">When: Feb 13 - June 2024</p><a href="Teacher_Numeracy_Module.php"
+                                    class="btn btn-primary">View Module</a>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                        </div><!-- end col -->
+
+                        
+
+                    </div>
                 </div>
+                    
+                <div class="col-sm-3 border-start border-top border-primary rounded-top">
+                    <div class="col-sm-12 mt-3" >
+                        <div class="card" >
+                            <div class="card-body" ><h5>TO-DO</h5> 
+                                
+                                        <p>
+                                        <a class="" data-bs-toggle="collapse"
+                                            href="#todo" aria-expanded="false"
+                                            aria-controls="todo">
+                           v                 <span class="uil-file-check">Assignment to grade</span>
+                                        </a>
+                                    </p>
+                                    <div class="collapse" id="todo">
+                                        <div class="card card-body mb-0">
 
+                                        <ul class="" >
 
+                                        <li class="">
+                                            <a href="#">
+                                                
+                                                <span class="badge bg-success float-end">4</span>
+                                                <span class="h6" > Literacy </span>
+                                            </a>
+                                            
+                                        </li>
 
+                                        <li class="side-nav-item">
+                                            <a href="#">
+                                                
+                                                <span class="badge bg-success float-end">11</span>
+                                                <span class="h6" > Numeracy </span>
+                                            </a>
+                                            
+                                        </li>
+                                        </ul>
+                                        
+                                        
 
-
-
-                <div class="col-md-6 col-lg-3">
-
-                    <!-- Simple card -->
-                    <div class="card d-block">
-                        <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Numeracy</h5>
-                            <p class="card-text">When: Feb 13 - June 2024</p><a href="Teacher_Numeracy_Module.php"
-                                class="btn btn-primary">View Module</a>
-                        </div> <!-- end card-body-->
-                    </div> <!-- end card-->
-                </div><!-- end col -->
+                                        
+                                        
+                                        
+                                            
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Footer Start -->

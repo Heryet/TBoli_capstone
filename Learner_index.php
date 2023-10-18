@@ -9,12 +9,15 @@ if (isset($_GET['logout'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <!-- <title>Project Dashboard | Hyper - Responsive Bootstrap 5 Admin Dashboard</title> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
     <meta content="Coderthemes" name="author">
@@ -95,10 +98,11 @@ if (isset($_GET['logout'])) {
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
 
-        <div class="content-page">
+        <div class="content-page"> 
             <div class="content">
                 <!-- Topbar Start -->
                 <?php include('learnerTopBar.php') ?>
+                <!-- end Topbar -->
 
                 <!-- Start Content-->
                 <div class="container-fluid">
@@ -109,48 +113,128 @@ if (isset($_GET['logout'])) {
                             <div class="page-title-box">
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-
-                                        <!-- <li class="breadcrumb-item"><a href="Teacher_index.php">Dashboard</a></li> -->
-
+                                        <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                                        <li class="breadcrumb-item active">Starter</li> -->
                                     </ol>
                                 </div>
-                                <!-- <h4 class="page-title">TOPICS</h4> -->
+                                <h4 class="page-title">Modules</h4>
                             </div>
                         </div>
                     </div>
                     <!-- end page title -->
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4">
-
-                            <!-- Simple card -->
-                            <div class="card d-block">
-                                <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Literacy</h5>
-                                    <p class="card-text">When: Feb 13 - June 2024</p><a
-                                        href="Learner_Literacy_Module.php" class="btn btn-primary">View Module</a>
-                                </div> <!-- end card-body-->
-                            </div> <!-- end card-->
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-
-                            <!-- Simple card -->
-                            <div class="card d-block">
-                                <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Numeracy</h5>
-                                    <p class="card-text">When: Feb 13 - June 2024</p><a
-                                        href="Learner_Numeracy_Module.php" class="btn btn-primary">View Module</a>
-                                </div> <!-- end card-body-->
-                            </div> <!-- end card-->
-                        </div><!-- end col -->
-                    </div>
-
 
                 </div> <!-- container -->
 
             </div> <!-- content -->
 
+
+
+            <div class="row">
+                <div class="col-sm-9 border-top border-primary rounded-top">
+                    <div class="row mt-3  " >
+                        <div class="col-md-6 col-lg-4">
+
+                                                <!-- Simple card -->
+                                                <div class="card d-block">
+                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Literacy</h5>
+                                <p class="card-text">When: Feb 13 - June 2024</p><a href="learner_Literacy_Module.php"
+                                    class="btn btn-primary">View Module</a>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                        </div>
+
+
+                        <div class="col-md-6 col-lg-4">
+
+                        <!-- Simple card -->
+                        <div class="card d-block">
+                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Numeracy</h5>
+                                <p class="card-text">When: Feb 13 - June 2024</p><a href="learner_Numeracy_Module.php"
+                                    class="btn btn-primary">View Module</a>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                        </div><!-- end col -->
+
+                        
+
+                    </div>
+                </div>
+                    
+                <div class="col-sm-3 border-start border-top border-primary rounded-top">
+                    <div class="col-sm-12 mt-3" >
+                        <div class="card" >
+                            <div class="card-body" ><h5>TO-DO</h5> 
+                                
+                                        <p>
+                                        <a class="" data-bs-toggle="collapse"
+                                            href="#todo" aria-expanded="false"
+                                            aria-controls="todo">
+                           v                 <span class="uil-file-check">Assignment</span>
+                                        </a>
+                                    </p>
+                                    <div class="collapse" id="todo">
+                                        <div class="card card-body mb-0">
+
+                                        <ul class="" >
+
+                                        <li class="">
+                                            <a href="#">
+                                                
+                                                <span class="badge bg-success float-end">4</span>
+                                                <span class="h6" > Quiz 1 </span>
+                                            </a>
+                                            
+                                        </li>
+
+                                        <li class="side-nav-item">
+                                            <a href="#">
+                                                
+                                                <span class="badge bg-success float-end">11</span>
+                                                <span class="h6" > Numeracy </span>
+                                            </a>
+                                            
+                                        </li>
+                                        </ul>
+                                        
+                                        
+
+                                        
+                                        
+                                        
+                                            
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <script>
+                            document.write(new Date().getFullYear())
+                            </script> © Hyper - Coderthemes.com
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-md-end footer-links d-none d-md-block">
+                                <a href="javascript: void(0);">About</a>
+                                <a href="javascript: void(0);">Support</a>
+                                <a href="javascript: void(0);">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
 
         </div>
 
@@ -163,24 +247,16 @@ if (isset($_GET['logout'])) {
     <!-- END wrapper -->
 
 
+
     <!-- Start right sidebar -->
-    <?php include('learnerSettings.php'); ?>
+    <?php include('leanerSettings.php'); ?>
     <!-- End right side bar -->
+
+
 
     <!-- bundle -->
     <script src="assets/js/vendor.min.js"></script>
     <script src="assets/js/app.min.js"></script>
-
-    <!-- third party js -->
-    <script src="assets/js/vendor/Chart.bundle.min.js"></script>
-    <!-- third party js ends -->
-
-    <!-- demo app -->
-    <script src="assets/js/pages/demo.dashboard-projects.js"></script>
-    <!-- end demo js-->
-
-
-
 
 </body>
 

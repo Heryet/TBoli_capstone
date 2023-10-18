@@ -9,6 +9,7 @@ if (isset($_GET['logout'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,10 +98,11 @@ if (isset($_GET['logout'])) {
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
 
-        <div class="content-page">
+        <div class="content-page"> 
             <div class="content">
                 <!-- Topbar Start -->
                 <?php include('teacher_topbar.php') ?>
+                <!-- end Topbar -->
 
                 <!-- Start Content-->
                 <div class="container-fluid">
@@ -111,32 +113,21 @@ if (isset($_GET['logout'])) {
                             <div class="page-title-box">
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-
-                                        <!-- <li class="breadcrumb-item"><a href="Teacher_index.php">Dashboard</a></li> -->
-
+                                        <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                                        <li class="breadcrumb-item active">Starter</li> -->
                                     </ol>
                                 </div>
                                 <h4 class="page-title">Modules</h4>
-                                <?php
-                                if (isset($_GET["msg"])) {
-                                    $msg = $_GET["msg"];
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    ' . $msg . '
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>';
-                                }
-                                ?>
                             </div>
                         </div>
                     </div>
                     <!-- end page title -->
 
-
-
-
                 </div> <!-- container -->
 
             </div> <!-- content -->
+
 
 
             <div class="row">
@@ -172,6 +163,26 @@ if (isset($_GET['logout'])) {
                 </div><!-- end col -->
             </div>
 
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <script>
+                            document.write(new Date().getFullYear())
+                            </script> © Hyper - Coderthemes.com
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-md-end footer-links d-none d-md-block">
+                                <a href="javascript: void(0);">About</a>
+                                <a href="javascript: void(0);">Support</a>
+                                <a href="javascript: void(0);">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
 
         </div>
 
@@ -182,31 +193,18 @@ if (isset($_GET['logout'])) {
 
     </div>
     <!-- END wrapper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
+
+
 
     <!-- Start right sidebar -->
     <?php include('Teacher_Settings.php'); ?>
     <!-- End right side bar -->
 
+
+
     <!-- bundle -->
     <script src="assets/js/vendor.min.js"></script>
     <script src="assets/js/app.min.js"></script>
-
-    <!-- third party js -->
-    <script src="assets/js/vendor/Chart.bundle.min.js"></script>
-    <!-- third party js ends -->
-
-    <!-- demo app -->
-    <script src="assets/js/pages/demo.dashboard-projects.js"></script>
-    <!-- end demo js-->
-
-
-
-
-
-
 
 </body>
 

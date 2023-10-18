@@ -136,9 +136,9 @@ if (isset($_GET['logout'])) {
 
 
             <div class="row">
-                <div class="col-sm-9">
-                    <div class="row mt-3" >
-                        <div class="col-md-6 col-lg-3">
+                <div class="col-sm-9 border-top border-dark rounded-top">
+                    <div class="row mt-3  " >
+                        <div class="col-md-6 col-lg-4">
 
                                                 <!-- Simple card -->
                                                 <div class="card d-block">
@@ -152,7 +152,7 @@ if (isset($_GET['logout'])) {
                         </div>
 
 
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md-6 col-lg-4">
 
                         <!-- Simple card -->
                         <div class="card d-block">
@@ -179,18 +179,36 @@ if (isset($_GET['logout'])) {
                                         <a class="" data-bs-toggle="collapse"
                                             href="#todo" aria-expanded="false"
                                             aria-controls="todo">
-                                            <span class="uil-file-check">Assignment</span>
+                                            <span class="uil-file-check">Assignment to grade</span>
                                         </a>
                                     </p>
                                     <div class="collapse" id="todo">
                                         <div class="card card-body mb-0">
+
+                                        <ul class="" >
+
+                                        <li class="">
+                                            <a href="#">
+                                                
+                                                <span class="badge bg-success float-end">4</span>
+                                                <span class="h6" > Literacy </span>
+                                            </a>
+                                            
+                                        </li>
+
+                                        <li class="side-nav-item">
+                                            <a href="#">
+                                                
+                                                <span class="badge bg-success float-end">11</span>
+                                                <span class="h6" > Numeracy </span>
+                                            </a>
+                                            
+                                        </li>
+                                        </ul>
                                         
-                                        <div class="card ribbon-box align-middle " >
-                                        <div class="body-card">
-                                        <div class="ribbon ribbon-success float-end"><i class="mdi mdi-access-point me-1"></i>1</div>
-                                           <a href="Literacy Task Performace">01 Literacy Task Performace</a> 
-                                        </div> <!-- end card-body -->
-                                        </div>
+                                        
+
+                                        
                                         
                                         
                                             

@@ -61,7 +61,7 @@ $user_id = $_SESSION['user_id'];
                                 <div class="simplebar-content" style="padding: 0px;">
 
                                     <!--- Sidemenu -->
-                                    <?php include('learnerSideMenu.php') ?>
+                                    <?php include('admin_sidemenu.php') ?>
 
 
                                     <!-- Help Box -->
@@ -91,13 +91,13 @@ $user_id = $_SESSION['user_id'];
         <!-- Left Sidebar End -->
 
         <!-- ============================================================== -->
-        hello
+     
         <!-- ============================================================== -->
 
         <div class="content-page">
             <div class="content">
                 <!-- Topbar Start -->
-                <?php include('learnerTopBar.php') ?>
+                <?php include('admin_topbar.php') ?>
 
                 <!-- Start Content-->
                 <div class="container-fluid">

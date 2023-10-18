@@ -3,6 +3,8 @@ session_start();
 $user_id = $_SESSION['user_id'];
 ?>
 
+<?php include('profileinfo.php')?>
+
 <!DOCTYPE html>
 <html lang="en" class="menuitem-active">
 
@@ -116,6 +118,7 @@ $user_id = $_SESSION['user_id'];
                 </div> <!-- container -->
 
             </div> <!-- content -->
+            
 
 
             <div class="row">
@@ -138,6 +141,8 @@ $user_id = $_SESSION['user_id'];
                         </a>
                     </div>
                 </div> <!-- end col-->
+
+                
 
                 <div class="col-sm-10">
                     <div class="tab-content" id="v-pills-tabContent">
@@ -172,7 +177,7 @@ $user_id = $_SESSION['user_id'];
                                                                     </a>
                                                                 </div>
 
-                                                                <form class="ps-3 pe-3" action="#">
+                                                                <form method="POST" class="ps-3 pe-3"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
                                                                     <div class="mb-3">
                                                                         <label for="Current-password"
@@ -194,7 +199,7 @@ $user_id = $_SESSION['user_id'];
                                                                         <div class="input-group input-group-merge">
                                                                             <input type="password" id="new-password"
                                                                                 class="form-control"
-                                                                                placeholder="Enter your new password">
+                                                                                placeholder="Enter your new password" name="newPassword">
                                                                             <div class="input-group-text"
                                                                                 data-password="false">
                                                                                 <span class="password-eye"></span>
@@ -208,7 +213,7 @@ $user_id = $_SESSION['user_id'];
                                                                         <div class="input-group input-group-merge">
                                                                             <input type="password" id="password"
                                                                                 class="form-control"
-                                                                                placeholder="Re-type your password">
+                                                                                placeholder="Re-type your password" name="retypePassword" >
                                                                             <div class="input-group-text"
                                                                                 data-password="false">
                                                                                 <span class="password-eye"></span>
@@ -266,15 +271,15 @@ $user_id = $_SESSION['user_id'];
 
                                             <div class="mb-3 col-md-6">
                                                 <label for="FName" class="form-label">First Name </label>
-                                                <h4 class="form-control"><?php echo $row['firstname']?></h4>
+                                                <h4 class="form-control"><?php echo $firstname ?></h4>
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="MiddleName" class="form-label">Middle Name </label>
-                                                <h4 class="form-control"><?php echo $row['middlename']?></h4>
+                                                <h4 class="form-control"><?php echo $middlename ?></h4>
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="LName" class="form-label">Last Name </label>
-                                                <h4 class="form-control"><?php echo $row['lastname']?></h4>
+                                                <h4 class="form-control"><?php echo $lastname ?></h4>
                                             </div>
 
                                             <div class="mb-3 col-md-6">
@@ -286,11 +291,11 @@ $user_id = $_SESSION['user_id'];
                                         <div class="row g-2">
                                             <div class="mb-3 col-md-6">
                                                 <label for="inputbday" class="form-label">Birthdate </label>
-                                                <h4 class="form-control"><?php echo $row['birthday']?></h4>
+                                                <h4 class="form-control"><?php echo $birthday ?></h4>
                                             </div>
                                             <div class="mb-3 col-md-4">
                                                 <label for="inputGender" class="form-label">Gender </label>
-                                                <h4 class="form-control"><?php echo $row['gender']?></h4>
+                                                <h4 class="form-control"><?php echo $gender ?></h4>
                                             </div>
                                         </div>
 
@@ -299,18 +304,18 @@ $user_id = $_SESSION['user_id'];
                                         <div class="mb-3">
                                             <label for="inputAddress" class="form-label">Full address (street, barangay,
                                                 city) </label>
-                                            <h4 class="form-control">Laguilayan, Isulan, Sultan Kudarat, Purok 5</h4>
+                                            <h4 class="form-control"><?php echo $address ?></h4>
                                         </div>
 
                                         <h4>Contact Information</h4>
                                         <div class="row g-2">
                                             <div class="mb-3 col-md-6">
                                                 <label for="inputCity" class="form-label">Email </label>
-                                                <h4 class="form-control">Jillianward@gmail.com</h4>
+                                                <h4 class="form-control"><?php echo $email ?></h4>
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="inputBarangay" class="form-label">Phone Number </label>
-                                                <h4 class="form-control">09217381873</h4>
+                                                <label for="inputBarangay" class="form-label">Contact</label>
+                                                <h4 class="form-control"><?php echo $contact?></h4>
                                             </div>
                                         </div>
 

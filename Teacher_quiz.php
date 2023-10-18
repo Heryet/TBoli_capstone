@@ -141,6 +141,36 @@ $user_id = $_SESSION['user_id'];
                                     id="products-datatable">
                                     <thead class="table-light">
                                         <tr>
+                                            <th style="width: 20px;" class="border-top border-dark" >
+                                                
+                                            </th>
+                                            <th class="text-end border-end border-dark border-top">
+                                                Assignment Name
+                                            </th>
+                                            <th>
+                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
+                                                    Quiz
+                                                </h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
+                                                    Exam
+                                                </h6>
+                                            </th>
+                                            <th>
+                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
+                                                   ??
+                                                </h6>
+                                            </th>
+
+
+
+                                        </tr>
+                                        
+
+                                        
+
+                                        <tr>
                                             <th style="width: 20px;">
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="customCheck1">
@@ -149,18 +179,18 @@ $user_id = $_SESSION['user_id'];
                                             </th>
                                             <th>Student</th>
                                             <th>
-                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
-                                                    02 Quiz 1
+                                                <h6 class="text-primary"></i>
+                                                    <!-- 02 Quiz 1 -->
                                                 </h6>
                                             </th>
                                             <th>
-                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
-                                                    03 Quiz 2
+                                                <h6 class="text-primary"></i>
+                                                    <!-- 03 Quiz 2 -->
                                                 </h6>
                                             </th>
                                             <th>
-                                                <h6 class="text-primary"> <i class="uil-clipboard-alt"></i>
-                                                    01 Task Performace
+                                                <h6 class="text-primary"></i>
+                                                    <!-- 01 Task Performace -->
                                                 </h6>
                                             </th>
 

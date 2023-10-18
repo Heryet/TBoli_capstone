@@ -191,7 +191,7 @@ $user_id = $_SESSION['user_id'];
                                                         $sql = "INSERT INTO tbl_learner (lrn, user_id, guardian_info_id, guardian_contact_id, address_id, level_id, status_id, account_id, usercredentials_id) 
                                                                 VALUES ('$learner_id', '$user_info_id', '$guardian_info_id', '$guardian_contact_id', '$address_id', '$level_id', '$status_id', '$account_id', '$usercredentials_id')";
                                                         if ($conn->query($sql) === TRUE) {
-                                                            echo "<script>alert('Added successfully');</script>";
+                                                            echo "<script>alert('Added Sucessful');</script>";
                                                             echo "<script>window.location.href='Teacher_AddStudent.php';</script>"; 
                                                         } else {
                                                             echo "Error: " . $sql . "<br>" . $conn->error;
@@ -238,7 +238,7 @@ $user_id = $_SESSION['user_id'];
                                 <div class="mb-3 col-md-6">
                                     <label for="FName" class="form-label">First Name <sup>*
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="FName"
+                                    <input type="text" pattern="^[A-Z][A-Za-z\s]*$" title="first letter is big" class="form-control" id="FName"
                                         placeholder="First Name" name="firstname" required>
                                     <div class="valid-feedback">
                                         Looks good!

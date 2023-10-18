@@ -2,6 +2,11 @@
 session_start();
 $user_id = $_SESSION['user_id'];
 ?>
+
+
+<?php
+include 'profileinfo.php';
+?>
 <!DOCTYPE html>
 <html lang="en" class="menuitem-active">
 
@@ -75,7 +80,7 @@ $user_id = $_SESSION['user_id'];
             <!-- Sidebar -left -->
         </div>
         <!-- Left Sidebar End -->
-        <!-- ============================================================== --> hello
+        <!-- ============================================================== --> 
         <!-- ============================================================== -->
         <div class="content-page">
             <div class="content">
@@ -114,7 +119,7 @@ $user_id = $_SESSION['user_id'];
                                         <div class="col">
                                             <div>
                                                 <h4 class="mt-1 mb-1 text-white">
-                                                    <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname'] ?>
+                                                    <?php echo $name?>
                                                 </h4>
                                             </div>
                                         </div>
@@ -174,25 +179,16 @@ $user_id = $_SESSION['user_id'];
                             <p class="h3 text-info">Contact</p>
                             <br>
                             <span class="h4">
-                                <i class="mdi mdi-cellphone-android"></i> &nbsp;09217381873 </span>
+                                <i class="mdi mdi-cellphone-android"></i> &nbsp;<?php echo $contact ?></span>
                             <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mobile<br>
                             <br>
 
                             <span class="h4">
-                                <i class="mdi mdi-email"></i> &nbsp;Jillianxward@gmail.com </span>
+                                <i class="mdi mdi-email"></i> &nbsp;<?php echo $email ?></span>
                             <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email<br>
                             <br>
 
-                            <p class="h3 text-info">Websites and social links</p><br>
-
-                            <span class="h4">
-                                <i class="mdi mdi-facebook"></i> &nbsp;Jillian Ward </span>
-                            <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook<br>
-                            <br>
-                            <span class="h4">
-                                <i class="mdi mdi-instagram"></i> &nbsp;Jillianxdward</span>
-                            <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instagram<br>
-                            <br>
+                            
 
                             <p class="h3 text-info">Basic info</p><br>
 
