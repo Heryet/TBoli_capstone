@@ -1,6 +1,7 @@
 <?php
 session_start();
 $user_id = $_SESSION['user_id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,6 +86,31 @@ $user_id = $_SESSION['user_id'];
     }
     </style>
 </head>
+<?php
+include 'dbcon.php';
+
+$sql = "SELECT tbl_userinfo.user_id, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname, 
+tbl_userinfo.birthday, tbl_userinfo.gender, tbl_usercredentials.email, tbl_usercredentials.contact, tbl_address.*
+FROM tbl_userinfo
+JOIN tbl_usercredentials ON tbl_userinfo.user_id = '$user_id'
+JOIN tbl_address ON tbl_userinfo.user_id = tbl_address.address_id;";
+
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $firstname = $row['firstname'];
+        $middlename = $row['middlename'];
+        $lastname = $row['lastname'];
+        $name = $firstname . ' ' . $middlename . ' ' . $lastname;
+        $birthday = $row['birthday'];
+        $gender = $row['gender'];
+        $email = $row['email'];
+        $contact = $row['contact'];
+        $address = $row['address'];
+    }
+}
+?>
 <div class="container">
     <form action="profile_update.php" method="POST">
         <div class="row gutters">
@@ -103,7 +129,7 @@ $user_id = $_SESSION['user_id'];
                                 </div>
                                 <div class="form-group">
                                     <h5 class="user-name">
-                                        <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname'] ?>
+                                        <?php echo $name?>
                                     </h5>
                                 </div>
                             </div>
@@ -122,59 +148,52 @@ $user_id = $_SESSION['user_id'];
                                 <div class="form-group">
                                     <label for="fullName">First Name</label>
                                     <input type="text" class="form-control" id="fullName" name="firstname"
-                                        placeholder="<?php echo $row['firstname'] ?>">
+                                        placeholder="<?php echo $firstname ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="fullName">Middle Name</label>
                                     <input type="text" class="form-control" id="fullName" name="middlename"
-                                        placeholder="">
+                                        placeholder="<?php echo $middlename ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="fullName">Last Name</label>
                                     <input type="text" class="form-control" id="fullName" name="lastname"
-                                        placeholder="<? echo $row ['lastname']?>">
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="fullName">Suffix Name</label>
-                                    <input type="text" class="form-control" id="fullName" name="suffixname"
-                                        placeholder="">
+                                        placeholder="<?php echo $lastname ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="website">Gender</label>
-                                    <input type="text" class="form-control" id="website" name="gender" placeholder="">
+                                    <input type="text" class="form-control" id="website" name="gender" placeholder="<?php echo $gender ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="website">Birthdate</label>
-                                    <input type="date" class="form-control" id="website" name="birthday" placeholder="">
+                                    <input type="text" class="form-control" id="website" name="birthday" placeholder="<?php echo $birthday ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="eMail">Email</label>
-                                    <input type="email" class="form-control" id="eMail" name="email" placeholder="">
+                                    <input type="email" class="form-control" id="eMail" name="email" placeholder="<?php echo $email ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
                                     <input type="number" class="form-control" id="phone" name="contact_number"
-                                        placeholder="">
+                                        placeholder="<?php echo $contact ?>">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address" name="address" placeholder="">
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="<?php echo $address ?>">
                                 </div>
                             </div>
 
@@ -184,9 +203,9 @@ $user_id = $_SESSION['user_id'];
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label for="fullName">Password</label>
+                                    <label for="fullName">New Password</label>
                                     <input type="password" class="form-control" id="fullName" name="password"
-                                        placeholder="Enter your password here">
+                                        placeholder="Enter new password">
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -214,7 +233,6 @@ $user_id = $_SESSION['user_id'];
         </div>
     </form>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
