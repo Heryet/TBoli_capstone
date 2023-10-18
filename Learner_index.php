@@ -174,7 +174,7 @@ if (isset($_GET['logout'])) {
                                         <a class="" data-bs-toggle="collapse"
                                             href="#todo" aria-expanded="false"
                                             aria-controls="todo">
-                           v                 <span class="uil-file-check">Assignment</span>
+                                             <span class="uil-file-check">Assignment</span>
                                         </a>
                                     </p>
                                     <div class="collapse" id="todo">
@@ -185,7 +185,7 @@ if (isset($_GET['logout'])) {
                                         <li class="">
                                             <a href="#">
                                                 
-                                                <span class="badge bg-success float-end">4</span>
+                                                <span class="badge bg-success float-end">1</span>
                                                 <span class="h6" > Quiz 1 </span>
                                             </a>
                                             
@@ -194,8 +194,8 @@ if (isset($_GET['logout'])) {
                                         <li class="side-nav-item">
                                             <a href="#">
                                                 
-                                                <span class="badge bg-success float-end">11</span>
-                                                <span class="h6" > Numeracy </span>
+                                                <span class="badge bg-success float-end">1</span>
+                                                <span class="h6" > Quiz 2 </span>
                                             </a>
                                             
                                         </li>

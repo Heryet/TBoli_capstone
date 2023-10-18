@@ -174,7 +174,7 @@ if (isset($_GET['logout'])) {
                                         <a class="" data-bs-toggle="collapse"
                                             href="#todo" aria-expanded="false"
                                             aria-controls="todo">
-                           v                 <span class="uil-file-check">Assignment to grade</span>
+                                            <span class="uil-file-check">Assignment to grade</span>
                                         </a>
                                     </p>
                                     <div class="collapse" id="todo">
