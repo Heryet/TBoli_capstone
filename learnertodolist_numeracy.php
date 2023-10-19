@@ -118,7 +118,7 @@ if (isset($_GET['logout'])) {
                                         <li class="breadcrumb-item active">Starter</li> -->
                                     </ol>
                                 </div>
-                                <h4 class="page-title">Modules</h4>
+                                <h4 class="page-title">Assignment in Numeracy</h4>
                             </div>
                         </div>
                     </div>
@@ -130,90 +130,24 @@ if (isset($_GET['logout'])) {
 
 
 
-            <div class="row">
-                <div class="col-sm-9 border-top border-primary rounded-top">
-                    <div class="row mt-3  " >
-                        <div class="col-md-6 col-lg-4">
-
-                                                <!-- Simple card -->
-                                                <div class="card d-block">
-                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Literacy</h5>
-                                <p class="card-text">When: Feb 13 - June 2024</p><a href="Learner_Literacy_Module.php"
-                                    class="btn btn-primary">View Module</a>
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                        </div>
-
-
-                        <div class="col-md-6 col-lg-4">
-
-                        <!-- Simple card -->
-                        <div class="card d-block">
-                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Numeracy</h5>
-                                <p class="card-text">When: Feb 13 - June 2024</p><a href="Learner_Numeracy_Module.php"
-                                    class="btn btn-primary">View Module</a>
-                            </div> <!-- end card-body-->
-                        </div> <!-- end card-->
-                        </div><!-- end col -->
-
-                        
-
-                    </div>
-                </div>
-                    
-                <div class="col-sm-3 border-start border-top border-primary rounded-top">
-                    <div class="col-sm-12 mt-3" >
-                        <div class="card" >
-                            <div class="card-body" ><h5>TO-DO</h5> 
-                                
-                                        <p>
-                                        <a class="" data-bs-toggle="collapse"
-                                            href="#todo" aria-expanded="false"
-                                            aria-controls="todo">
-                                             <span class="uil-file-check">Assignment</span>
-                                        </a>
-                                    </p>
-                                    <div class="collapse" id="todo">
-                                        <div class="card card-body mb-0">
-
-                                        <ul class="" >
-
-                                        <li class="">
-                                            <a href="learnertodolist_literacy.php">
-                                                
-                                                <span class="badge bg-success float-end">1</span>
-                                                <span class="h6" > Literacy </span>
-                                            </a>
-                                            
-                                        </li>
-
-                                        <li class="side-nav-item">
-                                            <a href="learnertodolist_numeracy.php">
-                                                
-                                                <span class="badge bg-success float-end">1</span>
-                                                <span class="h6" > Numeracy </span>
-                                            </a>
-                                            
-                                        </li>
-                                        </ul>
-                                        
-                                        
-
-                                        
-                                        
-                                        
-                                            
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <table class="table table-striped mb-0 table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Numeracy Assignment</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> <a href="https://www.google.com/">
+                                    Assignment Name
+                                    </a> </td>
+                                    
+                                    
+                                </tr>
+                                   
+                            </tbody>
+                        </table>
 
             <!-- Footer Start -->
             <!-- <footer class="footer">
