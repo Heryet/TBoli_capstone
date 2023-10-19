@@ -51,52 +51,55 @@
                             </div>
                             <form action="#" method="POST">
                                 <?php
-                    session_start();
-                    include 'dbcon.php';
+                                session_start();
+                                include 'dbcon.php';
 
-                    if (isset($_POST['btnLogin'])) {
-                        $email = $_POST['email'];
-                        $password = $_POST['password'];
+                                if (isset($_POST['btnLogin'])) {
+                                    $email = $_POST['email'];
+                                    $password = $_POST['password'];
 
-                        if (empty($email)) {
-                            header("Location: Administrator_login.php?error=Email must be filled");
-                            exit();
-                        } elseif (empty($password)) {
-                            header("Location: Administrator_login.php?error=Password must be filled");
-                            exit();
-                        } else {
-                            $sql = "SELECT tbl_userinfo.user_id, tbl_accounts.email, tbl_accounts.password, tbl_user_level.level, tbl_user_status.status
-                            FROM tbl_admin 
-                            JOIN tbl_userinfo ON tbl_admin.user_id = tbl_userinfo.user_id
-                            JOIN tbl_accounts ON tbl_admin.account_id = tbl_accounts.account_id
-                            JOIN tbl_user_level ON tbl_admin.level_id = tbl_user_level.level_id
-                            JOIN tbl_user_status ON tbl_admin.status_id = tbl_user_status.status_id
-                            WHERE tbl_accounts.email = '$email'
-                            AND tbl_user_status.status = 1 AND tbl_user_level.level = 'ADMIN'";
+                                    if (empty($email)) {
+                                        header("Location: Administrator_login.php?error=Email must be filled");
+                                        exit();
+                                    } elseif (empty($password)) {
+                                        header("Location: Administrator_login.php?error=Password must be filled");
+                                        exit();
+                                    } else {
+                                        $sql = "SELECT tbl_userinfo.user_id, tbl_accounts.email, tbl_accounts.password, tbl_user_level.level, tbl_user_status.status
+                                        FROM tbl_admin 
+                                        JOIN tbl_userinfo ON tbl_admin.user_id = tbl_userinfo.user_id
+                                        JOIN tbl_accounts ON tbl_admin.account_id = tbl_accounts.account_id
+                                        JOIN tbl_user_level ON tbl_admin.level_id = tbl_user_level.level_id
+                                        JOIN tbl_user_status ON tbl_admin.status_id = tbl_user_status.status_id
+                                        WHERE tbl_accounts.email = '$email'
+                                        AND tbl_user_status.status = 1 AND (tbl_user_level.level = 'ADMIN' OR tbl_user_level.level = 'COADMIN')";
 
-                            $result = mysqli_query($conn, $sql);
+                                        $result = mysqli_query($conn, $sql);
 
-                            if ($result && mysqli_num_rows($result) > 0) {
-                                $row = mysqli_fetch_assoc($result);
-                                $storedPasswordHash = $row['password'];
-                                $level = $row['level'];
+                                        if ($result && mysqli_num_rows($result) > 0) {
+                                            $row = mysqli_fetch_assoc($result);
+                                            $storedPasswordHash = $row['password'];
+                                            $level = $row['level'];
 
-                                if (password_verify($password, $storedPasswordHash) && $row['status'] == 1) {
-                                    $_SESSION['user_id'] = $row['user_id'];
-                                    $_SESSION['email'] = $email;
-                                    $_SESSION['user_level'] = $level;
+                                            if (password_verify($password, $storedPasswordHash) && $row['status'] == 1) {
+                                                $_SESSION['user_id'] = $row['user_id'];
+                                                $_SESSION['email'] = $email;
+                                                $_SESSION['user_level'] = $level;
 
-                                    if ($level === 'ADMIN') {
-                                        header("Location: admin_dashboard.php?Login Successfully");
+                                                if ($level === 'ADMIN') {
+                                                    header("Location: admin_dashboard.php?Login Successfully");
+                                                    exit();
+                                                } elseif ($level === 'COADMIN') {
+                                                    header("Location: admin_dashboard.php?Login Successfully");
+                                                    exit();
+                                                }
+                                            }
+                                        }
+                                        header("Location: Administrator_login.php?error=Invalid email or password");
                                         exit();
                                     }
                                 }
-                            }
-                            header("Location: Administrator_login.phperror=Invalid email or password");
-                            exit();
-                        }
-                    }
-                    ?>
+                                ?>
                                 <div class="mb-3">
                                     <?php if (isset($_GET['error'])) { ?>
                                     <p class="error">

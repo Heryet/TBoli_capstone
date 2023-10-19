@@ -35,7 +35,7 @@
                                                     FROM tbl_admin
                                                     JOIN tbl_userinfo ON tbl_admin.user_id = tbl_userinfo.user_id
                                                     JOIN tbl_user_level ON tbl_admin.level_id = tbl_user_level.level_id
-                                                    WHERE tbl_user_level.level = 'ADMIN' AND tbl_userinfo.user_id = '$user_id'
+                                                    WHERE (tbl_user_level.level = 'ADMIN' OR tbl_user_level.level = 'COADMIN') AND tbl_userinfo.user_id = '$user_id'
                                                     LIMIT 1;";
 
                                         $result = mysqli_query($conn, $sql);
@@ -44,7 +44,7 @@
                                             $row = mysqli_fetch_assoc($result);
                                             ?>
                     <span
-                        class="account-user-name"><?php echo $row['firstname'] . ' ' . $row['lastname'] . ' ' . $row['lastname']; ?></span>
+                        class="account-user-name"><?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?></span>
                     <span class="account-position"><?php echo $row['level']; ?></span>
                     <?php
                                         } else {

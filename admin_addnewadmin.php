@@ -163,7 +163,7 @@ $user_id = $_SESSION['user_id'];
                         $address_id = $conn->insert_id;
 
                         // Insert data into tbl_user_level
-                        $sql = "INSERT INTO tbl_user_level (level) VALUES ('ADMIN')";
+                        $sql = "INSERT INTO tbl_user_level (level) VALUES ('COADMIN')";
                         if ($conn->query($sql) === TRUE) {
                             $level_id = $conn->insert_id;
 

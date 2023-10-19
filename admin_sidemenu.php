@@ -23,14 +23,14 @@
                 include 'dbcon.php';
 
                 $sql = "SELECT tbl_userinfo.user_id, tbl_userinfo.firstname, tbl_user_level.level FROM tbl_userinfo
-                JOIN tbl_user_level ON tbl_userinfo.user_id = '$user_id'
-                WHERE tbl_user_level.level = 'ADMIN'";
+                JOIN tbl_user_level ON tbl_userinfo.user_id = tbl_user_level.level_id
+                WHERE tbl_user_level.level = 'ADMIN' AND tbl_userinfo.user_id = '$user_id'";
 
                 $result = mysqli_query($conn, $sql);
 
                 if($result && mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_assoc($result);
-
+                    $level = $row['level'];
                     ?>
                     <li>
                         <a href="admin_addAccount.php">Admin</a>
