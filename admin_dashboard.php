@@ -135,7 +135,6 @@ if (isset($_GET['logout'])) {
 
 
 
-<<<<<<< HEAD
             <div class="row">
                 <div class="col-sm-9 border-top border-dark rounded-top">
                     <div class="row mt-3  " >
@@ -185,9 +184,6 @@ if (isset($_GET['logout'])) {
                     </div>
                 </div>
             </div>
-=======
-            
->>>>>>> e3a1e8ee8dd8dbee7b988ea8919a8bec38de64bb
 
             <!-- Footer Start -->
             <!-- <footer class="footer">
