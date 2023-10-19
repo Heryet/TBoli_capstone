@@ -340,7 +340,7 @@ $user_id = $_SESSION['user_id'];
 
                                         </sup></label>
                                     <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="phone" required>
+                                        name="phone" required maxlength="11" >
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -465,7 +465,7 @@ $user_id = $_SESSION['user_id'];
 
                                         </sup></label>
                                     <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
-                                        name="gphoneNumber" required>
+                                        name="gphoneNumber" required maxlength="11">
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
