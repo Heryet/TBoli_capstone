@@ -170,42 +170,7 @@ if (isset($_GET['logout'])) {
                         </div>
                     </div>
                     
-                <div class="col-sm-3 border-start border-top border-dark rounded-top">
-                    <div class="col-sm-12 mt-3" >
-                        <div class="card" >
-                            <div class="card-body" ><h5>TO-DO</h5> 
-                                
-                                        <p>
-                                        <a class="" data-bs-toggle="collapse"
-                                            href="#todo" aria-expanded="false"
-                                            aria-controls="todo">
-                                            <span class="uil-file-check">Assignment to grade</span>
-                                        </a>
-                                    </p>
-                                    <div class="collapse" id="todo">
-                                        <div class="card card-body mb-0">
-
-                                        <ul class="" >
-
-                                        <li class="">
-                                            <a href="#">
-                                                
-                                                <span class="badge bg-success float-end">4</span>
-                                                <span class="h6" > Literacy </span>
-                                            </a>
-                                            
-                                        </li>
-
-                                        <li class="side-nav-item">
-                                            <a href="#">
-                                                
-                                                <span class="badge bg-success float-end">11</span>
-                                                <span class="h6" > Numeracy </span>
-                                            </a>
-                                            
-                                        </li>
-                                        </ul>
-                                        
+       
                                         
 
                                         

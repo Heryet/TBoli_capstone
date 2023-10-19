@@ -34,11 +34,25 @@
     </li>
 
     <li class="side-nav-item">
-        <a href="admin_manage_lesson.php" class="side-nav-link">
-            <i class="fa fa-book"></i>
+        <a data-bs-toggle="collapse" href="#sidebarLessons" aria-expanded="false" aria-controls="sidebarLessons"
+            class="side-nav-link collapsed">
+            <i class="dripicons-document-edit"></i>
+            <span class="badge bg-success float-end"></span>
             <span>Manage Lesson</span>
+            <span class="menu-arrow"></span>
         </a>
+        <div class="collapse" id="sidebarLessons">
+            <ul class="side-nav-second-level">
+                <li>
+                    <a href="admin_create_quiz.php"><i class="uil-edit-alt"></i>Quiz List</a>
+                </li>
+                <li>
+                    <a href="Teacher_Create_Lesson.php"><i class="uil-edit-alt"></i>Lesson</a>
+                </li>
+            </ul>
+        </div>
     </li>
+
 
     <li class="side-nav-item">
         <a data-bs-toggle="collapse" href="#sidebarDashboardsLessons" aria-expanded="false"
@@ -64,7 +78,7 @@
         </div>
     </li>
 
-    <li class="side-nav-item">
+    <!-- <li class="side-nav-item">
         <a data-bs-toggle="collapse" href="#sidebarquiz" aria-expanded="false" aria-controls="sidebarquiz"
             class="side-nav-link collapsed">
             <i class="uil-user-plus"></i>
@@ -88,14 +102,14 @@
 
             </ul>
         </div>
-    </li>
+    </li> -->
 
-    <li class="side-nav-item">
+    <!-- <li class="side-nav-item">
         <a href="admin_assign_lesson_to_teacher.php " class="side-nav-link">
             <i class="uil-user-plus"></i>
             <span>Assign Lesson to Teacher</span>
         </a>
-    </li>
+    </li> -->
     <li class="side-nav-item">
         <a data-bs-toggle="collapse" href="#sidebarclass" aria-expanded="false" aria-controls="sidebarclass"
             class="side-nav-link">
@@ -108,14 +122,14 @@
                 <li>
                     <a href="admin_class.php">Create Class/Section</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="admin_assign_teacher_class.php">Assign Teacher to
                         Class</a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </li>
-    <li class="side-nav-item">
+    <!-- <li class="side-nav-item">
         <a data-bs-toggle="collapse" href="#sidebarArea" aria-expanded="false" aria-controls="sidebarArea"
             class="side-nav-link">
             <i class="uil-folder-plus"></i>
@@ -136,7 +150,7 @@
                 </li>
             </ul>
         </div>
-    </li>
+    </li> -->
     <li class="side-nav-item">
         <a href="#" class="side-nav-link">
             <i class="uil-user-plus"></i>

@@ -87,145 +87,251 @@ $user_id = $_SESSION['user_id'];
         <div class="content-page">
             <div class="content">
                 <!-- Topbar Start -->
-                <?php include('teacher_topbar.php') ?>
-                <!-- Start Content-->
-                <div class="container-fluid">
-                    <!-- start page title -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="page-title-box">
-                                <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
+                <?php include("teacher_topbar.php") ?>
+                <!-- end Topbar -->
 
-                                    </ol>
-                                </div>
-                                <h4 class="page-title">Assign Lesson to Students</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end page title -->
-                </div>
-                <!-- container -->
-            </div>
-            <!-- content -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row mb-2">
-                                <div class="col-sm-4">
-                                    <!-- Single Select -->
-                                    <!-- <select class="form-control select2" data-toggle="select2">
-                    <option>Select</option>
-                    <option value="AK">Literacy</option>
-                    <option value="HI">Numeracy</option>
-                  </select> -->
-                                </div>
-                                <div class="col-sm-8">
-                                    <div class="text-sm-end">
-                                        <button type="button" class="btn btn-info mb-2">Assign Section</button>
+                <!-- content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-sm-4">
+
+                                    
                                     </div>
+                                    <div class="col-sm-8">
+                                        <div class="text-sm-end">
+                                            <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal"
+                                                data-bs-target="#assignTeacherModal">Assign Teacher</button>
+                                        </div>
+                                    </div>
+                                    <!-- end col -->
                                 </div>
-                                <!-- end col -->
-                            </div>
-                            <div class="table-responsive">
-                                <table
-                                    class="table table-centered table-borderless table-hover w-100 dt-responsive nowrap"
-                                    id="products-datatable">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th style="width: 20px;">
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                    <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                </div>
-                                            </th>
-                                            <th>LRN</th>
-                                            <th>Student Name</th>
-                                            <th>Class/Section</th>
-                                            <th>Action</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        include 'dbcon.php';
+                                <div class="table-responsive">
+                                    <table
+                                        class="table table-centered table-borderless table-hover w-100 dt-responsive nowrap"
+                                        id="products-datatable">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th style="width: 20px;">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input"
+                                                            id="customCheck1">
+                                                        <label class="form-check-label"
+                                                            for="customCheck1">&nbsp;</label>
+                                                    </div>
+                                                </th>
+                                                <th>LRN</th>
+                                                <th>Student</th>
+                                                <th>Class/Section</th>
+                                                <th>Action</th>
 
-                                        $sql = "SELECT tbl_userinfo.user_id, tbl_learner.learner_id, tbl_learner.level_id, tbl_user_level.level, tbl_userinfo.firstname,
-                                        tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_userinfo.gender, tbl_user_status.status,
-                                        tbl_learner_id.lrn, tbl_address.address, tbl_usercredentials.contact, tbl_usercredentials.email
-                                        FROM tbl_learner
-                                        JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
-                                        JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
-                                        JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
-                                        JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
-                                        JOIN tbl_address ON tbl_learner.address_id = tbl_address.address_id
-                                        JOIN tbl_usercredentials ON tbl_learner.usercredentials_id = tbl_usercredentials.usercredentials_id
-                                        WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                        $result = mysqli_query($conn, $sql);
+                                            <?php
+                                            include 'dbcon.php';
 
-                                        if ($result && mysqli_num_rows($result) > 0) {
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                ?>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?php echo $row['lrn'] ?>
-                                            </td>
-                                            <td class="table-user">
-                                                <img src="assets/images/users/avatar-4.jpg" alt="table-user"
-                                                    class="me-2 rounded-circle">
-                                                <a href="javascript:void(0);" class="text-body fw-semibold">
-                                                    <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname'] ?>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <span class="fw-semibold">
-                                                    <?php echo $row['birthday'] ?>
-                                                </span>
-                                            </td>
+                                            $sql = "SELECT tbl_userinfo.user_id, tbl_learner.learner_id, tbl_learner.level_id, tbl_user_level.level, tbl_userinfo.firstname,
+                            tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_user_status.status,
+                            tbl_learner_id.lrn
+                        FROM tbl_learner
+                        JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
+                        JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
+                        JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
+                        JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
+                        WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
 
-                                            <td>
-                                                <a href="teacher_view_student.php?user_id=<?php echo $row['user_id'] ?>"
-                                                    class="action-icon">
-                                                    <i class="uil-eye"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                        if ($row['status'] == 1) {
-                                                            ?>
-                                                <span class="badge bg-success">Active</span>
-                                                <?php
-                                                        } else {
-                                                            ?>
-                                                <span class="badge bg-warning">Inactive</span>
-                                                <?php
-                                                        }
-                                                        ?>
-                                            </td>
-                                        </tr>
-                                        <?php
+                                            $result = mysqli_query($conn, $sql);
+
+                                            if ($result && mysqli_num_rows($result) > 0) {
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input"
+                                                            id="customCheck2">
+                                                        <label class="form-check-label"
+                                                            for="customCheck2">&nbsp;</label>
+                                                    </div>
+                                                </td>
+
+
+                                                <td class="table-user">
+
+                                                    <a href="javascript:void(0);" class="text-body fw-semibold">
+                                                        <!-- <?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname'] ?> -->
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <!-- <?php echo $row['learner_id'] ?> -->
+                                                </td>
+                                                <td>
+                                        
+                                                </td>
+
+                                                <td>
+                                                    <a
+                                                        href="admin_edit_teacher_acc.php?user_id=<?php echo $row['user_id'] ?>">
+                                                        <button type="button" class="btn btn-primary"><i
+                                                                class="mdi mdi-pencil"></i> </button>
+                                                    </a>
+                                                    <a href="admin_teacher_deactivate.php?teacher_id=<?php echo $row['learner_id'] ?>"
+                                                        class="decline">
+                                                        <button type="button" class="btn btn-danger"><i
+                                                                class="mdi mdi-archive"></i> </button>
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                            <?php
+                                                }
                                             }
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end card-body-->
+                        </div>
+                        <!-- end card-->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+
+                <!-- Assign Teacher Modal -->
+                <div class="modal fade" id="assignTeacherModal" tabindex="-1" role="dialog"
+                    aria-labelledby="assignTeacherModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="assignTeacherModalLabel">Assign Teacher</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="teacherSelect" class="form-label">Teacher</label>
+                                        <select class="form-select" id="teacherSelect" name="teacher_id">
+                                            <?php
+                            include 'dbcon.php';
+
+                            // Check connection
+                            if (!$conn) {
+                                die("Connection failed: " . mysqli_connect_error());
+                            }
+
+                            // Your SQL query for the "Teacher" dropdown
+                            $sql = "SELECT tbl_teachers.teacher_id, tbl_userinfo.firstname, tbl_userinfo.lastname
+                                    FROM tbl_teachers
+                                    JOIN tbl_userinfo ON tbl_teachers.user_id = tbl_userinfo.user_id
+                                    JOIN tbl_user_level ON tbl_teachers.level_id = tbl_user_level.level_id
+                                    JOIN tbl_user_status ON tbl_teachers.status_id = tbl_user_status.status_id
+                                    WHERE tbl_user_level.level = 'TEACHER' AND tbl_user_status.status = 1";
+
+                            $result = mysqli_query($conn, $sql);
+
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<option value="' . $row['teacher_id'] . '">' . $row['firstname'] . ' ' . $row['lastname'] . '</option>';
+                                }
+                            } else {
+                                echo '<option value="">No teachers available</option>';
+                            }
+
+                            mysqli_close($conn);
+                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="sectionSelect" class="form-label">Class/Section</label>
+                                        <select class="form-select" id="sectionSelect" name="section_id">
+                                            <?php
+                            include 'dbcon.php';
+
+                            // Check connection
+                            if (!$conn) {
+                                die("Connection failed: " . mysqli_connect_error());
+                            }
+
+                            // Your SQL query for the "Class/Section" dropdown
+                            $sql = "SELECT `section_id`, `section` FROM `tbl_section` WHERE 1";
+
+                            $result = mysqli_query($conn, $sql);
+
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<option value="' . $row['section_id'] . '">' . $row['section'] . '</option>';
+                                }
+                            } else {
+                                echo '<option value="">No sections available</option>';
+                            }
+
+                            mysqli_close($conn);
+                            ?>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="assignTeacherButton">Assign</button>
+
                             </div>
                         </div>
-                        <!-- end card-body-->
                     </div>
-                    <!-- end card-->
                 </div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
+                <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Find the Assign button and add a click event listener to it
+                    const assignButton = document.getElementById("assignTeacherButton");
+                    if (assignButton) {
+                        assignButton.addEventListener("click", function() {
+                            // Get selected values from the dropdowns
+                            const teacherId = document.getElementById("teacherSelect").value;
+                            const sectionId = document.getElementById("sectionSelect").value;
+
+                            // Check if both teacher and section are selected
+                            if (teacherId && sectionId) {
+                                // Perform an AJAX request to save the assignment in your database
+                                // You can use libraries like jQuery.ajax or the Fetch API to do this
+
+                                // Example using Fetch API
+                                fetch('assign_teacher.php', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                        },
+                                        body: `teacher_id=${teacherId}&section_id=${sectionId}`,
+                                    })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            // Assignment was successful, you can handle success here
+                                            alert('Teacher assigned successfully!');
+                                            // You may want to refresh the teacher list table here
+                                        } else {
+                                            // Assignment failed, handle the error here
+                                            alert('Failed to assign teacher.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        // Handle any network errors here
+                                        console.error('Error:', error);
+                                    });
+                            } else {
+                                // Display an error message if either the teacher or section is not selected
+                                alert('Please select a teacher and a class/section.');
+                            }
+                        });
+                    }
+                });
+                </script>
 
             <!-- ============================================================== -->
             <!-- End Page content -->

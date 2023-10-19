@@ -1,21 +1,38 @@
 <?php
-// Ensure you start the session
 session_start();
 $user_id = $_SESSION['user_id'];
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="menuitem-active">
 
 <head>
-    <?php include('teacher_header.php') ?>
+    <meta charset="utf-8">
+    <title>Starter Page | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+    <meta content="Coderthemes" name="author">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+
+    <!-- App css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
+    <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" disabled="disabled">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Quill css -->
+    <link href="assets/css/vendor/quill.core.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/vendor/quill.snow.css" rel="stylesheet" type="text/css" />
+
 </head>
 
-<body <?php include('dataconfig.php') ?>>
+<body class="show"
+    data-layout-config="{&quot;leftSideBarTheme&quot;:&quot;dark&quot;,&quot;layoutBoxed&quot;:false, &quot;leftSidebarCondensed&quot;:false, &quot;leftSidebarScrollable&quot;:false,&quot;darkMode&quot;:false, &quot;showRightSidebarOnStart&quot;: true}"
+    data-leftbar-theme="dark" data-leftbar-compact-mode="condensed" style="visibility: visible;">
     <!-- Begin page -->
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
-        <div class="leftside-menu">
+        <div class="leftside-menu menuitem-active">
 
             <!-- LOGO -->
             <a href="index.html" class="logo text-center logo-light">
@@ -37,15 +54,42 @@ $user_id = $_SESSION['user_id'];
                 </span>
             </a>
 
-            <div class="h-100" id="leftside-menu-container" data-simplebar="">
+            <div class="h-100 show" id="leftside-menu-container" data-simplebar="init">
+                <div class="simplebar-wrapper" style="margin: 0px;">
+                    <div class="simplebar-height-auto-observer-wrapper">
+                        <div class="simplebar-height-auto-observer"></div>
+                    </div>
+                    <div class="simplebar-mask">
+                        <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                            <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden;">
+                                <div class="simplebar-content" style="padding: 0px;">
 
-                <!--- Sidemenu -->
-                <?php include('teacher_sidemenu.php') ?>
+                                    <!--- Sidemenu -->
+                                    <?php include("admin_sidemenu.php") ?>
 
-                <!-- End Sidebar -->
-                <div class="clearfix"></div>
+
+
+                                    <!-- End Sidebar -->
+
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="simplebar-placeholder" style="width: 70px; height: 1150px;"></div>
+                </div>
+                <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                    <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                </div>
+                <div class="simplebar-track simplebar-vertical" style="visibility: hidden;">
+                    <div class="simplebar-scrollbar"
+                        style="height: 0px; transform: translate3d(0px, 0px, 0px); display: none;"></div>
+                </div>
             </div>
             <!-- Sidebar -left -->
+
         </div>
         <!-- Left Sidebar End -->
 
@@ -56,131 +100,98 @@ $user_id = $_SESSION['user_id'];
         <div class="content-page">
             <div class="content">
                 <!-- Topbar Start -->
-                <?php include('teacher_topbar.php')?>
-
+                <?php include("admin_topbar.php") ?>
+                <!-- end Topbar -->
                 <!-- Start Content-->
-                <!-- Add button to open the modal -->
+               <!-- Add button to open the modal -->
                 <div class="row">
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                data-bs-target="#addQuizModal">Add Multiple Choice</button>
-                        </div>
-                        <!-- Modal for adding a new quiz assignment -->
-                        <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="addQuizModalLabel">Add Question</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <?php 
-                                        include 'dbcon.php';
-                                        if (isset($_GET['quiz_options_id']) && isset($_POST['addQuiz'])) {
-                                            $quiz_options_id = $_GET['quiz_options_id'];
-                                            $question = $_POST['question'];
-                                            $question_opts = $_POST['question_opt'];
+                           <!-- Button to open modal -->
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+                        data-bs-target="#addTeacher">Add Teacher</button>
+                    </div>
+                    <!-- Modal for adding a new Teacher -->
+                    <div class="modal fade" id="addTeacher" tabindex="-1" aria-labelledby="addTeacherModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addTeacherModalLabel">Add Student</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form for adding a new student assignment -->
+                                    <?php 
+                                    include 'dbcon.php';
+                                    if(isset($_GET['quiz_options_id']) && isset($_POST['addStudent'])) {
+                                        $quiz_options_id = $_GET['quiz_options_id'];
+                                        $student = $_POST['student'];
 
-                                            $sql = "INSERT INTO tbl_quiz_question (quiz_options_id, question) VALUES ('$quiz_options_id', '$question')";
+                                        $sql = "INSERT INTO tbl_quiz_student (quiz_options_id, student) VALUES ('$quiz_options_id', '$student')";
 
-                                            if ($conn->query($sql) === TRUE) {
-                                                $question_id = $conn->insert_id;
-                                                $options = $_POST['question_opt'];
-                                                $is_right = $_POST['is_right'];
+                                        $result = mysqli_query($conn, $sql);
 
-                                                // Loop through the options and insert them into the database
-                                                for ($i = 0; $i < count($options); $i++) {
-                                                    $choice = $options[$i];
-                                                    $is_right_value = isset($is_right[$i]) ? 1 : 0;
-
-                                                    $sql = "INSERT INTO tbl_quiz_choices (question_id, choices, is_right) VALUES ('$question_id', '$choice', '$is_right_value')";
-
-                                                    if ($conn->query($sql) !== TRUE) {
-                                                        echo "Error: " . $sql . "<br>" . $conn->error;
-                                                    }
-                                                }
-                                                header("Location: Teacher_Manage_Quiz.php?Quiz Added Successfully");
-                                                exit();
-                                            } else {
-                                                echo "Error: " . $sql . "<br>" . $conn->error;
-                                            }
-                                        } elseif (isset($_GET['quiz_options_id']) && isset($_POST['btnSave'])) {
-                                            $quiz_options_id = $_GET['quiz_options_id'];
-                                            $question = $_POST['question'];
-                                            $question_opts = $_POST['question_opt'];
-                                            
-                                            $sql = "INSERT INTO tbl_quiz_question (quiz_options_id, question) VALUES ('$quiz_options_id', '$question')";
-        
-                                            if($conn->query($sql) === TRUE) {
-                                                $question_id = $conn->insert_id;
-                                                $options = $_POST['question_opt'];
-                                                $is_right = $_POST['is_right'];
-        
-                                                // loop
-                                                for ($i = 0; $i < count($options); $i++) {
-                                                    $choice = $options[$i];
-                                                    $is_right_value = isset($is_right[$i]) ? 1 : 0;
-        
-                                                    $sql = "INSERT INTO tbl_quiz_choices (question_id, choices, is_right) VALUES ('$question_id', '$choice', '$is_right_value')";
-        
-                                                    if ($conn->query($sql) !== TRUE){
-                                                        echo "Error: " . $sql . "<br>" . $conn->error;
-                                                    }
-                                                }
-                                                header("Location: Teacher_Manage_quiz.php?msg=Added Succesfully");
-                                                exit();
-                                            } else {
-                                                echo "Error: " . $sql . "<br>" . $conn->error;
-                                            }
+                                        if($result) {
+                                            header("Location: admin_manage_class.php?msg=Student Added Succesfully");
+                                            exit();
                                         }
-                                        ?>
-                                        <form action="" method="POST">
-                                            <div id="msg"></div>
-                                            <div class="form-group">
-                                                <label for="question">Question</label>
-                                                <input type="hidden" name="id" />
-                                                <textarea rows='3' name="question" required="required" class="form-control"></textarea>
-                                            </div>
-                                            <label>Options:</label>
+                                    }
+                                    ?>
+                                    <form action="" method="POST">
+                                        <div class="mb-3">
+                                            <label for="inputState" class="form-label">Add Teacher</label>
+                                            <select id="inputState" class="form-select" name="student">
+                                                <option selected disabled>Select Teacher</option>
+                                                <!-- Default option -->
+                                                <?php
+                                                include 'dbcon.php';
 
-                                            <div class="form-group" id="options">
-                                                <textarea rows="2" name="question_opt[0]" required="" class="form-control" value=""></textarea>
-                                                <span>
-                                                    <label><input type="radio" name="is_right[0]" class="is_right" value="1">
-                                                        <small>Question Answer</small></label>
-                                                </span>
-                                                <br>
-                                                <textarea rows="2" name="question_opt[1]" required="" class="form-control"></textarea>
-                                                <label><input type="radio" name="is_right[1]" class="is_right" value="1">
-                                                    <small>Question Answer</small></label>
-                                                <br>
-                                                <textarea rows="2" name="question_opt[2]" required="" class="form-control"></textarea>
-                                                <label><input type="radio" name="is_right[2]" class="is_right" value="1">
-                                                    <small>Question Answer</small></label>
-                                                <br>
-                                                <textarea rows="2" name="question_opt[3]" required="" class="form-control"></textarea>
-                                                <label><input type="radio" name="is_right[3]" class="is_right" value="1">
-                                                    <small>Question Answer</small></label>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary" name="addQuiz">Add</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                                $sql = "SELECT tbl_teachers.teacher_id, tbl_userinfo.user_id, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname,
+                                                tbl_usercredentials.email, tbl_usercredentials.contact, tbl_user_level.level, tbl_user_status.status
+                                            FROM tbl_teachers
+                                            JOIN tbl_userinfo ON tbl_teachers.user_id = tbl_userinfo.user_id
+                                            JOIN tbl_usercredentials ON tbl_teachers.credentials_id = tbl_usercredentials.usercredentials_id
+                                            JOIN tbl_user_level ON tbl_teachers.level_id = tbl_user_level.level_id
+                                            JOIN tbl_user_status ON tbl_teachers.status_id = tbl_user_status.status_id
+                                            WHERE tbl_user_level.level = 'TEACHER' AND tbl_user_status.status = 1";
+
+                                                $result = mysqli_query($conn, $sql);
+
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $user_id = $row['teacher_id'];
+                                                        $firstname = $row['firstname'];
+                                                        $middlename = $row['middlename'];
+                                                        $lastname = $row['lastname'];
+                                                        $name = $firstname . ' ' . $middlename . ' ' . $lastname;
+                                                        echo "<option value='$user_id'>$name</option>";
+                                                    }   
+                                                } else {
+                                                    echo "<option value='' disabled>No lessons available</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" name="addStudent">Add</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Add button to open the modal -->
+                    </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
                                 data-bs-target="#addStudentModal">Add Student</button>
                         </div>
-                    </div>
+                      
+            
+                    
                     <!-- Modal for adding a new quiz assignment -->
                     <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
                         aria-hidden="true">
@@ -192,7 +203,7 @@ $user_id = $_SESSION['user_id'];
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- Form for adding a new quiz assignment -->
+                                    <!-- Form for adding a new student assignment -->
                                     <?php 
                                     include 'dbcon.php';
                                     if(isset($_GET['quiz_options_id']) && isset($_POST['addStudent'])) {
@@ -255,50 +266,7 @@ $user_id = $_SESSION['user_id'];
                             </div>
                         </div>
                     </div>
-                    <!-- Button to open modal -->
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
-                        data-bs-target="#addQuizTrueFalse">Add True or False</button>
-                    </div>
-                    <!-- Modal for adding a new quiz true or false -->
-                    <div class="modal fade" id="addQuizTrueFalse" tabindex="-1" role="dialog" aria-labelledby="addQuizTrueFalseLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addQuizTrueFalseLabel">Add True or False Question</h5>
-                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form action="" method="POST">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="trueFalseQuestion">Question</label>
-                                            <input type="text" id="trueFalseQuestion" name="question" class="form-control" placeholder="Enter your question here">
-                                            <br>
-                                            <label>Options:</label>
-                                            <div class="form-group" id="trueFalseOptions">
-                                                <input type="text" name="question_opt[0]" class="form-control" value="True" readonly>
-                                                <br>
-                                                <label>Answer:</label>
-                                                <label><input type="radio" name="is_right[0]" class="is_right" value="1"><small>True</small></label>
-                                                <br>
-                                                <input type="text" name="question_opt[1]" class="form-control" value="False" readonly>
-                                                <br>
-                                                <label>Answer:</label>
-                                                <label><input type="radio" name="is_right[1]" class="is_right" value="1"><small>False</small></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" name="btnSave">Add</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                 
                     <div class="row">
     <!-- Question Table -->
     <div class="col-md-6">
@@ -308,7 +276,7 @@ $user_id = $_SESSION['user_id'];
                     <table class="table table-hover table-centered table-nowrap mb-0">
                         <thead>
                             <tr>
-                                <th>Question</th>
+                                <th>Teacher</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -478,14 +446,25 @@ $user_id = $_SESSION['user_id'];
     </div>
 </div>
 
-                    <!-- bundle -->
-                    <script src="assets/js/vendor.min.js"></script>
-                    <script src="assets/js/app.min.js"></script>
 
-                    <!-- quill js -->
-                    <script src="assets/js/vendor/quill.min.js"></script>
-                    <!-- quill Init js-->
-                    <script src="assets/js/pages/demo.quilljs.js"></script>
+        <!-- Right Sidebar -->
+   
+
+        <div class="rightbar-overlay"></div>
+        <!-- /End-bar -->
+
+
+        <!-- bundle -->
+        <script src="assets/js/vendor.min.js"></script>
+        <script src="assets/js/app.min.js"></script>
+
+        <!-- quill js -->
+        <script src="assets/js/vendor/quill.min.js"></script>
+        <!-- quill Init js-->
+        <script src="assets/js/pages/demo.quilljs.js"></script>
+
+
+
 </body>
 
 </html>
