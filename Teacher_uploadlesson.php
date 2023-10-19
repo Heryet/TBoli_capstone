@@ -162,17 +162,6 @@ $user_id = $_SESSION['user_id'];
                                                 rows="5" placeholder="Enter some brief about the project.."
                                                 required></textarea>
                                         </div>
-
-                                        <div class="mb-3">
-                                            <label for="project-type" class="form-label">Level of learning</label>
-                                            <select class="form-control" name="level" id="project-type" required>
-                                                <option>Select</option>
-                                                <option value="Literacy">Basic</option>
-                                                <option value="Intermediate">Intermediate</option>
-                                                <option value="Advance">Advance</option>
-                                            </select>
-                                        </div>
-
                                         <div class="mb-0">
                                             <label for="project-type" class="form-label">Type of lesson</label>
                                             <select class="form-control" name="type" id="project-type" required>

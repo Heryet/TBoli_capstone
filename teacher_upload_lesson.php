@@ -21,7 +21,7 @@ if (isset($_SESSION['user_id'])) {
     $lesson_ids = []; // Store lesson_ids for each file
 
     // First, insert data into tbl_lesson
-    $sql = "INSERT INTO tbl_lesson (name, objective, level, type, added_by) VALUES ('$name', '$objective', '$level', '$type', '$user_id')";
+    $sql = "INSERT INTO tbl_lesson (name, objective, type, added_by) VALUES ('$name', '$objective', '$type', '$user_id')";
 
     if ($conn->query($sql) === TRUE) {
         $lesson_id = $conn->insert_id; // Get the lesson_id of the newly inserted row
@@ -73,7 +73,7 @@ if (isset($_SESSION['user_id'])) {
             }
         }
 
-        header("Location: Teacher_uploadlesson.php?msg=Lesson uploaded successfully");
+        header("Location: Teacher_Create_Lesson.php?msg=Lesson uploaded successfully");
         exit();
     } else {
         die("Please select at least one file.");
