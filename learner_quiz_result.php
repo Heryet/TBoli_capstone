@@ -251,20 +251,35 @@ $user_id = $_SESSION['user_id'];
 
             if ($result) {
                 if (mysqli_num_rows($result) > 0) {
-                    echo '<h2>Your Score: </h2>';
-                    echo '<div class="row justify-content-md-center">';
-
                     $row = mysqli_fetch_assoc($result);
                     $quiz_score_id = $row['quiz_score_id'];
                     $question_id = $row['question_id'];
                     $score = $row['score'];
                     $max_score = $row['max_score'];
+                    ?>
+                    <h2>Your Score: </h2>
+                    <div class="row justify-content-md-center">
+                        <div class="card col-sm-10">
+                            <div class="card-body">
+                                <?php
+                                $percentage = round(($score / $max_score) * 100);
+                                $passingScore = 75;
 
-                    echo '<div class="card col-sm-10">';
-                    echo '<div class="card-body">';
-                    echo '<h2>Your Score: ' . $score . '/' . $max_score . '</h2>';
-                    echo '</div>';
-                    echo '</div>';
+                                $circleColor = ($percentage >= $passingScore) ? 'green' : 'red';
+                                $scoreText = $score . ' / ' . $max_score;
+                                $resultText = ($percentage >= $passingScore) ? 'You pass' : 'You fail';
+                                ?>
+                                <div style="width: 200px; height: 200px; border-radius: 50%; background-color: transparent; border: 5px solid <?php echo $circleColor; ?>; display: flex; align-items: center; justify-content: center; flex-direction: column; margin: 0 auto;">
+                                    <h2 style="margin: 0; font-size: 50px;"><?php echo $percentage; ?>%</h2>
+                                    <p style="margin: 5px 0 0; font-size: 24px; text-align: center;"><?php echo $scoreText; ?></p>
+                                    <p style="margin: 5px 0 0; font-size: 24px; text-align: center;"><?php echo $resultText; ?></p>
+                                </div>
+                                <?php
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
                 }
             } else {
                 echo 'Error: ' . mysqli_error($conn);
@@ -297,70 +312,99 @@ $user_id = $_SESSION['user_id'];
                     <div class="row justify-content-md-center mt-4">
                         <div class="card col-sm-10">
                             <div class="card-body">
-                                <?php
-                                include 'dbcon.php';
-                                if (isset($_GET['quiz_options_id'])) {
-                                    $quiz_options_id = $_GET['quiz_options_id'];
+                            <?php
+                            include 'dbcon.php';
 
-                                    $sql = "SELECT tbl_quiz_question.question, tbl_quiz_question.question_id FROM tbl_quiz_question 
-                                            WHERE tbl_quiz_question.quiz_options_id = '$quiz_options_id'";
-
-                                    $result = mysqli_query($conn, $sql);
-
-                                    if ($result && mysqli_num_rows($result) > 0) {
-                                        $questionNumber = 1;
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $question_id = $row['question_id'];
-
-                                            // Retrieve the correct answer for the question
-                                            $sql_correct_choice = "SELECT tbl_quiz_choices.choices 
-                                                                FROM tbl_quiz_choices 
-                                                                WHERE question_id = '$question_id' 
-                                                                AND tbl_quiz_choices.is_right = 1";
-
-                                            $result_correct_choice = mysqli_query($conn, $sql_correct_choice);
+                            if (isset($_GET['quiz_options_id'])) {
+                                $quiz_options_id = $_GET['quiz_options_id'];
+                                
+                                $sql = "SELECT tbl_quiz_question.question, tbl_quiz_question.question_id FROM tbl_quiz_question 
+                                        WHERE tbl_quiz_question.quiz_options_id = '$quiz_options_id'";
+                                
+                                $result = mysqli_query($conn, $sql);
+                                
+                                if ($result && mysqli_num_rows($result) > 0) {
+                                    $questionNumber = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $question_id = $row['question_id'];
+                                        
+                                        // Retrieve the correct answer for the question
+                                        $sql_correct_choice = "SELECT tbl_quiz_choices.choices, tbl_quiz_choices.is_right FROM tbl_quiz_choices 
+                                                                WHERE tbl_quiz_choices.question_id = '$question_id' AND tbl_quiz_choices.is_right = 1";
+                                        
+                                        $result_correct_choice = mysqli_query($conn, $sql_correct_choice);
+                                        
+                                        // Check if a valid result was obtained
+                                        if ($result_correct_choice) {
                                             $correct_choice = mysqli_fetch_assoc($result_correct_choice);
-
-                                            // Store the correct answer in a hidden input field
-                                            echo '<input type="hidden" name="correct_answer_' . $questionNumber . '" value="' . $correct_choice['choices'] . '">';
-
-                                            ?>
-                                            <div class="card card-body mb-0">
-                                                <h5 class="card-title">Question <?php echo $questionNumber; ?></h5>
-                                                <p class="mt-2"><?php echo $row['question']; ?></p>
-                                                <div class="list-group">
-                                                    <table class="table table-hover">
-                                                        <tbody>
-                                                            <?php
-                                                            $sql_choices = "SELECT tbl_quiz_choices.choices FROM tbl_quiz_choices WHERE question_id = '$question_id'";
-                                                            $result_choices = mysqli_query($conn, $sql_choices);
-                                                            while ($row_choices = mysqli_fetch_assoc($result_choices)) {
-                                                                ?>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input type="radio" id="customRadio<?php echo $questionNumber; ?>"
-                                                                                name="customRadio<?php echo $questionNumber; ?>"
-                                                                                class="form-check-input" value="<?php echo $row_choices['choices']; ?>" required>
-                                                                            <label class="form-check-label" for="customRadio<?php echo $questionNumber; ?>">
-                                                                                <?php echo $row_choices['choices']; ?>
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <?php
-                                            $questionNumber++; // Increment the question number for the next iteration
+                                            $isCorrect = false; // Flag to check if the selected answer is correct
+                                            
+                                            if ($correct_choice) {
+                                                $correct_answer = $correct_choice['choices'];
+                                                // Retrieve the selected answer for the user
+                                                $sql_selected_answer = "SELECT tbl_quiz_answer.selected_answer FROM tbl_quiz_answer 
+                                                                        WHERE tbl_quiz_answer.question_id = '$question_id' AND tbl_quiz_answer.user_id = '$user_id'";
+                                                
+                                                $result_selected_answer = mysqli_query($conn, $sql_selected_answer);
+                                                
+                                                if ($result_selected_answer) {
+                                                    $selected_answer = mysqli_fetch_assoc($result_selected_answer);
+                                                    
+                                                    if ($selected_answer) {
+                                                        $user_selected_answer = $selected_answer['selected_answer'];
+                                                        $isCorrect = ($user_selected_answer == $correct_answer);
+                                                    }
+                                                }
+                                            }
+                                            
+                                            // Store the correct answer in a hidden input
+                                            echo '<input type="hidden" name="correct_answer_' . $questionNumber . '" value="' . $correct_answer . '">';
+                                            
+                                            // Add a CSS class to style the radio button based on correctness
+                                            $radioClass = $isCorrect ? 'correct' : 'incorrect';
                                         }
+                                        
+                                        ?>
+                                        <div class="card card-body mb-0">
+                                            <h5 class="card-title">Question <?php echo $questionNumber; ?></h5>
+                                            <p class="mt-2"><?php echo $row['question']; ?></p>
+                                            <div class="list-group">
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                        <?php
+                                                        $sql_choices = "SELECT tbl_quiz_choices.choices FROM tbl_quiz_choices WHERE question_id = '$question_id'";
+                                                        $result_choices = mysqli_query($conn, $sql_choices);
+                                                        while ($result_choices && $row_choices = mysqli_fetch_assoc($result_choices)) {
+                                                            ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="form-check form-check-inline <?php echo $radioClass; ?>">
+                                                                        <input type="radio" id="customRadio<?php echo $questionNumber; ?>"
+                                                                            name="customRadio<?php echo $questionNumber; ?>"
+                                                                            class="form-check-input" value="<?php echo $row_choices['choices']; ?>"
+                                                                            <?php if ($user_selected_answer == $row_choices['choices']) {
+                                                                                echo 'checked';
+                                                                            } ?> required>
+                                                                        <label class="form-check-label" for="customRadio<?php echo $questionNumber; ?>">
+                                                                            <?php echo $row_choices['choices']; ?>
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <?php
+                                        
+                                        $questionNumber++; // Increment the question number for the next iteration
                                     }
                                 }
-                                ?>
+                            }
+                            ?>
                              <div class="row">
                                 <div class="col-sm-6 text-md-end">
                                     <a href="Learner_index.php" class="btn btn-primary">Dashboard</a>

@@ -121,19 +121,20 @@ include 'dbcon.php';
                     <!-- Add button to open the modal -->
                 
                     <div class="row">
-    <div class="col-md-6">
-        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
-            data-bs-target="Teacher_uploadlesson.php">Add Lesson</button>
-    </div>
-    <div class="col-md-6">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" id="searchInput" placeholder="Search...">
-            <div class="input-group-append">
-                <button class="btn btn-primary" id="searchButton">Search</button>
-            </div>
-        </div>
-    </div>
-</div>
+                        <div class="col-md-6">
+                            <a href="admin_upload_lesson.php">
+                                <button type="button" class="btn btn-primary mt-3">Add Lesson</button>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" id="searchButton">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Table to display quiz assignments -->
                     <div class="row">
