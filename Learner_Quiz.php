@@ -298,7 +298,7 @@ $user_id = $_SESSION['user_id'];
                     $questionNumber--;
                     $max_score = $questionNumber;
 
-                    $scoreSql = "INSERT INTO tbl_quiz_score (question_id, score, max_score, attempts, user_id) VALUES ('$quiz_options_id', '$score', '$max_score', 1, '$user_id')";
+                    $scoreSql = "INSERT INTO tbl_quiz_score (question_id, score, max_score, attempts, remark, user_id) VALUES ('$quiz_options_id', '$score', '$max_score', 1, ' ', '$user_id')";
                     $scoreResult = mysqli_query($conn, $scoreSql);
 
                     if ($scoreResult) {

@@ -285,22 +285,6 @@ $user_id = $_SESSION['user_id'];
                                 if (isset($_GET['quiz_options_id'])) {
                                     $quiz_options_id = $_GET['quiz_options_id'];
 
-                                    $sqlAttempts = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.attempts AS quizAttempt, tbl_quiz_score.attempts FROM tbl_quiz_options
-                                    JOIN tbl_quiz_score ON tbl_quiz_options.quiz_options_id =  '$quiz_options_id'";
-                                    $resultAttempts = mysqli_query($conn, $sqlAttempts);
-    
-                                            if ($resultAttempts && mysqli_num_rows($resultAttempts) > 0){
-                                                $rowAttempts = mysqli_fetch_assoc($resultAttempts);
-                                                $scoreAttempts = $rowAttempts['attempts'];
-                                                $quizAttempts = $rowAttempts['quizAttempt'];
-                                                if($quizAttempts == $scoreAttempts){
-                                                    echo '<div class="card-footer text-md-end">';
-                                                    echo '<a href="learner_quiz_result.php?quiz_options_id=' . $rowAttempts['quiz_options_id'] . '">';
-                                                    echo '<button type="button" class="btn btn-info">See Submission</button>';
-                                                    echo '</a>';
-                                                    echo '</div>';
-                                                } 
-                                        } else {
                                             $sqlQuiz = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_options.attempts, tbl_quiz_question.question_id
                                             FROM tbl_quiz_options
                                             JOIN tbl_quiz_question ON tbl_quiz_options.quiz_options_id = tbl_quiz_question.quiz_options_id
@@ -319,7 +303,7 @@ $user_id = $_SESSION['user_id'];
                                                 echo '</div>';
                                                 } 
                                         }
-                                } else {
+                                    else {
                                     echo "No id provided";
                                     exit();
                                 }

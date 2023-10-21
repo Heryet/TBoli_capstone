@@ -19,6 +19,25 @@ $user_id = $_SESSION['user_id'];
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
     <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" disabled="disabled">
 
+    <style>
+tr.selected-answer.correct {
+  background-color: #4CAF50; /* Green color for correct answer */
+  color: white;
+}
+
+tr.selected-answer.incorrect {
+  background-color: #FF0000; /* Red color for incorrect answer */
+  color: white;
+}
+
+tr.selected-answer.correct label {
+  color: white;
+}
+
+tr.selected-answer.incorrect label {
+  color: white;
+}
+    </style>
 </head>
 
 <body <?php include('dataconfig.php') ?>>
@@ -245,7 +264,7 @@ $user_id = $_SESSION['user_id'];
             // Retrieve the learner's scores from the tbl_quiz_score table
             $sql = "SELECT tbl_quiz_score.quiz_score_id, tbl_quiz_score.question_id, tbl_quiz_score.score, tbl_quiz_score.max_score
                 FROM `tbl_quiz_score`
-                WHERE question_id = '$quiz_options_id'"; 
+                WHERE question_id = '$quiz_options_id'";
 
             $result = mysqli_query($conn, $sql);
 
@@ -264,10 +283,29 @@ $user_id = $_SESSION['user_id'];
                                 <?php
                                 $percentage = round(($score / $max_score) * 100);
                                 $passingScore = 75;
+                                $perfectScore = 100;
 
-                                $circleColor = ($percentage >= $passingScore) ? 'green' : 'red';
+                                if ($percentage >= $perfectScore) {
+                                    $resultText = 'Perfect';
+                                    $circleColor = 'green';
+
+                                    $sqlPerfect = "UPDATE tbl_quiz_score SET remark = 'PERFECT' WHERE user_id = '$user_id'";
+                                    $perfectResult = mysqli_query($conn, $sqlPerfect);
+                                } elseif ($percentage >= $passingScore) {
+                                    $resultText = 'Pass';
+                                    $circleColor = 'green';
+
+                                    $sqlPassed = "UPDATE tbl_quiz_score SET remark = 'PASSED' WHERE user_id = '$user_id'";
+                                    $passResult = mysqli_query($conn, $sqlPassed);
+                                } else {
+                                    $resultText = 'Fail';
+                                    $circleColor = 'red';
+
+                                    $sqlFailed = "UPDATE tbl_quiz_score SET remark = 'FAILED' WHERE user_id = '$user_id'";
+                                    $failResult = mysqli_query($conn, $sqlFailed);
+                                }
+
                                 $scoreText = $score . ' / ' . $max_score;
-                                $resultText = ($percentage >= $passingScore) ? 'You pass' : 'You fail';
                                 ?>
                                 <div style="width: 200px; height: 200px; border-radius: 50%; background-color: transparent; border: 5px solid <?php echo $circleColor; ?>; display: flex; align-items: center; justify-content: center; flex-direction: column; margin: 0 auto;">
                                     <h2 style="margin: 0; font-size: 50px;"><?php echo $percentage; ?>%</h2>
@@ -376,23 +414,23 @@ $user_id = $_SESSION['user_id'];
                                                         $result_choices = mysqli_query($conn, $sql_choices);
                                                         while ($result_choices && $row_choices = mysqli_fetch_assoc($result_choices)) {
                                                             ?>
-                                                            <tr>
+                                                            <tr class="<?php echo ($user_selected_answer == $row_choices['choices']) ? 'selected-answer' : ''; echo ($isCorrect) ? ' correct' : ' incorrect'; ?>">
                                                                 <td>
-                                                                    <div class="form-check form-check-inline <?php echo $radioClass; ?>">
+                                                                    <div class="form-check form-check-inline">
                                                                         <input type="radio" id="customRadio<?php echo $questionNumber; ?>"
                                                                             name="customRadio<?php echo $questionNumber; ?>"
                                                                             class="form-check-input" value="<?php echo $row_choices['choices']; ?>"
                                                                             <?php if ($user_selected_answer == $row_choices['choices']) {
                                                                                 echo 'checked';
-                                                                            } ?> required>
+                                                                            } ?> disabled> <!-- Add disabled attribute here -->
                                                                         <label class="form-check-label" for="customRadio<?php echo $questionNumber; ?>">
                                                                             <?php echo $row_choices['choices']; ?>
                                                                         </label>
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                        <?php
-                                                        }
+                                                            <?php
+                                                            }
                                                         ?>
                                                     </tbody>
                                                 </table>
@@ -405,11 +443,41 @@ $user_id = $_SESSION['user_id'];
                                 }
                             }
                             ?>
-                             <div class="row">
-                                <div class="col-sm-6 text-md-end">
-                                    <a href="Learner_index.php" class="btn btn-primary">Dashboard</a>
-                                </div>
-                            </div>
+                            <?php 
+                            $sql = "SELECT tbl_quiz_score.remark FROM tbl_quiz_score WHERE user_id = '$user_id'";
+                            $result = mysqli_query($conn, $sql);
+
+                            if($result){
+                                $row = mysqli_fetch_assoc($result);
+                                $remark = $row['remark'];
+                                
+                                if($remark == 'FAILED') {
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-sm-6 text-md-end">
+                                            <a href="Learner_Retake_Quiz.php" class="btn btn-primary">Retake Quiz</a>
+                                        </div>
+                                    </div>
+                                    <?php
+                                } elseif ($remail == 'PASSED'){
+                                    ?> 
+                                    <div class="row">
+                                        <div class="col-sm-6 text-md-end">
+                                            <a href="Learner_Retake_Quiz.php" class="btn btn-primary">Retake Quiz</a>
+                                        </div>
+                                    </div>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-sm-6 text-md-end">
+                                            <a href="Learner_index.php" class="btn btn-primary">Dashboard</a>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                            ?>
                             </div>
                         </div>
                     </div>
