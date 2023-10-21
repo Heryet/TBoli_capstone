@@ -63,7 +63,7 @@
                     <a href="admin_create_quiz.php"><i class="uil-edit-alt"></i>Quiz List</a>
                 </li>
                 <li>
-                    <a href="Teacher_Create_Lesson.php"><i class="uil-edit-alt"></i>Lesson</a>
+                    <a href="admin_create_lesson.php"><i class="uil-edit-alt"></i>Lesson</a>
                 </li>
             </ul>
         </div>
