@@ -22,6 +22,24 @@ $user_id = $_SESSION['user_id'];
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
     <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" disabled="disabled">
 
+    <style>
+    .error {
+        text-align: center;
+        background: #f59595fb;
+        color: #b92c2c;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+    }
+    .success {
+        text-align: center;
+        background: #f59595fb;
+        color: #00FF00;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+    }
+    </style>
 </head>
 
 <body <?php include('dataconfig.php') ?>>
@@ -123,20 +141,15 @@ $user_id = $_SESSION['user_id'];
             <div class="row">
                 <div class="col-sm-2 mb-2 mb-sm-0">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active show" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home"
-                            role="tab" aria-controls="v-pills-home" aria-selected="true">
-                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                            <span class="d-none d-md-block">Password and security</span>
-                        </a>
-                        <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile"
-                            role="tab" aria-controls="v-pills-profile" aria-selected="false">
-                            <i class="mdi mdi-account-circle d-md-none d-block"></i>
-                            <span class="d-none d-md-block">Personal Details</span>
-                        </a>
                         <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings"
                             role="tab" aria-controls="v-pills-settings" aria-selected="false">
                             <i class="mdi mdi-settings-outline d-md-none d-block"></i>
                             <span class="d-none d-md-block">Change Profile Picture</span>
+                        </a>
+                        <a class="nav-link active show" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home"
+                            role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <i class="mdi mdi-home-variant d-md-none d-block"></i>
+                            <span class="d-none d-md-block">Password and security</span>
                         </a>
                     </div>
                 </div> <!-- end col-->
@@ -147,6 +160,11 @@ $user_id = $_SESSION['user_id'];
                             aria-labelledby="v-pills-home-tab">
 
                             <h3>Password and security</h3>
+                            <?php if (isset($_GET['success'])) { ?>
+                                <p class="success">
+                                    <?php echo $_GET['success']; ?>
+                                </p>
+                            <?php } ?>
                             <table class="table table-centered mb-0">
                                 <tbody>
                                     <tr>
@@ -154,9 +172,7 @@ $user_id = $_SESSION['user_id'];
                                             <h4>Change password</h4>
                                         </td>
                                         <td>
-
                                             <div class="d-grid">
-
                                                 <!-- Signup modal-->
                                                 <button type="button" class="btn btn-info btn-rounded"
                                                     data-bs-toggle="modal" data-bs-target="#change-pass">Change</button>
@@ -164,23 +180,78 @@ $user_id = $_SESSION['user_id'];
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
-
                                                             <div class="modal-body">
                                                                 <div class="text-center mt-2 mb-4">
                                                                     <a href="index.html" class="text-success">
                                                                         <span><img src="assets/images/hacker.gif" alt=""
                                                                                 height="100px"></span>
                                                                         <h3>Change Password</h3>
+                                                                        <?php if (isset($_GET['error'])) { ?>
+                                                                        <p class="error">
+                                                                            <?php echo $_GET['error']; ?>
+                                                                        </p>
+                                                                        <?php } ?>
                                                                     </a>
                                                                 </div>
+                                                                <?php
+                                                                include 'dbcon.php';
 
-                                                                <form class="ps-3 pe-3" action="#">
+                                                                if (isset($_POST['btnChange'])) {
+                                                                    $user_id = $_SESSION['user_id'];
+                                                                    $userPassword = $_POST['currentpassword'];
+                                                                    $newPassword = $_POST['newpassword'];
+                                                                    $newPassword2 = $_POST['newpassword2'];
 
+                                                                    // Check if the new passwords are empty
+                                                                    if (empty($newPassword) || empty($newPassword2)) {
+                                                                        echo 'New password fields cannot be empty';
+                                                                    } elseif ($newPassword !== $newPassword2) {
+                                                                        echo 'New passwords do not match';
+                                                                    } else {
+                                                                        // Verify the current password
+                                                                        $sql = "SELECT password FROM tbl_accounts WHERE user_id = ?";
+                                                                        $stmt = mysqli_prepare($conn, $sql);
+                                                                        mysqli_stmt_bind_param($stmt, "s", $user_id);
+                                                                        mysqli_stmt_execute($stmt);
+                                                                        $result = mysqli_stmt_get_result($stmt);
+
+                                                                        if ($row = mysqli_fetch_assoc($result)) {
+                                                                            $storedPassword = $row['password'];
+                                                                            if (password_verify($userPassword, $storedPassword)) {
+                                                                                // Hash and update the new password
+                                                                                $encrypted = password_hash($newPassword, PASSWORD_DEFAULT);
+                                                                                $updatePassword = "UPDATE tbl_accounts SET password = ? WHERE user_id = ?";
+                                                                                $stmt = mysqli_prepare($conn, $updatePassword);
+                                                                                mysqli_stmt_bind_param($stmt, "ss", $encrypted, $user_id);
+                                                                                if (mysqli_stmt_execute($stmt)) {
+                                                                                    ?> 
+                                                                                    <script>
+                                                                                        window.location.href="learner_edit_profile.php?success=Account updated successfully";
+                                                                                    </script>
+                                                                                    <?php
+                                                                                } else {
+                                                                                    ?> 
+                                                                                    <script>
+                                                                                        window.location.href="learner_edit_profile.php?error=Account updated successfully";
+                                                                                    </script>
+                                                                                    <?php
+                                                                                }
+                                                                            } else {
+                                                                                echo 'Incorrect current password';
+                                                                            }
+                                                                        } else {
+                                                                            echo 'User not found';
+                                                                        }
+                                                                    }
+                                                                }
+                                                                ?>
+                                                                <form class="ps-3 pe-3" action="" method="POST">
                                                                     <div class="mb-3">
                                                                         <label for="Current-password"
                                                                             class="form-label">Current password</label>
                                                                         <div class="input-group input-group-merge">
                                                                             <input type="password" id="Current-password"
+                                                                                name="currentpassword"
                                                                                 class="form-control"
                                                                                 placeholder="Enter your current password">
                                                                             <div class="input-group-text"
@@ -189,12 +260,12 @@ $user_id = $_SESSION['user_id'];
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
                                                                     <div class="mb-3">
                                                                         <label for="new-password" class="form-label">New
                                                                             password</label>
                                                                         <div class="input-group input-group-merge">
                                                                             <input type="password" id="new-password"
+                                                                                name="newpassword"
                                                                                 class="form-control"
                                                                                 placeholder="Enter your new password">
                                                                             <div class="input-group-text"
@@ -203,12 +274,12 @@ $user_id = $_SESSION['user_id'];
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
                                                                     <div class="mb-3">
                                                                         <label for="password" class="form-label">Re-type
                                                                             new password</label>
                                                                         <div class="input-group input-group-merge">
                                                                             <input type="password" id="password"
+                                                                                name="newpassword2"
                                                                                 class="form-control"
                                                                                 placeholder="Re-type your password">
                                                                             <div class="input-group-text"
@@ -217,118 +288,24 @@ $user_id = $_SESSION['user_id'];
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
-
-
                                                                     <div class="mb-3 text-center">
                                                                         <button class="btn btn-primary"
-                                                                            type="submit">Change password</button>
+                                                                            type="submit" name="btnChange">Change password</button>
                                                                     </div>
-
                                                                 </form>
-
                                                             </div>
                                                         </div><!-- /.modal-content -->
                                                     </div><!-- /.modal-dialog -->
                                                 </div><!-- /.modal -->
-
                                             </div>
-
-
-
-
                                         </td>
                                     </tr>
-
                                     <!-- ennddd -->
-
-
-
-
-
-
                                 </tbody>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                             aria-labelledby="v-pills-profile-tab">
-
-
-
-                            <div class="col-">
-                                <div class="card">
-                                    <div class="card-body">
-
-                                        <h4>Personal Information</h4>
-
-
-                                        <div class="row g-2">
-
-
-
-                                            <div class="mb-3 col-md-6">
-                                                <label for="FName" class="form-label">First Name </label>
-                                                <h4 class="form-control"><?php echo $firstname ?></h4>
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="MiddleName" class="form-label">Middle Name </label>
-                                                <h4 class="form-control"><?php echo $middlename ?></h4>
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="LName" class="form-label">Last Name </label>
-                                                <h4 class="form-control"><?php echo $lastname ?></h4>
-                                            </div>
-
-                                            <div class="mb-3 col-md-6">
-                                                <label for="SuffiName" class="form-label">Suffix Name </label>
-                                                <h4 class="form-control">None</h4>
-                                            </div>
-                                        </div>
-
-                                        <div class="row g-2">
-                                            <div class="mb-3 col-md-6">
-                                                <label for="inputbday" class="form-label">Birthdate </label>
-                                                <h4 class="form-control"><?php echo $birthday ?></h4>
-                                            </div>
-                                            <div class="mb-3 col-md-4">
-                                                <label for="inputGender" class="form-label">Gender </label>
-                                                <h4 class="form-control"><?php echo $gender ?></h4>
-                                            </div>
-                                        </div>
-
-                                        <h4>Location</h4>
-
-                                        <div class="mb-3">
-                                            <label for="inputAddress" class="form-label">Full address (street, barangay,
-                                                city) </label>
-                                            <h4 class="form-control"><?php echo $address ?></h4>
-                                        </div>
-
-                                        <h4>Contact Information</h4>
-                                        <div class="row g-2">
-                                            <div class="mb-3 col-md-6">
-                                                <label for="inputCity" class="form-label">Email </label>
-                                                <h4 class="form-control"><?php echo $email ?></h4>
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="inputBarangay" class="form-label">Contact</label>
-                                                <h4 class="form-control"><?php echo $contact?></h4>
-                                            </div>
-                                        </div>
-
-
-
-
-
-                                        <div class="table-responsive">
-
-                                        </div> <!-- end table-responsive-->
-
-                                    </div> <!-- end card body-->
-                                </div> <!-- end card -->
-                            </div>
-
-
 
                         </div>
                         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"

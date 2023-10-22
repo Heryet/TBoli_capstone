@@ -184,7 +184,7 @@ $user_id = $_SESSION['user_id'];
                                                 $sql = "INSERT INTO tbl_user_status (status) VALUES ('1')";
                                                 if ($conn->query($sql) === TRUE) {
                                                     $status_id = $conn->insert_id;
-                                                    $sql = "INSERT INTO tbl_accounts (email, password) VALUES ('$email', '$encrypted')";
+                                                    $sql = "INSERT INTO tbl_accounts (user_id, email, password) VALUES ('$user_info_id' ,'$email', '$password')";
                                                     if ($conn->query($sql) === TRUE) {
                                                         $account_id = $conn->insert_id;
                                                         // Insert learner information into tbl_learner

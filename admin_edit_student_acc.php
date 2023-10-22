@@ -1,3 +1,8 @@
+<?php
+session_start();
+$user_id = $_SESSION['user_id'];
+
+?>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -45,34 +50,27 @@ if (isset($_GET['user_id'])) {
 
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-    } else {
-        echo "No records found in tbl_admin";
-        exit();
-    }
-    } else {
-        echo "No admin id provided";
-        exit();
-    }
+        ?> 
+        <?php
+         if (isset($_POST['btnAdd'])) {
+            $password = $_POST['password'];
+            $cfpassword = $_POST['cfpassword'];
+            $encrypted = password_hash($password, PASSWORD_DEFAULT);
 
-    if (isset($_POST['btnAdd'])) {
-        $password = $_POST['password'];
-        $cfpassword = $_POST['cfpassword'];
-        $encrypted = password_hash($password, PASSWORD_DEFAULT);
+            if ($password == $cfpassword) {
+                $sql = "UPDATE tbl_accounts SET password = '$encrypted' WHERE user_id = '$user_id'";
 
-        if ($password == $cfpassword) {
-            $sql = "UPDATE tbl_accounts SET password = '$encrypted' WHERE account_id = '$user_id'";
-
-            if ($conn->query($sql) === TRUE) {
-                header("Location: admin_student.php?msg=Account updated successfully");
+                if ($conn->query($sql) === TRUE) {
+                    header("Location: admin_student.php?msg=Account updated successfully"); 
+                    exit();
+                }
+            } else {
+                header("Location: admin_edit_student_acc.php?user_id=$user_id&error=Account updated unsuccessfully");
                 exit();
             }
-        } else {
-            header("Location: admin_edit_student_acc.php?user_id=$user_id&error=PASSWORD DOESN'T MATCH");
-            exit();
         }
-    }
-?>
-    <form action="" method="POST">
+        ?>
+        <form action="" method="POST">
     <div class="wrapper rounded bg-white">
             <div class="h3">Update Learner Account</div>
 
@@ -123,67 +121,73 @@ if (isset($_GET['user_id'])) {
 
                 <div class="h3">Update Learner Guardian Information</div>
 
-<div class="form">
-    <div class="row">
-  
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label>First Name</label>
-            <input type="text" class="form-control" name="gfirstname" value="<?php echo $row['guadian_firstname']?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label>Middle Name</label>
-            <input type="text" class="form-control" name="gmiddlename" value="<?php echo $row['guadian_middlename']?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label>Last Name</label>
-            <input type="text" class="form-control" name="glastname" value="<?php echo $row['guadian_lastname']?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label>Phone Number</label>
-            <input type="tel" class="form-control" name="gphoneNumber" value="<?php echo $row['guadian_contact']?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label>Email</label>
-            <input type="email" class="form-control" name="gemail" value="<?php echo $row['guadian_email']?>" readonly  required>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label>Birthday</label>
-            <input type="date" class="form-control" name="gbirthday" value="<?php echo $row['guadian_birthday']?>" readonly  required>
-        </div>
-        <div class="col-md-6 mt-md-0 mt-3">
-            <label>Birthday</label>
-            <input type="text" class="form-control" name="ggender" value="<?php echo $row['guadian_gender']?>" readonly  required>
-        </div>
-    </div>
-    <div class="row">
-      
-        <div class="my-md-2 my-3">
-            <label>Full Address (street, barangay, city)</label>
-            <input type="address" class="form-control" name="gaddress" value="<?php echo $row['guadian_address']?>" readonly  required>
-        </div>
-    </div>
-    <div class="row">
-    <label><h3>Update Learner Password</h3></label> 
-    <?php if (isset($_GET['error'])) { ?>
-        <p class="error">
-        <?php echo $_GET['error']; ?>
-        </p>
-    <?php } ?>
-    <div class="col-md-6 mt-md-0 mt-3">
-        <label>Password</label>
-        <input type="password" class="form-control" name="password" value="<?php echo $row['userinfo_password']?>" required>
-    </div>
-    <div class="col-md-6 mt-md-0 mt-3">
-        <label>Confirm Password</label>
-        <input type="password" class="form-control" name="cfpassword" required>
-    </div>
-  </div>
+            <div class="form">
+                <div class="row">
+            
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" name="gfirstname" value="<?php echo $row['guadian_firstname']?>" readonly  required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>Middle Name</label>
+                        <input type="text" class="form-control" name="gmiddlename" value="<?php echo $row['guadian_middlename']?>" readonly  required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" name="glastname" value="<?php echo $row['guadian_lastname']?>" readonly  required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control" name="gphoneNumber" value="<?php echo $row['guadian_contact']?>" readonly  required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="gemail" value="<?php echo $row['guadian_email']?>" readonly  required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>Birthday</label>
+                        <input type="date" class="form-control" name="gbirthday" value="<?php echo $row['guadian_birthday']?>" readonly  required>
+                    </div>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <label>Birthday</label>
+                        <input type="text" class="form-control" name="ggender" value="<?php echo $row['guadian_gender']?>" readonly  required>
+                    </div>
+                </div>
+                <div class="row">
+                
+                    <div class="my-md-2 my-3">
+                        <label>Full Address (street, barangay, city)</label>
+                        <input type="address" class="form-control" name="gaddress" value="<?php echo $row['guadian_address']?>" readonly  required>
+                    </div>
+                </div>
+                <div class="row">
+                <label><h3>Update Learner Password</h3></label> 
+                <?php if (isset($_GET['error'])) { ?>
+                    <p class="error">
+                    <?php echo $_GET['error']; ?>
+                    </p>
+                <?php } ?>
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Enter password" required>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" name="cfpassword" placeholder="Re-enter password" required>
+                </div>
+            </div>
                 <input type="submit" class="btn btn-primary mt-3" value="Add Account" name="btnAdd">
             </div>
         </div>
     </div>
-    </form>
-
+</form>
+<?php
+    } 
+    } else {
+        echo "No admin id provided";
+        exit();
+    }   
+?>
 </div>

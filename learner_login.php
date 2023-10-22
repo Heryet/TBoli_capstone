@@ -50,60 +50,60 @@
                                 <p class="text-muted mb-4">Enter your email address and password.</p>
                             </div>
                             <form action="#" method="POST">
-                                <?php
-                                session_start();
-                                include 'dbcon.php';
+                            <?php
+                            session_start();
+                            include 'dbcon.php';
 
-                                if (isset($_POST['btnLogin'])) {
-                                    $email = $_POST['email'];
-                                    $password = $_POST['password'];
+                            if (isset($_POST['btnLogin'])) {
+                                $email = $_POST['email'];
+                                $password = $_POST['password'];
 
-                                    if (empty($email)) {
-                                        header("Location: login.php?error=Email must be filled");
-                                        exit();
-                                    } elseif (empty($password)) {
-                                        header("Location: login.php?error=Password must be filled");
-                                        exit();
-                                    } else {
-                                        // Use a prepared statement to prevent SQL injection
-                                        $sql = "SELECT tbl_userinfo.user_id, tbl_accounts.email, tbl_accounts.password, tbl_user_level.level, tbl_user_status.status FROM tbl_learner
-                                            JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
-                                            JOIN tbl_accounts ON tbl_learner.account_id = tbl_accounts.account_id
-                                            JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
-                                            JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
-                                            WHERE tbl_accounts.email = ? AND tbl_user_status.status = 1 AND tbl_user_level.level = 'LEARNER'";
+                                if (empty($email)) {
+                                    header("Location: login.php?error=Email must be filled");
+                                    exit();
+                                } elseif (empty($password)) {
+                                    header("Location: login.php?error=Password must be filled");
+                                    exit();
+                                } else {
+                                    // Sanitize the input to prevent SQL injection (not as secure as prepared statements)
+                                    $email = mysqli_real_escape_string($conn, $email);
 
-                                        $stmt = mysqli_prepare($conn, $sql);
-                                        mysqli_stmt_bind_param($stmt, "s", $email);
-                                        mysqli_stmt_execute($stmt);
-                                        $result = mysqli_stmt_get_result($stmt);
+                                    // Construct the SQL query
+                                    $sql = "SELECT tbl_userinfo.user_id, tbl_accounts.email, tbl_accounts.password, tbl_user_level.level, tbl_user_status.status FROM tbl_learner
+                                        JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
+                                        JOIN tbl_accounts ON tbl_learner.account_id = tbl_accounts.account_id
+                                        JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
+                                        JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
+                                        WHERE tbl_accounts.email = '$email' AND tbl_user_status.status = 1 AND tbl_user_level.level = 'LEARNER'";
 
-                                        if ($result && mysqli_num_rows($result) > 0) {
-                                            $row = mysqli_fetch_assoc($result);
-                                            $storedPasswordHash = $row['password'];
-                                            $level = $row['level'];
+                                    $result = mysqli_query($conn, $sql);
 
-                                            // Use password_verify to check if the provided password matches the stored hash
-                                            if (password_verify($password, $storedPasswordHash) && $row['status'] == 1) {
-                                                $_SESSION['user_id'] = $row['user_id'];
-                                                $_SESSION['email'] = $email;
-                                                $_SESSION['user_level'] = $level;
+                                    if ($result && mysqli_num_rows($result) > 0) {
+                                        $row = mysqli_fetch_assoc($result);
+                                        $storedPasswordHash = $row['password'];
+                                        $level = $row['level'];
 
-                                                if ($level === 'LEARNER') {
-                                                    header("Location: Learner_index.php?Login Successfully");
-                                                    exit();
-                                                }
-                                            } else {
-                                                header("Location: learner_login.php?error=Invalid email or password");
+                                        // Use password_verify to check if the provided password matches the stored hash
+                                        if (password_verify($password, $storedPasswordHash) && $row['status'] == 1) {
+                                            $_SESSION['user_id'] = $row['user_id'];
+                                            $_SESSION['email'] = $email;
+                                            $_SESSION['user_level'] = $level;
+
+                                            if ($level === 'LEARNER') {
+                                                header("Location: Learner_index.php?Login Successfully");
                                                 exit();
                                             }
                                         } else {
                                             header("Location: learner_login.php?error=Invalid email or password");
                                             exit();
                                         }
+                                    } else {
+                                        header("Location: learner_login.php?error=Invalid email or password");
+                                        exit();
                                     }
                                 }
-                                ?>
+                            }
+                            ?>
                                 <div class="mb-3">
                                     <?php if (isset($_GET['error'])) { ?>
                                     <p class="error">

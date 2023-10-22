@@ -8,7 +8,7 @@ $user_id = $_SESSION['user_id'];
 
 <head>
     <meta charset="utf-8">
-    <title>Profile | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <title>Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
     <meta content="Coderthemes" name="author">
@@ -80,19 +80,12 @@ $user_id = $_SESSION['user_id'];
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                                        <li class="breadcrumb-item active">Profile</li>
-                                    </ol>
                                 </div>
                                 <h4 class="page-title">Profile</h4>
                             </div>
                         </div>
                     </div>
                     <!-- end page title -->
-
-
                     <div class="row">
                         <div class="col-sm-12">
                             <!-- Profile -->
@@ -162,6 +155,16 @@ $user_id = $_SESSION['user_id'];
                             </div>
                         </div>
                         <!-- end col-->
+                        <?php 
+                        include 'dbcon.php';
+
+                        $sql = "SELECT tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_userinfo.gender, tbl_usercredentials.email, tbl_usercredentials.contact FROM tbl_userinfo
+                        JOIN tbl_usercredentials ON tbl_userinfo.user_id = tbl_usercredentials.usercredentials_id
+                        WHERE tbl_userinfo.user_id = '$user_id'";
+
+                        $result = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_array($result);
+                        ?>
                         <div class="col-sm-8">
                             <div class="tab-content" id="v-pills-tabContent">
 
@@ -175,24 +178,13 @@ $user_id = $_SESSION['user_id'];
                                     <p class="h3 text-info">Contact</p>
                                     <br>
                                     <span class="h4">
-                                        <i class="mdi mdi-cellphone-android"></i> &nbsp;09217381873 </span>
+                                        <i class="mdi mdi-cellphone-android"></i> &nbsp;<?php echo $row['contact']?> </span>
                                     <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mobile<br>
                                     <br>
 
                                     <span class="h4">
-                                        <i class="mdi mdi-email"></i> &nbsp;Jillianxward@gmail.com </span>
+                                        <i class="mdi mdi-email"></i> &nbsp;<?php echo $row['email']?></span>
                                     <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email<br>
-                                    <br>
-
-                                    <p class="h3 text-info">Websites and social links</p><br>
-
-                                    <span class="h4">
-                                        <i class="mdi mdi-facebook"></i> &nbsp;Jillian Ward </span>
-                                    <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook<br>
-                                    <br>
-                                    <span class="h4">
-                                        <i class="mdi mdi-instagram"></i> &nbsp;Jillianxdward</span>
-                                    <br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instagram<br>
                                     <br>
 
                                     <p class="h3 text-info">Basic info</p><br>
@@ -270,6 +262,8 @@ $user_id = $_SESSION['user_id'];
                             </div>
                             <!-- end tab-content-->
                         </div>
+                        <?php
+                        ?>
                         <!-- end col-->
                     </div>
                     <!-- end row-->
