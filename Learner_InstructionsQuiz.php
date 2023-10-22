@@ -280,34 +280,65 @@ $user_id = $_SESSION['user_id'];
                         </div>
 
                         <div class="mt-3 ">
-                            <?php
-                                include 'dbcon.php';
-                                if (isset($_GET['quiz_options_id'])) {
-                                    $quiz_options_id = $_GET['quiz_options_id'];
+                        <?php
+                        include 'dbcon.php';
 
-                                            $sqlQuiz = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_options.attempts, tbl_quiz_question.question_id
-                                            FROM tbl_quiz_options
-                                            JOIN tbl_quiz_question ON tbl_quiz_options.quiz_options_id = tbl_quiz_question.quiz_options_id
-                                            WHERE tbl_quiz_options.quiz_options_id =  $quiz_options_id";
-        
-                                            $resultQuiz = mysqli_query($conn, $sqlQuiz);
-        
-                                            if ($resultQuiz && mysqli_num_rows($resultQuiz) > 0) {
-                                                $rowQuiz = mysqli_fetch_assoc($resultQuiz);
-        
-                                                echo '<p>' . $rowQuiz['instructions'] . '</p>';
-                                                echo '<div class="card-footer text-md-end">';
-                                                echo '<a href="Learner_Quiz.php?quiz_options_id=' . $rowQuiz['quiz_options_id'] . '">';
-                                                echo '<button type="button" class="btn btn-info">Take the quiz</button>';
-                                                echo '</a>';
-                                                echo '</div>';
-                                                } 
-                                        }
-                                    else {
-                                    echo "No id provided";
-                                    exit();
+                        if (isset($_GET['quiz_options_id'])) {
+                            $quiz_options_id = $_GET['quiz_options_id'];
+
+                            $sqlQuiz = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_options.attempts, tbl_quiz_question.question_id, tbl_quiz_score.remark, tbl_quiz_score.user_id
+                                        FROM tbl_quiz_options
+                                        JOIN tbl_quiz_question ON tbl_quiz_options.quiz_options_id = tbl_quiz_question.quiz_options_id
+                                        JOIN tbl_quiz_score ON tbl_quiz_options.quiz_options_id = tbl_quiz_score.question_id
+                                        WHERE tbl_quiz_options.quiz_options_id = 6 AND tbl_quiz_score.user_id = 17";
+
+                            $resultQuiz = mysqli_query($conn, $sqlQuiz);
+
+                            if ($resultQuiz && mysqli_num_rows($resultQuiz) > 0) {
+                                $rowQuiz = mysqli_fetch_assoc($resultQuiz);
+                                $remarks = $rowQuiz['remark'];
+
+                                if ($remarks == 'FAILED') {
+                                    ?>
+                                    <p><?php echo $rowQuiz['instructions']; ?></p>
+                                    <div class="card-footer text-md-end">
+                                        <a href="learner_retake_quiz.php?quiz_options_id=<?php echo $rowQuiz['quiz_options_id']; ?>">
+                                            <button type="button" class="btn btn-info">Retake quiz</button>
+                                        </a>
+                                    </div>
+                                    <?php
+                                } elseif ($remarks == 'PASSED'){
+                                    ?> 
+                                    <div class="card-footer text-md-end">
+                                        <a href="learner_retake_quiz.php?quiz_options_id=<?php echo $rowQuiz['quiz_options_id']; ?>">
+                                            <button type="button" class="btn btn-info">Retake quiz</button>
+                                        </a>
+                                    </div>
+                                    <?php
+                                } elseif ($remarks == 'PERFECT') {
+                                    ?> 
+                                    <div class="card-footer text-md-end">
+                                        <a href="learner_quiz_result.php?quiz_options_id=<?php echo $rowQuiz['quiz_options_id']; ?>">
+                                            <button type="button" class="btn btn-info">See Submission</button>
+                                        </a>
+                                    </div>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <p><?php echo $rowQuiz['instructions']; ?></p>
+                                    <div class="card-footer text-md-end">
+                                        <a href="Learner_Quiz.php?quiz_options_id=<?php echo $rowQuiz['quiz_options_id']; ?>">
+                                            <button type="button" class="btn btn-info">Take the quiz</button>
+                                        </a>
+                                    </div>
+                                    <?php
                                 }
-                            ?>
+                            }
+                        } else {
+                            echo "No id provided";
+                            exit();
+                        }
+                        ?>
                         </div>
                     </div>
                     <!-- end card -->
