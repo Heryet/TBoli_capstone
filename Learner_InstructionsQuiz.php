@@ -286,11 +286,11 @@ $user_id = $_SESSION['user_id'];
                         if (isset($_GET['quiz_options_id'])) {
                             $quiz_options_id = $_GET['quiz_options_id'];
 
-                            $sqlQuiz = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_options.attempts, tbl_quiz_question.question_id, tbl_quiz_score.remark, tbl_quiz_score.user_id
+                            $sqlQuiz = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_question.question_id, tbl_quiz_score.remark, tbl_quiz_score.user_id
                                         FROM tbl_quiz_options
                                         JOIN tbl_quiz_question ON tbl_quiz_options.quiz_options_id = tbl_quiz_question.quiz_options_id
                                         JOIN tbl_quiz_score ON tbl_quiz_options.quiz_options_id = tbl_quiz_score.question_id
-                                        WHERE tbl_quiz_options.quiz_options_id = 6 AND tbl_quiz_score.user_id = 17";
+                                        WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id' AND tbl_quiz_score.user_id = '$user_id'";
 
                             $resultQuiz = mysqli_query($conn, $sqlQuiz);
 
@@ -333,6 +333,10 @@ $user_id = $_SESSION['user_id'];
                                     </div>
                                     <?php
                                 }
+                            }
+                            else {
+                                echo "No record";
+                                exit();
                             }
                         } else {
                             echo "No id provided";

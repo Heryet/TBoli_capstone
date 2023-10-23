@@ -46,19 +46,6 @@ $user_id = $_SESSION['user_id'];
         width: 100%;
         border-radius: 5px;
     }
-    /* gif modal css */
-    #gifModal .modal-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
-
-    #gifModal .modal-body img {
-        max-width: 100%;
-        height: auto;
-        width: 200px; /* Adjust the width as desired */
-        margin-bottom: 10px;
-    }
     </style>
 </head>
 
@@ -103,17 +90,6 @@ $user_id = $_SESSION['user_id'];
         <!-- ============================================================== -->
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
-        <!-- modal gif -->
-        <div id="gifModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body text-center">
-                        <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
-                        <p>Student added successfully</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="content-page">
             <div class="content">
@@ -173,7 +149,7 @@ $user_id = $_SESSION['user_id'];
                                                     <?php
                                                     include 'dbcon.php';
 
-                                                    $sql = "SELECT DISTINCT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.objective, tbl_lesson.level, tbl_lesson.type, tbl_lesson.added_by, tbl_lesson_files.status
+                                                    $sql = "SELECT DISTINCT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.objective, tbl_lesson.type, tbl_lesson.added_by, tbl_lesson_files.status
                                                     FROM tbl_content
                                                     JOIN tbl_lesson ON tbl_content.lesson_id = tbl_lesson.lesson_id
                                                     JOIN tbl_lesson_files ON tbl_content.lesson_files_id = tbl_lesson_files.lesson_files_id
@@ -263,22 +239,6 @@ $user_id = $_SESSION['user_id'];
         });
     });
 </script>
-
-<!-- script gif modal -->
-<script>
-    $(document).ready(function() {
-        // Check if the "openModal" query parameter is present
-        const urlParams = new URLSearchParams(window.location.search);
-        const openModal = urlParams.get("openModal");
-
-        if (openModal === "true") {
-            // Trigger the modal using JavaScript
-            $("#gifModal").modal("show");
-        }
-    });
-</script>
-
-
 
         <!-- bundle -->
         <script src="assets/js/vendor.min.js"></script>

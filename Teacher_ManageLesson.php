@@ -9,6 +9,33 @@ $user_id = $_SESSION['user_id'];
 
 <head>
     <?php include('teacher_header.php') ?>
+    <style>
+    /* gif modal css */
+    #gifModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    #gifModal .modal-body img {
+        max-width: 100%;
+        height: auto;
+        width: 200px; /* Adjust the width as desired */
+        margin-bottom: 10px;
+    }
+    #errorModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    #errorModal .modal-body img {
+        max-width: 100%;
+        height: auto;
+        width: 200px; /* Adjust the width as desired */
+        margin-bottom: 10px;
+    }
+    </style>
 </head>
 
 <body <?php include('dataconfig.php') ?>>
@@ -52,6 +79,29 @@ $user_id = $_SESSION['user_id'];
         <!-- ============================================================== -->
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
+        <!-- modal check gif -->
+        <div id="gifModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
+                        <p>Student added successfully</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- error modal -->
+        <div id="errorModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <img src="assets/images/gif/error.gif" alt="Error GIF" class="img-fluid">
+                        <p>The student has already been added.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="content-page">
             <div class="content">
@@ -83,17 +133,25 @@ $user_id = $_SESSION['user_id'];
                                     <!-- Form for adding a new quiz assignment -->
                                     <?php
                                     include 'dbcon.php';
-                                    if(isset($_GET['lesson_id']) && isset($_POST['addStudent'])) {
+
+                                    if (isset($_GET['lesson_id']) && isset($_POST['addStudent'])) {
                                         $lesson_id = $_GET['lesson_id'];
                                         $student = $_POST['student'];
 
-                                        $sql = "INSERT INTO tbl_quiz_student (quiz_options_id, student) VALUES ('$lesson_id', '$student')";
+                                        $checkSql = "SELECT student FROM tbl_quiz_student WHERE student = '$student' AND quiz_options_id = '$lesson_id'";
+                                        $checkResult = mysqli_query($conn, $checkSql);
 
-                                        $result = mysqli_query($conn, $sql);
-
-                                        if($result) {
-                                            $url = "Teacher_Create_Lesson.php?success=Student added successfully&openModal=true";
+                                        if (mysqli_num_rows($checkResult) > 0) {
+                                            $url = "Teacher_ManageLesson.php?lesson_id=$lesson_id&error=Student already exists&openerrorModal=true";
                                             echo '<script>window.location.href = "' . $url . '";</script>';
+                                        } else {
+                                            $sql = "INSERT INTO tbl_quiz_student (quiz_options_id, student) VALUES ('$lesson_id', '$student')";
+                                            $result = mysqli_query($conn, $sql);
+
+                                            if ($result) {
+                                                $url = "Teacher_ManageLesson.php?lesson_id=$lesson_id&success=Student added successfully&openModal=true";
+                                                echo '<script>window.location.href = "' . $url . '";</script>';
+                                            }
                                         }
                                     }
                                     ?>
@@ -124,7 +182,7 @@ $user_id = $_SESSION['user_id'];
                                                         $firstname = $row['firstname'];
                                                         $middlename = $row['middlename'];
                                                         $lastname = $row['lastname'];
-                                                        $name = $firstname . $middlename . $lastname;
+                                                        $name = $firstname . ' ' . $middlename . ' ' . $lastname;
                                                         echo "<option value='$user_id'>$name</option>";
                                                     }   
                                                 } else {
@@ -161,14 +219,12 @@ $user_id = $_SESSION['user_id'];
                                                 <?php
                                                 if (isset($_GET['lesson_id'])) {
                                                     $lesson_id = $_GET['lesson_id'];
-                                                    $sql = "SELECT tbl_quiz_student.student, tbl_quiz_options.quiz_options_id, CONCAT(tbl_userinfo.firstname, ' ', tbl_userinfo.middlename, ' ', tbl_userinfo.lastname) AS name
+                                                    $sql = "SELECT tbl_quiz_student.student, tbl_quiz_student.quiz_options_id, CONCAT(tbl_userinfo.firstname, ' ', tbl_userinfo.middlename, ' ', tbl_userinfo.lastname) AS name
                                                     FROM tbl_quiz_student
-                                                    JOIN tbl_quiz_options ON tbl_quiz_student.quiz_options_id = tbl_quiz_options.quiz_options_id
                                                     JOIN tbl_userinfo ON tbl_quiz_student.student = tbl_userinfo.user_id
-                                                    WHERE tbl_quiz_options.quiz_options_id = '$lesson_id'";
+                                                    WHERE tbl_quiz_student.quiz_options_id = '$lesson_id'";
 
                                                     $result = mysqli_query($conn, $sql);
-
                                                     if ($result && mysqli_num_rows($result) > 0) {
                                                         while ($row = mysqli_fetch_assoc($result)) {
                                                             ?>
@@ -205,6 +261,32 @@ $user_id = $_SESSION['user_id'];
                     <script src="assets/js/vendor/quill.min.js"></script>
                     <!-- quill Init js-->
                     <script src="assets/js/pages/demo.quilljs.js"></script>
+                    <!-- script gif modal -->
+                    <script>
+                        $(document).ready(function() {
+                            // Check if the "openModal" query parameter is present
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const openModal = urlParams.get("openModal");
+
+                            if (openModal === "true") {
+                                // Trigger the modal using JavaScript
+                                $("#gifModal").modal("show");
+                            }
+                        });
+                    </script>
+                    <!-- error modal script -->
+                    <script>
+                        $(document).ready(function() {
+                            // Check if the "openModal" query parameter is present
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const openerrorModal = urlParams.get("openerrorModal");
+
+                            if (openerrorModal === "true") {
+                                // Trigger the errorModal using JavaScript
+                                $("#errorModal").modal("show");
+                            }
+                        });
+                    </script>
 </body>
 
 </html>

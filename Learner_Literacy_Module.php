@@ -261,16 +261,10 @@ $user_id = $_SESSION['user_id'];
                         <?php
                         include 'dbcon.php';
 
-                        $sql = "SELECT DISTINCT lesson_id, name, objective, level, type, added_by, lesson_files, status, lesson, firstname, middlename, lastname, title
-                        FROM (
-                            SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.objective, tbl_lesson.level, tbl_lesson.type, tbl_lesson.added_by, tbl_lesson_files.lesson AS lesson_files,
-                            tbl_lesson_files.status, tbl_lesson_files.lesson, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_quiz_options.title
-                            FROM tbl_lesson
-                            LEFT JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_files_id AND tbl_lesson_files.status = 1
-                            LEFT JOIN tbl_userinfo ON tbl_lesson.added_by = tbl_userinfo.user_id
-                            LEFT JOIN tbl_quiz_options ON tbl_lesson.lesson_id = tbl_quiz_options.quiz_options_id
-                        ) AS MergedData
-                        WHERE type = 'Literacy'";
+                        $sql = "SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.objective, tbl_lesson.type, tbl_lesson.added_by, tbl_lesson_files.status, tbl_quiz_student.quiz_student_id, tbl_quiz_student.quiz_options_id, tbl_quiz_student.student FROM tbl_lesson
+                                JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_files_id
+                                JOIN tbl_quiz_student ON tbl_lesson.lesson_id = tbl_quiz_student.quiz_options_id
+                                WHERE tbl_lesson_files.status = 1 AND tbl_quiz_student.student = '$user_id' AND tbl_lesson.type = 'LITERACY'";
 
                         $result = mysqli_query($conn, $sql);
 
@@ -292,9 +286,6 @@ $user_id = $_SESSION['user_id'];
                                     </h5>
                                     <p><b>Objective: </b>
                                         <?php echo $row['objective']; ?>
-                                    </p>
-                                    <p><b>Level: </b>
-                                        <?php echo $row['level']; ?>
                                     </p>
                                     <div class="tab-content">
                                         <?php
