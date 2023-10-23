@@ -134,34 +134,28 @@ if (isset($_GET['logout'])) {
                 <div class="col-sm-9 border-top border-primary rounded-top">
                     <div class="row mt-3  " >
                         <div class="col-md-6 col-lg-4">
-
-                                                <!-- Simple card -->
-                                                <div class="card d-block">
+                            <div class="card d-block">
                             <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">Literacy</h5>
-                                <p class="card-text">When: Feb 13 - June 2024</p><a href="Learner_Literacy_Module.php"
-                                    class="btn btn-primary">View Module</a>
+                                <a href="Learner_Literacy_Module.php"
+                                    class="btn btn-primary">View Module
+                                </a>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
                         </div>
-
-
                         <div class="col-md-6 col-lg-4">
-
                         <!-- Simple card -->
                         <div class="card d-block">
                             <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">Numeracy</h5>
-                                <p class="card-text">When: Feb 13 - June 2024</p><a href="Learner_Numeracy_Module.php"
-                                    class="btn btn-primary">View Module</a>
+                                <a href="Learner_Numeracy_Module.php"
+                                    class="btn btn-primary">View Module
+                                </a>
                             </div> <!-- end card-body-->
                         </div> <!-- end card-->
                         </div><!-- end col -->
-
-                        
-
                     </div>
                 </div>
                     
@@ -190,7 +184,6 @@ if (isset($_GET['logout'])) {
                                             </a>
                                             
                                         </li>
-
                                         <li class="side-nav-item">
                                             <a href="learnertodolist_numeracy.php">
                                                 
@@ -199,14 +192,7 @@ if (isset($_GET['logout'])) {
                                             </a>
                                             
                                         </li>
-                                        </ul>
-                                        
-                                        
-
-                                        
-                                        
-                                        
-                                            
+                                        </ul> 
                                         </div>
                                     </div>
                             </div>
@@ -214,35 +200,7 @@ if (isset($_GET['logout'])) {
                     </div>
                 </div>
             </div>
-
-            <!-- Footer Start -->
-            <!-- <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <script>
-                            document.write(new Date().getFullYear())
-                            </script> © Hyper - Coderthemes.com
-                        </div>
-                        <div class="col-md-6">
-                            <div class="text-md-end footer-links d-none d-md-block">
-                                <a href="javascript: void(0);">About</a>
-                                <a href="javascript: void(0);">Support</a>
-                                <a href="javascript: void(0);">Contact Us</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer> -->
-            <!-- end Footer -->
-
         </div>
-
-        <!-- ============================================================== -->
-        <!-- End Page content -->
-        <!-- ============================================================== -->
-
-
     </div>
     <!-- END wrapper -->
 
