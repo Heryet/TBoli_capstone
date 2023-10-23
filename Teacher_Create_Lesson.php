@@ -90,6 +90,17 @@ $user_id = $_SESSION['user_id'];
         <!-- ============================================================== -->
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
+        <!-- modal gif -->
+        <div id="gifModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
+                        <p>Created successfully</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="content-page">
             <div class="content">

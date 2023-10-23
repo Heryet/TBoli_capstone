@@ -70,7 +70,7 @@
     </li>
 
     <li class="side-nav-item">
-        <a href="Teacher_quiz.php" class="side-nav-link">
+        <a href="Teacher_gradebook.php" class="side-nav-link">
             <i class="dripicons-document-edit"></i>
             <span>Grade Book</span>
         </a>

@@ -110,7 +110,7 @@ $user_id = $_SESSION['user_id'];
                 <div class="modal-content">
                     <div class="modal-body text-center">
                         <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
-                        <p>Student added successfully</p>
+                        <p>Created successfully</p>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@ $user_id = $_SESSION['user_id'];
                                         ('$user_id', '$quizTitle', '$lesson', '$instructions')";
 
                                         if ($conn->query($sql) === TRUE) {
-                                            $url = "Teacher_Create_Lesson.php?success=Student added successfully&openModal=true";
+                                            $url = "Teacher_Create_Quiz.php?success=Student added successfully&openModal=true";
                                             echo '<script>window.location.href = "' . $url . '";</script>';
                                         } else {
                                             // Error occurred
