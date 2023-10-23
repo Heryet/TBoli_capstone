@@ -122,121 +122,113 @@ $user_id = $_SESSION['user_id'];
 
             </div> <!-- content -->
 
-            <table id="basic-datatable" class="table table-centered mb-0">
-                <div class="row mb-2">
-                    <div class="col-sm-4">
-                        <a href="admin_addnewstudent.php" class="btn btn-danger mb-2"><i
-                                class="mdi mdi-plus-circle me-2"></i> Add New Student</a>
-                    </div>
-                    <div class="col-sm-4">
-                        <a href="#" class="btn btn-primary mb-2" data-bs-toggle="modal"
-                            data-bs-target="#batchUploadModal"><i class="mdi mdi-upload me-2"></i> Batch Upload</a>
-                    </div>
-                </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="batchUploadModal" tabindex="-1" role="dialog"
-                    aria-labelledby="batchUploadModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="batchUploadModalLabel">Batch Upload Modal</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="excelFile" class="form-label">Upload Excel File:</label>
-                                    <input type="file" class="form-control" id="excelFile" accept=".xlsx, .xls">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                        <table id="basic-datatable" class="table table-centered mb-0">
+                            <div class="row mb-2">
+                                <div class="col-sm-4">
+                                    <a href="admin_addnewstudent.php" class="btn btn-danger mb-2"><i
+                                            class="mdi mdi-plus-circle me-2"></i> Add New Student</a>
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Upload</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="batchUploadModal" tabindex="-1" role="dialog"
+                                aria-labelledby="batchUploadModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="batchUploadModalLabel">Batch Upload Modal</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="excelFile" class="form-label">Upload Excel File:</label>
+                                                <input type="file" class="form-control" id="excelFile" accept=".xlsx, .xls">
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Upload</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Student ID Learner</th>
+                                    <th>Grade</th>
+                                    <th>Action</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                            include "dbcon.php";
+
+                            $sql = "SELECT tbl_userinfo.user_id, tbl_learner.learner_id, tbl_learner.level_id, tbl_user_level.level, tbl_userinfo.firstname,
+                                        tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_user_status.status,
+                                        tbl_learner_id.lrn
+                                    FROM tbl_learner
+                                    JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
+                                    JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
+                                    JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
+                                    JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
+                                    WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
+
+                            $result = mysqli_query($conn, $sql);
+
+                            if (!$result) {
+                                die("Error executing the query: " . mysqli_error($conn));
+                            }
+
+                            if ($result && mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                <tr>
+                                    <td><?php echo $row['learner_id']; ?></td>
+                                    <td><?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?></td>
+                                    <td><?php echo $row['lrn']; ?></td>
+                                    <td><?php echo $row['birthday']; ?></td>
+                                    <td>
+                                        <a href="admin_edit_student_acc.php?user_id=<?php echo $row['user_id'] ?>">
+                                            <button type="button" class="btn btn-primary"><i class="mdi mdi-pencil"></i> </button>
+                                        </a>
+                                        <a href="admin_student_deactivate.php?learner_id=<?php echo $row['learner_id'] ?>"
+                                            class="decline">
+                                            <button type="button" class="btn btn-danger"><i class="mdi mdi-archive"></i> </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            if ($row['status'] == 1) {
+                                                echo '<span class="badge bg-success">Active</span>';
+                                            } else {
+                                                echo '<span class="badge bg-success">Inactive</span>';
+                                            }
+                                            ?>
+                                    </td>
+                                </tr>
+                                <?php
+                                }
+                            } else {
+                                echo "<tr><td colspan='6'>No records found</td></tr>";
+                            }
+                            ?>
+                                </td>
+                            </tbody>
+                        </table>
                         </div>
                     </div>
                 </div>
-
-                <thead>
-                    <tr>
-                        <th class="">
-                            <div class="form-check form-checkbox-success mb-2">
-                                <input type="checkbox" class="form-check-input" id="customCheckAll">
-                                <label class="form-check-label" for="customCheckAll">Select All</label>
-                            </div>
-                        </th>
-                        <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Student ID Learner</th>
-                        <th>Grade</th>
-                        <th>Action</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                include "dbcon.php";
-
-                $sql = "SELECT tbl_userinfo.user_id, tbl_learner.learner_id, tbl_learner.level_id, tbl_user_level.level, tbl_userinfo.firstname,
-                            tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_user_status.status,
-                            tbl_learner_id.lrn
-                        FROM tbl_learner
-                        JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
-                        JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
-                        JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
-                        JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
-                        WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
-
-                $result = mysqli_query($conn, $sql);
-
-                if (!$result) {
-                    die("Error executing the query: " . mysqli_error($conn));
-                }
-
-                if ($result && mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                    <tr>
-                        <td>
-                            <div class="form-check form-checkbox-success">
-                                <input type="checkbox" class="form-check-input customCheckbox" id="customCheckcolor2">
-                                <label class="form-check-label" for="customCheckcolor2"></label>
-                            </div>
-                        </td>
-                        <td><?php echo $row['learner_id']; ?></td>
-                        <td><?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?></td>
-                        <td><?php echo $row['lrn']; ?></td>
-                        <td><?php echo $row['birthday']; ?></td>
-                        <td>
-                            <a href="admin_edit_student_acc.php?user_id=<?php echo $row['user_id'] ?>">
-                                <button type="button" class="btn btn-primary"><i class="mdi mdi-pencil"></i> </button>
-                            </a>
-                            <a href="admin_student_deactivate.php?learner_id=<?php echo $row['learner_id'] ?>"
-                                class="decline">
-                                <button type="button" class="btn btn-danger"><i class="mdi mdi-archive"></i> </button>
-                            </a>
-                        </td>
-                        <td>
-                            <?php
-                                if ($row['status'] == 1) {
-                                    echo '<span class="badge bg-success">Active</span>';
-                                } else {
-                                    echo '<span class="badge bg-success">Inactive</span>';
-                                }
-                                ?>
-                        </td>
-                    </tr>
-                    <?php
-                    }
-                } else {
-                    echo "<tr><td colspan='6'>No records found</td></tr>";
-                }
-                ?>
-                    </td>
-                </tbody>
-            </table>
+            </div>
 
             <!-- Right Sidebar -->
             <div class="end-bar">
@@ -322,11 +314,6 @@ $user_id = $_SESSION['user_id'];
                 <!-- bundle -->
                 <script src="assets/js/vendor.min.js"></script>
                 <script src="assets/js/app.min.js"></script>
-
-                <!-- quill js -->
-                <script src="assets/js/vendor/quill.min.js"></script>
-                <!-- quill Init js-->
-                <script src="assets/js/pages/demo.quilljs.js"></script>
 
 
 

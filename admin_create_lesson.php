@@ -156,7 +156,7 @@ include 'dbcon.php';
                                                     <?php
                                                     include 'dbcon.php';
 
-                                                    $sql = "SELECT DISTINCT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.objective, tbl_lesson.level, tbl_lesson.type, tbl_lesson.added_by, tbl_lesson_files.status
+                                                    $sql = "SELECT DISTINCT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.objective, tbl_lesson.type, tbl_lesson.added_by, tbl_lesson_files.status
                                                     FROM tbl_content
                                                     JOIN tbl_lesson ON tbl_content.lesson_id = tbl_lesson.lesson_id
                                                     JOIN tbl_lesson_files ON tbl_content.lesson_files_id = tbl_lesson_files.lesson_files_id
@@ -254,10 +254,6 @@ include 'dbcon.php';
         <script src="assets/js/vendor.min.js"></script>
         <script src="assets/js/app.min.js"></script>
 
-        <!-- quill js -->
-        <script src="assets/js/vendor/quill.min.js"></script>
-        <!-- quill Init js-->
-        <script src="assets/js/pages/demo.quilljs.js"></script>
 
 
 

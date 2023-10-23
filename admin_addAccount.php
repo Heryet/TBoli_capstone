@@ -139,91 +139,89 @@ $user_id = $_SESSION['user_id'];
 
             </div> <!-- content -->
 
-            <table id="basic-datatable" class="table table-centered mb-0">
-                <div class="row mb-2">
-                    <div class="col-sm-4">
-                        <a href="admin_addnewadmin.php" class="btn btn-danger mb-2"><i
-                                class="mdi mdi-plus-circle me-2"></i> Add New Admin</a>
-                    </div>
 
-                </div>
-                <thead>
-                    <tr>
-                        <th class="">
-                            <div class="form-check form-checkbox-success mb-2">
-                                <input type="checkbox" class="form-check-input" id="customCheckAll">
-                                <label class="form-check-label" for="customCheckAll">Select All</label>
-                            </div>
-                        </th>
-                        <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Email Address</th>
-                        <th>Contact Number</th>
-                        <th>Address</th>
-                        <th>Action</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                include "dbcon.php";
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="basic-datatable" class="table table-centered mb-0">
+                                <div class="row mb-2">
+                                    <div class="col-sm-4">
+                                        <a href="admin_addnewadmin.php" class="btn btn-danger mb-2"><i
+                                                class="mdi mdi-plus-circle me-2"></i> Add New Admin</a>
+                                    </div>
 
-                $sql = "SELECT tbl_admin.admin_id, tbl_userinfo.user_id, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname,
-                        tbl_usercredentials.email, tbl_usercredentials.contact, tbl_address.address,
-                        tbl_user_level.level, tbl_user_status.status
-                        FROM tbl_admin
-                        JOIN tbl_userinfo ON tbl_admin.user_id = tbl_userinfo.user_id
-                        JOIN tbl_usercredentials ON tbl_admin.credentials_id = tbl_usercredentials.usercredentials_id
-                        JOIN tbl_address ON tbl_admin.address_id = tbl_address.address_id
-                        JOIN tbl_user_level ON tbl_admin.level_id = tbl_user_level.level_id
-                        JOIN tbl_user_status ON tbl_admin.status_id = tbl_user_status.status_id
-                        WHERE tbl_user_level.level = 'ADMIN' AND tbl_user_status.status = 1";
+                                </div>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Full Name</th>
+                                        <th>Email Address</th>
+                                        <th>Contact Number</th>
+                                        <th>Address</th>
+                                        <th>Action</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                include "dbcon.php";
+
+                                $sql = "SELECT tbl_admin.admin_id, tbl_userinfo.user_id, tbl_userinfo.firstname, tbl_userinfo.middlename, tbl_userinfo.lastname,
+                                        tbl_usercredentials.email, tbl_usercredentials.contact, tbl_address.address,
+                                        tbl_user_level.level, tbl_user_status.status
+                                        FROM tbl_admin
+                                        JOIN tbl_userinfo ON tbl_admin.user_id = tbl_userinfo.user_id
+                                        JOIN tbl_usercredentials ON tbl_admin.credentials_id = tbl_usercredentials.usercredentials_id
+                                        JOIN tbl_address ON tbl_admin.address_id = tbl_address.address_id
+                                        JOIN tbl_user_level ON tbl_admin.level_id = tbl_user_level.level_id
+                                        JOIN tbl_user_status ON tbl_admin.status_id = tbl_user_status.status_id
+                                        WHERE tbl_user_level.level = 'ADMIN' AND tbl_user_status.status = 1";
 
 
-                $result = mysqli_query($conn, $sql);
+                                $result = mysqli_query($conn, $sql);
 
-                if ($result && mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                    <tr>
-                        <td>
-                            <div class="form-check form-checkbox-success">
-                                <input type="checkbox" class="form-check-input customCheckbox" id="customCheckcolor2">
-                                <label class="form-check-label" for="customCheckcolor2"></label>
-                            </div>
-                        </td>
-                        <td><?php echo $row['admin_id']; ?></td>
-                        <td><?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?></td>
-                        <td><?php echo $row['email']; ?></td>
-                        <td><?php echo $row['contact']; ?></td>
-                        <td><?php echo $row['address']; ?></td>
-                        <td>
-                            <a href="admin_edit_admin_acc.php?user_id=<?php echo $row['user_id'] ?>">
-                                <button type="button" class="btn btn-primary"><i class="mdi mdi-pencil"></i> </button>
-                            </a>
-                            <a href="admin_account_deactivate.php?user_id=<?php echo $row['user_id'] ?>"
-                                class="decline">
-                                <button type="button" class="btn btn-danger"><i class="mdi mdi-archive"></i> </button>
-                            </a>
-                        </td>
-                        <td>
-                            <?php
-                                if ($row['status'] == 1) {
-                                    echo '<span class="badge bg-success">Active</span>';
+                                if ($result && mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        ?>
+                                    <tr>
+                                        <td><?php echo $row['admin_id']; ?></td>
+                                        <td><?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?></td>
+                                        <td><?php echo $row['email']; ?></td>
+                                        <td><?php echo $row['contact']; ?></td>
+                                        <td><?php echo $row['address']; ?></td>
+                                        <td>
+                                            <a href="admin_edit_admin_acc.php?user_id=<?php echo $row['user_id'] ?>">
+                                                <button type="button" class="btn btn-primary"><i class="mdi mdi-pencil"></i> </button>
+                                            </a>
+                                            <a href="admin_account_deactivate.php?user_id=<?php echo $row['user_id'] ?>"
+                                                class="decline">
+                                                <button type="button" class="btn btn-danger"><i class="mdi mdi-archive"></i> </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <?php
+                                                if ($row['status'] == 1) {
+                                                    echo '<span class="badge bg-success">Active</span>';
+                                                } else {
+                                                    echo '<span class="badge bg-success">Inactive</span>';
+                                                }
+                                                ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    }
                                 } else {
-                                    echo '<span class="badge bg-success">Inactive</span>';
+                                    echo "<tr><td colspan='6'>No records found</td></tr>";
                                 }
                                 ?>
-                        </td>
-                    </tr>
-                    <?php
-                    }
-                } else {
-                    echo "<tr><td colspan='6'>No records found</td></tr>";
-                }
-                ?>
-                </tbody>
-            </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
 
             <!-- Right Sidebar -->
             <div class="end-bar">
@@ -249,92 +247,9 @@ $user_id = $_SESSION['user_id'];
                                             <div class="alert alert-warning" role="alert">
                                                 <strong>Customize </strong> the overall color scheme, sidebar menu, etc.
                                             </div>
-
-                                            <!-- Settings -->
-                                            <!-- <h5 class="mt-3">Color Scheme</h5>
-                <hr class="mt-1">
-
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="light" id="light-mode-check" checked="">
-                    <label class="form-check-label" for="light-mode-check">Light Mode</label>
-                </div>
-
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="dark" id="dark-mode-check">
-                    <label class="form-check-label" for="dark-mode-check">Dark Mode</label>
-                </div>
-    -->
-
-                                            <!-- Width -->
-                                            <!-- <h5 class="mt-4">Width</h5>
-                <hr class="mt-1">
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="width" value="fluid" id="fluid-check" checked="">
-                    <label class="form-check-label" for="fluid-check">Fluid</label>
-                </div>
-
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="width" value="boxed" id="boxed-check">
-                    <label class="form-check-label" for="boxed-check">Boxed</label>
-                </div> -->
-
-
-                                            <!-- Left Sidebar-->
-                                            <!-- <h5 class="mt-4">Left Sidebar</h5>
-                <hr class="mt-1">
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="theme" value="default" id="default-check">
-                    <label class="form-check-label" for="default-check">Default</label>
-                </div>
-
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="theme" value="light" id="light-check" checked="">
-                    <label class="form-check-label" for="light-check">Light</label>
-                </div>
-
-                <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" name="theme" value="dark" id="dark-check">
-                    <label class="form-check-label" for="dark-check">Dark</label>
-                </div>
-
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="compact" value="fixed" id="fixed-check" checked="">
-                    <label class="form-check-label" for="fixed-check">Fixed</label>
-                </div>
-
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="compact" value="condensed" id="condensed-check">
-                    <label class="form-check-label" for="condensed-check">Condensed</label>
-                </div>
-
-                <div class="form-check form-switch mb-1">
-                    <input class="form-check-input" type="checkbox" name="compact" value="scrollable" id="scrollable-check">
-                    <label class="form-check-label" for="scrollable-check">Scrollable</label>
-                </div>
-
-                <div class="d-grid mt-4">
-                    <button class="btn btn-primary" id="resetBtn">Reset to Default</button>
-        
-                    <a href="../../product/hyper-responsive-admin-dashboard-template/index.htm" class="btn btn-danger mt-3" target="_blank"><i class="mdi mdi-basket me-1"></i> Purchase Now</a>
-                </div>
-            </div>  -->
-                                            <!-- end padding-->
-
-                                            <!-- </div></div></div></div><div class="simplebar-placeholder" style="width: 280px; height: 755px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 671px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
-    </div>
-
-    <div class="rightbar-overlay"></div> -->
-                                            <!-- /End-bar -->
-
-
                                             <!-- bundle -->
                                             <script src="assets/js/vendor.min.js"></script>
                                             <script src="assets/js/app.min.js"></script>
-
-                                            <!-- quill js -->
-                                            <script src="assets/js/vendor/quill.min.js"></script>
-                                            <!-- quill Init js-->
-                                            <script src="assets/js/pages/demo.quilljs.js"></script>
 
 
 

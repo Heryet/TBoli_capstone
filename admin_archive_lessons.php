@@ -145,12 +145,6 @@ $user_id = $_SESSION['user_id'];
         </div>
         <thead>
             <tr>
-                <th class="">
-                    <div class="form-check form-checkbox-success mb-2">
-                        <input type="checkbox" class="form-check-input" id="customCheckAll">
-                        <label class="form-check-label" for="customCheckAll">Select All</label>
-                    </div>
-                </th>
                 <th>ID</th>
                 <th>Lesson Name</th>
                 <th>Objective</th>
@@ -183,12 +177,6 @@ $user_id = $_SESSION['user_id'];
                         while ($row = mysqli_fetch_assoc($result)) {
                             ?>
             <tr>
-                <td>
-                    <div class="form-check form-checkbox-success">
-                        <input type="checkbox" class="form-check-input customCheckbox" id="customCheckcolor2">
-                        <label class="form-check-label" for="customCheckcolor2"></label>
-                    </div>
-                </td>
                 <td><?php echo $row['lesson_id']; ?></td>
                 <td><?php echo $row['name']; ?></td>
                 <td><?php echo $row['objective']; ?></td>
@@ -352,14 +340,6 @@ $user_id = $_SESSION['user_id'];
 
         <!-- bundle -->
         <script src="assets/js/vendor.min.js"></script>
-        <script src="assets/js/app.min.js"></script>
-
-        <!-- quill js -->
-        <script src="assets/js/vendor/quill.min.js"></script>
-        <!-- quill Init js-->
-        <script src="assets/js/pages/demo.quilljs.js"></script>
-
-
 
 </body>
 

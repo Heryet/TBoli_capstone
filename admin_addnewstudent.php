@@ -324,10 +324,10 @@ $user_id = $_SESSION['user_id'];
                             <h4>Contact Information</h4>
                             <div class="row g-2">
                                 <div class="mb-3 col-md-5">
-                                    <label for="inputCity" class="form-label">Email Address <sup>*
+                                    <label for="inputEmail" class="form-label">Email Address <sup>*
 
                                         </sup></label>
-                                    <input type="email" class="form-control" id="inputCity" name="email" required>
+                                    <input type="email" class="form-control" id="inputEmail" name="email" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -336,10 +336,10 @@ $user_id = $_SESSION['user_id'];
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-5">
-                                    <label for="inputBarangay" class="form-label">Phone Number <sup>*
+                                    <label for="inputPhone" class="form-label">Phone Number <sup>*
 
                                         </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
+                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputPhone"
                                         name="phone" required maxlength="11" >
                                     <div class="valid-feedback">
                                         Looks good!
@@ -360,10 +360,10 @@ $user_id = $_SESSION['user_id'];
 
 
                                 <div class="mb-3 col-md-6">
-                                    <label for="FName" class="form-label">First Name <sup>*
+                                    <label for="gFName" class="form-label">First Name <sup>*
 
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="FName"
+                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="gFName"
                                         placeholder="First Name" name="gfirstname" required>
                                     <div class="valid-feedback">
                                         Looks good!
@@ -373,10 +373,10 @@ $user_id = $_SESSION['user_id'];
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="MiddleName" class="form-label">Middle Name <sup>*
+                                    <label for="gMiddleName" class="form-label">Middle Name <sup>*
 
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="MiddleName"
+                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="gMiddleName"
                                         placeholder="MiddleName" name="gmiddlename" required>
                                     <div class="valid-feedback">
                                         Looks good!
@@ -386,10 +386,10 @@ $user_id = $_SESSION['user_id'];
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="LName" class="form-label">Last Name <sup>*
+                                    <label for="gLName" class="form-label">Last Name <sup>*
 
                                         </sup></label>
-                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="LName"
+                                    <input type="text" pattern="[A-Za-z\s]+" class="form-control" id="gLName"
                                         placeholder="Last Name" name="glastname" required>
                                     <div class="valid-feedback">
                                         Looks good!
@@ -400,9 +400,9 @@ $user_id = $_SESSION['user_id'];
                                 </div>
 
                                 <div class="mb-3 col-md-6">
-                                    <label for="inputbday" class="form-label">Birthdate <sup>*
+                                    <label for="ginputbday" class="form-label">Birthdate <sup>*
                                         </sup></label>
-                                    <input type="date" class="form-control" id="inputbday" name="gbirthday" required>
+                                    <input type="date" class="form-control" id="ginputbday" name="gbirthday" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -417,9 +417,9 @@ $user_id = $_SESSION['user_id'];
                             <div class="row g-2">
 
                                 <div class="mb-3 col-md-4">
-                                    <label for="inputgGender" class="form-label">Gender <sup>*
+                                    <label for="ginputgGender" class="form-label">Gender <sup>*
                                         </sup></label>
-                                    <select id="inputgGender" class="form-select" name="ggender" required>
+                                    <select id="ginputgGender" class="form-select" name="ggender" required>
                                         <option value="" disabled selected>Select</option>
                                         <option value="Female">Female</option>
                                         <option value="Male">Male</option>
@@ -433,10 +433,10 @@ $user_id = $_SESSION['user_id'];
                             <h4>Location</h4>
 
                             <div class="mb-3">
-                                <label for="inputAddress" class="form-label">Full address (street, barangay, city)
+                                <label for="ginputAddress" class="form-label">Full address (street, barangay, city)
                                     <sup>*
                                     </sup></label>
-                                <input type="text" pattern="[A-Za-z0-9\s]+" class="form-control" id="inputAddress"
+                                <input type="text" pattern="[A-Za-z0-9\s]+" class="form-control" id="ginputAddress"
                                     placeholder="Enter Address" name="gaddress" required>
                                 <div class="valid-feedback">
                                     Looks good!
@@ -449,10 +449,10 @@ $user_id = $_SESSION['user_id'];
                             <h4>Contact Information</h4>
                             <div class="row g-2">
                                 <div class="mb-3 col-md-5">
-                                    <label for="inputCity" class="form-label">Email Address <sup>*
+                                    <label for="ginputCity" class="form-label">Email Address <sup>*
 
                                         </sup></label>
-                                    <input type="email" class="form-control" id="inputCity" name="gemail" required>
+                                    <input type="email" class="form-control" id="ginputCity" name="gemail" required>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -461,10 +461,10 @@ $user_id = $_SESSION['user_id'];
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-5">
-                                    <label for="inputBarangay" class="form-label">Phone Number <sup>*
+                                    <label for="ginputBarangay" class="form-label">Phone Number <sup>*
 
                                         </sup></label>
-                                    <input type="text" pattern="[0-9]+" class="form-control" id="inputBarangay"
+                                    <input type="text" pattern="[0-9]+" class="form-control" id="ginputBarangay"
                                         name="gphoneNumber" required maxlength="11">
                                     <div class="valid-feedback">
                                         Looks good!
@@ -488,34 +488,6 @@ $user_id = $_SESSION['user_id'];
             </div>
 
 
-
-
-
-
-
-            <!-- Footer Start -->
-            <!-- <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <script>
-                            document.write(new Date().getFullYear())
-                            </script>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="text-md-end footer-links d-none d-md-block">
-                                <a href="javascript: void(0);">About</a>
-                                <a href="javascript: void(0);">Support</a>
-                                <a href="javascript: void(0);">Contact Us</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer> -->
-            <!-- end Footer -->
-
-
-
             <!-- ============================================================== -->
             <!-- End Page content -->
             <!-- ============================================================== -->
@@ -531,8 +503,6 @@ $user_id = $_SESSION['user_id'];
 
             <!-- bundle -->
             <script src="assets/js/vendor.min.js"></script>
-            <script src="assets/js/app.min.js"></script>
-
         </div>
     </div>
 </body>

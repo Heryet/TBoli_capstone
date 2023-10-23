@@ -39,27 +39,6 @@ if (isset($_GET['logout'])) {
     <div class="wrapper">
         <!-- ========== Left Sidebar Start ========== -->
         <div class="leftside-menu">
-
-            <!-- LOGO -->
-            <a href="index.php" class="logo text-center logo-light">
-                <span class="logo-lg">
-                    <img src="assets/images/" alt="" height="16">
-                </span>
-                <span class="logo-sm">
-                    <img src="assets/images/logo_sm.png" alt="" height="16">
-                </span>
-            </a>
-
-            <!-- LOGO -->
-            <a href="index.php" class="logo text-center logo-dark">
-                <span class="logo-lg">
-                    <img src="assets/images/logo-dark.png" alt="" height="16">
-                </span>
-                <span class="logo-sm">
-                    <img src="assets/images/logo_sm_dark.png" alt="" height="16">
-                </span>
-            </a>
-
             <div class="h-100" id="leftside-menu-container" data-simplebar="init">
                 <div class="simplebar-wrapper" style="margin: 0px;">
                     <div class="simplebar-height-auto-observer-wrapper">
@@ -226,7 +205,6 @@ if (isset($_GET['logout'])) {
 
     <!-- bundle -->
     <script src="assets/js/vendor.min.js"></script>
-    <script src="assets/js/app.min.js"></script>
 
 </body>
 
