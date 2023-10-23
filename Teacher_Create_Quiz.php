@@ -9,6 +9,21 @@ $user_id = $_SESSION['user_id'];
 
 <head>
     <?php include('teacher_header.php') ?>
+    <style>
+            /* gif modal css */
+    #gifModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    #gifModal .modal-body img {
+        max-width: 100%;
+        height: auto;
+        width: 200px; /* Adjust the width as desired */
+        margin-bottom: 10px;
+    }
+    </style>
 </head>
 
 <body <?php include('dataconfig.php') ?>>
@@ -89,6 +104,17 @@ $user_id = $_SESSION['user_id'];
     </div>
 </div>
 
+        <!-- modal gif -->
+        <div id="gifModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
+                        <p>Student added successfully</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
                     <!-- Modal for adding a new quiz assignment -->
                     <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel"
@@ -110,17 +136,14 @@ $user_id = $_SESSION['user_id'];
                                         $user_id = $_SESSION['user_id'];
                                         $quizTitle = $_POST['quizTitle'];
                                         $lesson = $_POST['lesson'];
-                                        $dateStart = $_POST['dateStart'];
-                                        $due = $_POST['due'];
-                                        $attempts = $_POST['attempts'];
                                         $instructions = $_POST['instructions'];
 
-                                        $sql = "INSERT INTO tbl_quiz_options (added_by, title, lesson, date_start, due, attempts, instructions) VALUES
-                                        ('$user_id', '$quizTitle', '$lesson', '$dateStart', '$due', '$attempts', '$instructions')";
+                                        $sql = "INSERT INTO tbl_quiz_options (added_by, title, lesson, instructions) VALUES
+                                        ('$user_id', '$quizTitle', '$lesson', '$instructions')";
 
                                         if ($conn->query($sql) === TRUE) {
-                                            header("Location: Teacher_Create_Quiz.php?msg=Quiz - added successfully");
-                                            exit();
+                                            $url = "Teacher_Create_Lesson.php?success=Student added successfully&openModal=true";
+                                            echo '<script>window.location.href = "' . $url . '";</script>';
                                         } else {
                                             // Error occurred
                                             echo "Error: " . mysqli_error($conn);
@@ -177,51 +200,6 @@ $user_id = $_SESSION['user_id'];
                                                 Please a Lessons!
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="dateStart" class="form-label">Date Start</label>
-                                                <input type="datetime-local" class="form-control" id="dateStart"
-                                                    name="dateStart" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-
-                                                <div class="invalid-feedback">
-                                                    Please provide a start date!
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="due" class="form-label">Due</label>
-                                                <input type="datetime-local" class="form-control" id="due" name="due"
-                                                    required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-
-                                                <div class="invalid-feedback">
-                                                    Please provide a due date!
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="attempts" class="form-label">Attempts</label>
-                                            <select id="attempts" class="form-select" name="attempts" required>
-                                                <option value="">select attempts</option>
-                                                <option value="2">1</option>
-                                                <option value="3">2</option>
-                                                <option value="2">3</option>
-
-                                            </select>
-
-                                            <div class="valid-feedback">
-                                                Looks good!
-                                            </div>
-
-                                            <div class="invalid-feedback">
-                                                Please select attempts!
-                                            </div>
-                                        </div>
                                         <div class="mb-3">
                                             <label for="instructions" class="form-label">Instructions</label>
                                             <!-- Changed the "for" attribute to match the textarea id -->
@@ -258,9 +236,6 @@ $user_id = $_SESSION['user_id'];
                                                     <th>ID</th>
                                                     <th>Title</th>
                                                     <th>Lesson Name</th>
-                                                    <th>Date Start</th>
-                                                    <th>Due</th>
-                                                    <th>Attempts</th>
                                                     <th>Lesson Instructions</th>
                                                     <th>Added By</th>
                                                     <th>Actions</th>
@@ -270,8 +245,7 @@ $user_id = $_SESSION['user_id'];
                                                 <?php
                                                     include 'dbcon.php';
 
-                                                    $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.date_start,
-                                                    tbl_quiz_options.due, tbl_quiz_options.attempts, tbl_quiz_options.instructions, tbl_userinfo.firstname, tbl_userinfo.lastname, tbl_lesson.name FROM tbl_quiz_options
+                                                    $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.instructions, tbl_userinfo.firstname, tbl_userinfo.lastname, tbl_lesson.name FROM tbl_quiz_options
                                                     JOIN tbl_userinfo ON tbl_quiz_options.added_by = tbl_userinfo.user_id
                                                     JOIN tbl_lesson ON tbl_quiz_options.lesson = tbl_lesson.lesson_id
                                                     WHERE tbl_quiz_options.lesson = tbl_lesson.lesson_id";
@@ -296,21 +270,6 @@ $user_id = $_SESSION['user_id'];
                                                     <td>
                                                         <span class="fw-semibold">
                                                             <?php echo $row['name']; ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['date_start']; ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['due']; ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['attempts']; ?>
                                                         </span>
                                                     </td>
                                                     <td>
@@ -387,7 +346,19 @@ $user_id = $_SESSION['user_id'];
     });
 </script>
 
+<!-- script gif modal -->
+<script>
+    $(document).ready(function() {
+        // Check if the "openModal" query parameter is present
+        const urlParams = new URLSearchParams(window.location.search);
+        const openModal = urlParams.get("openModal");
 
+        if (openModal === "true") {
+            // Trigger the modal using JavaScript
+            $("#gifModal").modal("show");
+        }
+    });
+</script>
 
         <!-- bundle -->
         <script src="assets/js/vendor.min.js"></script>

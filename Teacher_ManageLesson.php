@@ -81,19 +81,19 @@ $user_id = $_SESSION['user_id'];
                                 </div>
                                 <div class="modal-body">
                                     <!-- Form for adding a new quiz assignment -->
-                                    <?php 
+                                    <?php
                                     include 'dbcon.php';
-                                    if(isset($_GET['quiz_options_id']) && isset($_POST['addStudent'])) {
-                                        $quiz_options_id = $_GET['quiz_options_id'];
+                                    if(isset($_GET['lesson_id']) && isset($_POST['addStudent'])) {
+                                        $lesson_id = $_GET['lesson_id'];
                                         $student = $_POST['student'];
 
-                                        $sql = "INSERT INTO tbl_quiz_student (quiz_options_id, student) VALUES ('$quiz_options_id', '$student')";
+                                        $sql = "INSERT INTO tbl_quiz_student (quiz_options_id, student) VALUES ('$lesson_id', '$student')";
 
                                         $result = mysqli_query($conn, $sql);
 
                                         if($result) {
-                                            header("Location: Teacher_Manage_Quiz.php?msg=Student Added Succesfully");
-                                            exit();
+                                            $url = "Teacher_Create_Lesson.php?success=Student added successfully&openModal=true";
+                                            echo '<script>window.location.href = "' . $url . '";</script>';
                                         }
                                     }
                                     ?>
@@ -159,13 +159,13 @@ $user_id = $_SESSION['user_id'];
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                if (isset($_GET['quiz_options_id'])) {
-                                                    $quiz_options_id = $_GET['quiz_options_id'];
+                                                if (isset($_GET['lesson_id'])) {
+                                                    $lesson_id = $_GET['lesson_id'];
                                                     $sql = "SELECT tbl_quiz_student.student, tbl_quiz_options.quiz_options_id, CONCAT(tbl_userinfo.firstname, ' ', tbl_userinfo.middlename, ' ', tbl_userinfo.lastname) AS name
                                                     FROM tbl_quiz_student
                                                     JOIN tbl_quiz_options ON tbl_quiz_student.quiz_options_id = tbl_quiz_options.quiz_options_id
                                                     JOIN tbl_userinfo ON tbl_quiz_student.student = tbl_userinfo.user_id
-                                                    WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'";
+                                                    WHERE tbl_quiz_options.quiz_options_id = '$lesson_id'";
 
                                                     $result = mysqli_query($conn, $sql);
 

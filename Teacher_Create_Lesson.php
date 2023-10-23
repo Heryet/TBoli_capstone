@@ -36,6 +36,30 @@ $user_id = $_SESSION['user_id'];
     <!-- Select2 JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js"></script>
 
+    <style>
+    .success {
+        font-size: 20px;
+        text-align: center;
+        background: #00FF00;
+        color: #white;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+    }
+    /* gif modal css */
+    #gifModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    #gifModal .modal-body img {
+        max-width: 100%;
+        height: auto;
+        width: 200px; /* Adjust the width as desired */
+        margin-bottom: 10px;
+    }
+    </style>
 </head>
 
 <body <?php include('dataconfig.php') ?>>
@@ -79,6 +103,17 @@ $user_id = $_SESSION['user_id'];
         <!-- ============================================================== -->
         <!-- Start Page Content here -->
         <!-- ============================================================== -->
+        <!-- modal gif -->
+        <div id="gifModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
+                        <p>Student added successfully</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="content-page">
             <div class="content">
@@ -229,6 +264,19 @@ $user_id = $_SESSION['user_id'];
     });
 </script>
 
+<!-- script gif modal -->
+<script>
+    $(document).ready(function() {
+        // Check if the "openModal" query parameter is present
+        const urlParams = new URLSearchParams(window.location.search);
+        const openModal = urlParams.get("openModal");
+
+        if (openModal === "true") {
+            // Trigger the modal using JavaScript
+            $("#gifModal").modal("show");
+        }
+    });
+</script>
 
 
 
