@@ -32,9 +32,10 @@ $user_id = $_SESSION['user_id'];
         border-radius: 5px;
     }
     .success {
+        font-size: 20px;
         text-align: center;
-        background: #f59595fb;
-        color: #00FF00;
+        background: #00FF00;
+        color: #white;
         padding: 10px;
         width: 100%;
         border-radius: 5px;
@@ -204,9 +205,17 @@ $user_id = $_SESSION['user_id'];
 
                                                                     // Check if the new passwords are empty
                                                                     if (empty($newPassword) || empty($newPassword2)) {
-                                                                        echo 'New password fields cannot be empty';
+                                                                        ?> 
+                                                                        <script>
+                                                                            window.location.href="learner_edit_profile.php?error=All fields must be filled";
+                                                                        </script>
+                                                                        <?php
                                                                     } elseif ($newPassword !== $newPassword2) {
-                                                                        echo 'New passwords do not match';
+                                                                        ?> 
+                                                                        <script>
+                                                                            window.location.href="learner_edit_profile.php?error=Password does not match";
+                                                                        </script>
+                                                                        <?php
                                                                     } else {
                                                                         // Verify the current password
                                                                         $sql = "SELECT password FROM tbl_accounts WHERE user_id = ?";
@@ -232,7 +241,7 @@ $user_id = $_SESSION['user_id'];
                                                                                 } else {
                                                                                     ?> 
                                                                                     <script>
-                                                                                        window.location.href="learner_edit_profile.php?error=Account updated successfully";
+                                                                                        window.location.href="learner_edit_profile.php?error=Account updated unsuccessfully";
                                                                                     </script>
                                                                                     <?php
                                                                                 }
