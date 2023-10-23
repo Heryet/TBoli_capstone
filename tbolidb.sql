@@ -3,13 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< HEAD
--- Generation Time: Oct 15, 2023 at 05:14 PM
-=======
--- Generation Time: Oct 16, 2023 at 06:10 AM
->>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
+-- Generation Time: Oct 23, 2023 at 12:51 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -263,6 +259,7 @@ INSERT INTO `students` (`id`, `user_id`, `level_section`, `date_updated`) VALUES
 
 CREATE TABLE `tbl_accounts` (
   `account_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `email` varchar(244) NOT NULL,
   `password` varchar(244) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -271,41 +268,42 @@ CREATE TABLE `tbl_accounts` (
 -- Dumping data for table `tbl_accounts`
 --
 
-INSERT INTO `tbl_accounts` (`account_id`, `email`, `password`) VALUES
-(1, 'teacher@gmail.com', '$2y$10$gBvl4ghCkj1DBckxgEA3ee22EXQvCmhBUDu6Tivr1ZpIQMr6d451G'),
-(2, 'admin@gmail.com', '$2y$10$8i9MsQFQ21lGAZCZ2ETqlecPm0LEE9IMLgBlDkpMspmMYIFXu8n12'),
-(3, 'awd@gmail.com', '$2y$10$c6evQyXQtPAgHmFnCOEVhO0h6hBL93aXzAgOTpR5hGAjJp0Wr2Ssi'),
-(4, 'admin2@gmail.com', '$2y$10$2j5n2GdtSeGx/j.x.UIaKOVwR.uzTNuDFeQtq7fxAb/bvjWc82pAm'),
-(5, 'rinan@gmail.com', '$2y$10$zJIRJe8ARwa9Gx2wCgAS.uyqm3aqqkohEdca1mnGb5qIEhIbkQsqW'),
-(6, 'qwe@gmail.com', '$2y$10$PZfAohLXX9kKsILHFT3zW./Mz9uKEu.hx6CmlTkSjOCIA/O8WXCS.'),
-(7, 'jdm@gmail.com', '$2y$10$ZqoZ49CmLBCvqN9QIpGfW.tyDf/tU5cgUH4vKQuKa0qPVfiEJpidm'),
-(8, 'student21@gmail.com', '$2y$10$yRZUXefn6yG7DMO4JQNroep7tL6zWlrT3eir52yWzI9eZI.nkk0ju'),
-(9, 'teacherz@gmail.com', '$2y$10$Es/LvcKYFBSRp8ROn6x/Tufg8AQGdJZt0t1RJeZTJQbliM1DrcEjG'),
-(10, 'teachera@gmail.com', '$2y$10$RnY5g14YLzaIcDId/axOKeEnCPchTxFXNOsWjAdaZiD2pOWYptk7q'),
-(11, 'teacherc@gmail.com', '$2y$10$5Bozi9lCz8iQwLfyFqoQuuoCBbfropaW8JnTBZqX0eau0dOp/tvDi'),
-(12, 'teacherb@gmail.com', '$2y$10$1ehPpACQ9rwml0y4y1DaIOaAlIngW08oWTNgbKc/rUFjYp/VXHMJi'),
-(13, 'an@gmail.com', '$2y$10$ZDFg106pydngZZd2mWsZjOc40AUxsX5nTw0B1WJY4XkRCMrx/bvp2'),
-(14, '2231', '$2y$10$ED5.yCWhLG8sSaVrOBvyU.aGOy6.2gujB2MHN/ISZ7mwEMJglE58C'),
-(15, '2222', '$2y$10$9UoUNZw.hFfxTgUDv/V21.gXWF0TxeUBjM.Pqnkk96vfsMIn7p/PS'),
-(16, '1111', '$2y$10$l5R1njg/4C4kCUnvXBlgU.1ZxNQYNIzlDfSJDLSkZ5vt2o6bYIDS.'),
-(17, 'mynftacc269@gmail.com', '$2y$10$vrZZ43PS2GWs3D6TZl.pDerUPitSa2wTZSqTwE0mjZkgW3CtGQ.Ym'),
-(26, 'pink@gmail.com', '$2y$10$YesJ5ps5u2h6HMy9LBYYO.OkBFrsFtWLPZwWThwB4sT/G0Gta5AGK'),
-(27, '09352034159', '$2y$10$OYiCQVM4k.jXEdAWNGGHhubd5Jbt9ydPAvAIrT3QA3glxm0kggR4G'),
-(28, 'pink@gmail.com', '$2y$10$SCAQ187xpAtARNjp23.9E.sEu5ZtAyG7BF8hPV0xBIPdR9To0mdoy'),
-(29, 'pink@gmail.com', '$2y$10$B4mRrZdcvqEmhJRH4Ey5Tu57s064xccUcJ4Ep.Mwmggx70aP3m9u6'),
-(30, 'lawyerpink@gmail.com', '$2y$10$lgx7tIxlHhMwjluk/J8C5.kXqz0adahgKVoxmJqCUYnvdAN6vAiq6'),
-(31, 'pink@gmail.com', '$2y$10$8r.IbFRxZ/jYsGr9twPLLeDScttDHThuVSH1vd7Yjd6q7KV/C3W.O'),
-(32, '', '$2y$10$zGVN/Jtq81oJOb0.qLpYLu6e4O2sRxgIHDUx14l7OkB.YFELUd9Dq'),
-(33, 'red@gmail.com', '$2y$10$1o/ox1Hsts3iaFt.zPDEH.MLDsXe5JqCMyRA/VGKj7ZMNpTboyqU.'),
-(34, 'hakdog@gmail.com', '$2y$10$DOiDuzd67yuAxBURrVPKg.bnW9hnnhMtBwJqJEcJTze5.WpU5EggC'),
-(35, 'hakdog@gmail.com', '$2y$10$SErg0z1YMqEQNflvIZ9Msu6zXzF7pydfaeA.m0X6AZP6RhG0BNSP2'),
-(36, 'pink@gmail.com', '$2y$10$nmmVk0Z93oj6ZDiyXRudLuB2V5nU9QGbfGy2tswN9BZnb7I/2iPs6'),
-(37, 'angel@gmail.com', '$2y$10$dI.uYsh.NSYVEMdpYZjXPesFm2n9JAlMPFiKqUc.QgzyhNyBonBiS'),
-(38, '', '$2y$10$52fZbJ9rn7umWEf1mR/0Cuh.HLz/T9UyyDM6RuXvO8iFp0RZF86j2'),
-(39, '', ''),
-(40, '', ''),
-(41, '', '$2y$10$Rw8LpJwALeyLYwjO1MBmq.u8A.RGUe3iW..TNdFjTOysrz0W43KBu'),
-(42, '', '$2y$10$5et.ZXmQpKv2CkdPWB119elIZSqvfVO8mvcgyFEC9ajSxUxaSo2Rq');
+INSERT INTO `tbl_accounts` (`account_id`, `user_id`, `email`, `password`) VALUES
+(1, 0, 'teacher@gmail.com', '$2y$10$gBvl4ghCkj1DBckxgEA3ee22EXQvCmhBUDu6Tivr1ZpIQMr6d451G'),
+(2, 0, 'admin@gmail.com', '$2y$10$8i9MsQFQ21lGAZCZ2ETqlecPm0LEE9IMLgBlDkpMspmMYIFXu8n12'),
+(3, 0, 'awd@gmail.com', '$2y$10$c6evQyXQtPAgHmFnCOEVhO0h6hBL93aXzAgOTpR5hGAjJp0Wr2Ssi'),
+(4, 0, 'admin2@gmail.com', '$2y$10$2j5n2GdtSeGx/j.x.UIaKOVwR.uzTNuDFeQtq7fxAb/bvjWc82pAm'),
+(5, 0, 'rinan@gmail.com', '$2y$10$zJIRJe8ARwa9Gx2wCgAS.uyqm3aqqkohEdca1mnGb5qIEhIbkQsqW'),
+(6, 0, 'qwe@gmail.com', '$2y$10$PZfAohLXX9kKsILHFT3zW./Mz9uKEu.hx6CmlTkSjOCIA/O8WXCS.'),
+(7, 0, 'jdm@gmail.com', '$2y$10$ZqoZ49CmLBCvqN9QIpGfW.tyDf/tU5cgUH4vKQuKa0qPVfiEJpidm'),
+(8, 0, 'student21@gmail.com', '$2y$10$yRZUXefn6yG7DMO4JQNroep7tL6zWlrT3eir52yWzI9eZI.nkk0ju'),
+(9, 0, 'teacherz@gmail.com', '$2y$10$Es/LvcKYFBSRp8ROn6x/Tufg8AQGdJZt0t1RJeZTJQbliM1DrcEjG'),
+(10, 0, 'teachera@gmail.com', '$2y$10$RnY5g14YLzaIcDId/axOKeEnCPchTxFXNOsWjAdaZiD2pOWYptk7q'),
+(11, 0, 'teacherc@gmail.com', '$2y$10$5Bozi9lCz8iQwLfyFqoQuuoCBbfropaW8JnTBZqX0eau0dOp/tvDi'),
+(12, 0, 'teacherb@gmail.com', '$2y$10$1ehPpACQ9rwml0y4y1DaIOaAlIngW08oWTNgbKc/rUFjYp/VXHMJi'),
+(13, 0, 'an@gmail.com', '$2y$10$ZDFg106pydngZZd2mWsZjOc40AUxsX5nTw0B1WJY4XkRCMrx/bvp2'),
+(14, 0, '2231', '$2y$10$ED5.yCWhLG8sSaVrOBvyU.aGOy6.2gujB2MHN/ISZ7mwEMJglE58C'),
+(15, 0, '2222', '$2y$10$9UoUNZw.hFfxTgUDv/V21.gXWF0TxeUBjM.Pqnkk96vfsMIn7p/PS'),
+(16, 0, '1111', '$2y$10$l5R1njg/4C4kCUnvXBlgU.1ZxNQYNIzlDfSJDLSkZ5vt2o6bYIDS.'),
+(17, 17, 'mynftacc269@gmail.com', '$2y$10$.3Ap78NLXhKkYftWANaxWOGcADTLv.06O7l0mjM9xawG7zof/rN52'),
+(26, 0, 'pink@gmail.com', '$2y$10$YesJ5ps5u2h6HMy9LBYYO.OkBFrsFtWLPZwWThwB4sT/G0Gta5AGK'),
+(27, 0, '09352034159', '$2y$10$OYiCQVM4k.jXEdAWNGGHhubd5Jbt9ydPAvAIrT3QA3glxm0kggR4G'),
+(28, 0, 'pink@gmail.com', '$2y$10$SCAQ187xpAtARNjp23.9E.sEu5ZtAyG7BF8hPV0xBIPdR9To0mdoy'),
+(29, 0, 'pink@gmail.com', '$2y$10$B4mRrZdcvqEmhJRH4Ey5Tu57s064xccUcJ4Ep.Mwmggx70aP3m9u6'),
+(30, 0, 'lawyerpink@gmail.com', '$2y$10$lgx7tIxlHhMwjluk/J8C5.kXqz0adahgKVoxmJqCUYnvdAN6vAiq6'),
+(31, 0, 'pink@gmail.com', '$2y$10$8r.IbFRxZ/jYsGr9twPLLeDScttDHThuVSH1vd7Yjd6q7KV/C3W.O'),
+(32, 0, '', '$2y$10$zGVN/Jtq81oJOb0.qLpYLu6e4O2sRxgIHDUx14l7OkB.YFELUd9Dq'),
+(33, 0, 'red@gmail.com', '$2y$10$1o/ox1Hsts3iaFt.zPDEH.MLDsXe5JqCMyRA/VGKj7ZMNpTboyqU.'),
+(34, 0, 'hakdog@gmail.com', '$2y$10$DOiDuzd67yuAxBURrVPKg.bnW9hnnhMtBwJqJEcJTze5.WpU5EggC'),
+(35, 0, 'hakdog@gmail.com', '$2y$10$SErg0z1YMqEQNflvIZ9Msu6zXzF7pydfaeA.m0X6AZP6RhG0BNSP2'),
+(36, 0, 'pink@gmail.com', '$2y$10$nmmVk0Z93oj6ZDiyXRudLuB2V5nU9QGbfGy2tswN9BZnb7I/2iPs6'),
+(37, 0, 'angel@gmail.com', '$2y$10$dI.uYsh.NSYVEMdpYZjXPesFm2n9JAlMPFiKqUc.QgzyhNyBonBiS'),
+(38, 0, '', '$2y$10$52fZbJ9rn7umWEf1mR/0Cuh.HLz/T9UyyDM6RuXvO8iFp0RZF86j2'),
+(39, 0, '', ''),
+(40, 0, '', ''),
+(41, 0, '', '$2y$10$Rw8LpJwALeyLYwjO1MBmq.u8A.RGUe3iW..TNdFjTOysrz0W43KBu'),
+(42, 0, '', '$2y$10$5et.ZXmQpKv2CkdPWB119elIZSqvfVO8mvcgyFEC9ajSxUxaSo2Rq'),
+(43, 47, 'zz@gmail.com', '$2y$10$9y85e3kUOiQBZotSZ.LTXuDX57WLCMAHWzGbOvs1y1Z5oMrl/F4GO');
 
 -- --------------------------------------------------------
 
@@ -368,7 +366,8 @@ INSERT INTO `tbl_address` (`address_id`, `address`) VALUES
 (43, ''),
 (44, ''),
 (45, 'Saway'),
-(46, 'Saway');
+(46, 'Saway'),
+(47, 'general santos city');
 
 -- --------------------------------------------------------
 
@@ -462,7 +461,9 @@ INSERT INTO `tbl_content` (`content_id`, `lesson_id`, `lesson_files_id`) VALUES
 (8, 7, 8),
 (9, 8, 9),
 (10, 9, 10),
-(11, 10, 11);
+(11, 10, 11),
+(12, 11, 12),
+(13, 12, 13);
 
 -- --------------------------------------------------------
 
@@ -491,7 +492,8 @@ CREATE TABLE `tbl_learner` (
 INSERT INTO `tbl_learner` (`learner_id`, `learner_auto_id`, `lrn`, `user_id`, `guardian_info_id`, `guardian_contact_id`, `address_id`, `level_id`, `status_id`, `account_id`, `usercredentials_id`) VALUES
 (1, '', 2, 8, 2, 2, 8, 8, 8, 8, 7),
 (2, '', 3, 17, 3, 3, 17, 17, 17, 17, 16),
-(5, '', 6, 40, 6, 6, 40, 40, 40, 36, 39);
+(5, '', 6, 40, 6, 6, 40, 40, 40, 36, 39),
+(8, '', 9, 47, 9, 9, 47, 47, 47, 43, 46);
 
 -- --------------------------------------------------------
 
@@ -518,7 +520,8 @@ INSERT INTO `tbl_learner_guardian_contact` (`guardian_contact_id`, `contact_num`
 (5, 2147483647, 'lawyerpink@gmail.com', 'seoul'),
 (6, 2147483647, 'pink@gmail.com', 'seoul'),
 (7, 0, '', ''),
-(8, 0, '', '');
+(8, 0, '', ''),
+(9, 1231123, 'awdawd@gmail.com', 'awdawdawdawd');
 
 -- --------------------------------------------------------
 
@@ -547,7 +550,8 @@ INSERT INTO `tbl_learner_guardian_info` (`guardian_info_id`, `firstname`, `middl
 (5, 'black lawyer', 'r', 'pink', '2023-07-31', 'male'),
 (6, 'black', 'r', 'pink', '2023-08-10', 'female'),
 (7, '', '', '', '', ''),
-(8, '', '', '', '', '');
+(8, '', '', '', '', ''),
+(9, 'awda', 'awda', 'adwadasdw', '2023-10-12', 'Male');
 
 -- --------------------------------------------------------
 
@@ -573,7 +577,8 @@ INSERT INTO `tbl_learner_id` (`learner_id`, `learner_auto_id`, `lrn`) VALUES
 (5, '', 2147483647),
 (6, '', 2147483647),
 (7, 'lrn001', 0),
-(8, 'lrn001', 0);
+(8, 'lrn001', 0),
+(9, 'lrn001', 0);
 
 -- --------------------------------------------------------
 
@@ -598,7 +603,9 @@ INSERT INTO `tbl_lesson` (`lesson_id`, `name`, `objective`, `level`, `type`, `ad
 (7, 'multi', 'test', 'Advance', 'Literacy', 11),
 (8, 'Blackpink', 'Hakdog', 'Advance', 'Numeracy', 1),
 (9, 'Secrer', 'Wala', 'Literacy', 'Numeracy', 1),
-(10, 'Red', 'Redss', 'Literacy', 'Literacy', 1);
+(10, 'Red', 'Redss', 'Literacy', 'Literacy', 1),
+(11, 'test admin', 'tt', '', 'Literacy', 2),
+(12, 'test admin2', 'tt', '', 'Numeracy', 2);
 
 -- --------------------------------------------------------
 
@@ -623,7 +630,32 @@ INSERT INTO `tbl_lesson_files` (`lesson_files_id`, `lesson_id`, `lesson`, `added
 (8, 7, 'spicyuuu1.jpg', 11, 1),
 (9, 8, 'barcode.png', 1, 1),
 (10, 9, '01_Assignment_1(4).docx', 1, 3),
-(11, 10, '01 Laboratory Exercise 1 FERNANDEZ.docx', 1, 1);
+(11, 10, '01 Laboratory Exercise 1 FERNANDEZ.docx', 1, 1),
+(12, 11, '393936335_297825859778137_1065779574827112688_n.jpg', 2, 2),
+(13, 12, '393936335_297825859778137_1065779574827112688_n.jpg', 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_quiz_answer`
+--
+
+CREATE TABLE `tbl_quiz_answer` (
+  `quiz_answer_id` int(11) NOT NULL,
+  `quiz_options_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `selected_answer` varchar(244) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_quiz_answer`
+--
+
+INSERT INTO `tbl_quiz_answer` (`quiz_answer_id`, `quiz_options_id`, `question_id`, `selected_answer`, `user_id`) VALUES
+(1, 0, 6, 'aaa', 17),
+(2, 0, 27, 'das', 17),
+(3, 0, 28, 'True', 17);
 
 -- --------------------------------------------------------
 
@@ -812,48 +844,18 @@ CREATE TABLE `tbl_quiz_score` (
   `quiz_score_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
   `score` int(11) NOT NULL,
-<<<<<<< HEAD
-  `max_score` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-=======
   `max_score` int(11) NOT NULL,
-  `attempts` int(11) NOT NULL
+  `attempts` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_quiz_score`
 --
 
-INSERT INTO `tbl_quiz_score` (`quiz_score_id`, `question_id`, `score`, `max_score`, `attempts`) VALUES
-(1, 0, 3, 3, 0),
-(2, 0, 3, 3, 0),
-(3, 0, 3, 3, 0),
-(4, 0, 3, 3, 0),
-(5, 0, 3, 3, 0),
-(6, 6, 3, 3, 2),
-(7, 6, 3, 3, 2),
-(8, 0, 3, 3, 0),
-(9, 0, 3, 3, 0),
-(10, 6, 3, 3, 2),
-(11, 0, 3, 3, 0),
-(12, 0, 3, 3, 0),
-(13, 6, 3, 3, 2),
-(14, 6, 3, 3, 2),
-(15, 6, 3, 3, 2),
-(16, 6, 3, 3, 3),
-(17, 6, 3, 3, 2),
-(18, 6, 3, 3, 2),
-(19, 6, 3, 3, 1),
-(20, 6, 3, 3, 1),
-(21, 6, 3, 3, 1),
-(22, 6, 3, 3, 1),
-(23, 6, 3, 3, 1),
-(24, 6, 3, 3, 1),
-(25, 6, 3, 3, 1),
-(26, 6, 3, 3, 1);
+INSERT INTO `tbl_quiz_score` (`quiz_score_id`, `question_id`, `score`, `max_score`, `attempts`, `user_id`) VALUES
+(1, 6, 3, 3, 1, 17);
 
->>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
 -- --------------------------------------------------------
 
 --
@@ -1023,7 +1025,8 @@ INSERT INTO `tbl_usercredentials` (`usercredentials_id`, `email`, `contact`) VAL
 (42, '', 0),
 (43, '', 0),
 (44, 'mico@gmail.com', 13224554),
-(45, 'mico@gmail.com', 13224554);
+(45, 'mico@gmail.com', 13224554),
+(46, 'zz@gmail.com', 1231);
 
 -- --------------------------------------------------------
 
@@ -1066,7 +1069,8 @@ INSERT INTO `tbl_userinfo` (`user_id`, `firstname`, `middlename`, `lastname`, `b
 (41, 'Angel', 'K', 'Tabs', '2023-09-10', 'female'),
 (42, 'Esabel', 'F', 'Sombong', '2023-09-10', 'female'),
 (45, 'Jennie', 'F', 'Kim', '2023-10-02', 'female'),
-(46, 'Mico', 'E', 'Kim', '2023-10-08', 'female');
+(46, 'Mico', 'E', 'Kim', '2023-10-08', 'female'),
+(47, 'zz', 'ww', 'ee', '2023-10-19', 'Male');
 
 -- --------------------------------------------------------
 
@@ -1141,7 +1145,8 @@ INSERT INTO `tbl_user_level` (`level_id`, `level`) VALUES
 (43, 'LEARNER'),
 (44, 'LEARNER'),
 (45, 'TEACHER'),
-(46, 'TEACHER');
+(46, 'TEACHER'),
+(47, 'LEARNER');
 
 -- --------------------------------------------------------
 
@@ -1204,7 +1209,8 @@ INSERT INTO `tbl_user_status` (`status_id`, `status`) VALUES
 (43, 1),
 (44, 1),
 (45, 1),
-(46, 1);
+(46, 1),
+(47, 1);
 
 -- --------------------------------------------------------
 
@@ -1405,6 +1411,12 @@ ALTER TABLE `tbl_lesson_files`
   ADD KEY `lesson_id` (`lesson_id`);
 
 --
+-- Indexes for table `tbl_quiz_answer`
+--
+ALTER TABLE `tbl_quiz_answer`
+  ADD PRIMARY KEY (`quiz_answer_id`);
+
+--
 -- Indexes for table `tbl_quiz_choices`
 --
 ALTER TABLE `tbl_quiz_choices`
@@ -1563,13 +1575,13 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `tbl_accounts`
 --
 ALTER TABLE `tbl_accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `tbl_address`
 --
 ALTER TABLE `tbl_address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -1599,43 +1611,49 @@ ALTER TABLE `tbl_auto_id`
 -- AUTO_INCREMENT for table `tbl_content`
 --
 ALTER TABLE `tbl_content`
-  MODIFY `content_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `content_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_learner`
 --
 ALTER TABLE `tbl_learner`
-  MODIFY `learner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `learner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_learner_guardian_contact`
 --
 ALTER TABLE `tbl_learner_guardian_contact`
-  MODIFY `guardian_contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `guardian_contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_learner_guardian_info`
 --
 ALTER TABLE `tbl_learner_guardian_info`
-  MODIFY `guardian_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `guardian_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_learner_id`
 --
 ALTER TABLE `tbl_learner_id`
-  MODIFY `learner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `learner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_lesson`
 --
 ALTER TABLE `tbl_lesson`
-  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `lesson_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_lesson_files`
 --
 ALTER TABLE `tbl_lesson_files`
-  MODIFY `lesson_files_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `lesson_files_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `tbl_quiz_answer`
+--
+ALTER TABLE `tbl_quiz_answer`
+  MODIFY `quiz_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_quiz_choices`
@@ -1659,11 +1677,7 @@ ALTER TABLE `tbl_quiz_question`
 -- AUTO_INCREMENT for table `tbl_quiz_score`
 --
 ALTER TABLE `tbl_quiz_score`
-<<<<<<< HEAD
-  MODIFY `quiz_score_id` int(11) NOT NULL AUTO_INCREMENT;
-=======
-  MODIFY `quiz_score_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
->>>>>>> c0168fd2a09d5b9787eb96c25ff95ffeb2963cd7
+  MODIFY `quiz_score_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_quiz_student`
@@ -1687,13 +1701,13 @@ ALTER TABLE `tbl_teacher_valid`
 -- AUTO_INCREMENT for table `tbl_usercredentials`
 --
 ALTER TABLE `tbl_usercredentials`
-  MODIFY `usercredentials_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `usercredentials_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `tbl_userinfo`
 --
 ALTER TABLE `tbl_userinfo`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
@@ -1705,13 +1719,13 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_user_level`
 --
 ALTER TABLE `tbl_user_level`
-  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tbl_user_status`
 --
 ALTER TABLE `tbl_user_status`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `users`
