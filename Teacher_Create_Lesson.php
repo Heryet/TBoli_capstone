@@ -109,7 +109,7 @@ $user_id = $_SESSION['user_id'];
                 <div class="modal-content">
                     <div class="modal-body text-center">
                         <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
-                        <p>Student added successfully</p>
+                        <p>Created successfully</p>
                     </div>
                 </div>
             </div>

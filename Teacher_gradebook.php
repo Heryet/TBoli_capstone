@@ -117,11 +117,48 @@ $user_id = $_SESSION['user_id'];
         </div> <!-- container -->
 
     </div> <!-- content -->
-
     <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+                            <button class="btn btn-primary" id="searchButton">Search</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <select class="form-select" id="quizSelect">
+                                <option value="" selected>Select Quiz</option>
+                                <?php
+                                include 'dbcon.php';
+
+                                $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.instructions, tbl_userinfo.firstname, tbl_userinfo.lastname, tbl_lesson.name FROM tbl_quiz_options
+                                        JOIN tbl_userinfo ON tbl_quiz_options.added_by = tbl_userinfo.user_id
+                                        JOIN tbl_lesson ON tbl_quiz_options.lesson = tbl_lesson.lesson_id
+                                        WHERE tbl_quiz_options.lesson = tbl_lesson.lesson_id";
+
+                                $result = mysqli_query($conn, $sql);
+
+                                if ($result && mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<option value="' . $row['quiz_options_id'] . '">' . $row['title'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <button class="btn btn-primary" id="filterButton">Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                 <div class="table-responsive">
                     <table class="table table-hover table-centered table-nowrap mb-0" id="products-datatable">
                         <thead class="table-light">
@@ -201,7 +238,64 @@ $user_id = $_SESSION['user_id'];
     <!-- Right Sidebar -->
     
     <!-- /End-bar -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const filterButton = document.getElementById('filterButton');
+        const quizSelect = document.getElementById('quizSelect');
+        const tableRows = document.querySelectorAll('.table tbody tr');
 
+        searchButton.addEventListener('click', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            for (const row of tableRows) {
+                const cells = row.querySelectorAll('td');
+                let match = false;
+
+                for (const cell of cells) {
+                    const cellText = cell.textContent.toLowerCase();
+                    if (cellText.includes(searchTerm)) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+
+        filterButton.addEventListener('click', function () {
+            const selectedQuiz = quizSelect.value;
+            const filterTerm = selectedQuiz.toLowerCase();
+
+            for (const row of tableRows) {
+                const cells = row.querySelectorAll('td');
+                const quizCell = cells[2].textContent.toLowerCase();
+
+                if (selectedQuiz === '' || quizCell.includes(filterTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+
+        searchInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+
+        quizSelect.addEventListener('change', function () {
+            filterButton.click();
+        });
+    });
+</script>
 
     <!-- bundle -->
     <script src="assets/js/vendor.min.js"></script>
