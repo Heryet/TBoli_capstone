@@ -343,8 +343,8 @@ $user_id = $_SESSION['user_id'];
 
                                             ?>
                                             <div class="card card-body mb-0">
-                                                <h5 class="card-title">Question <?php echo $questionNumber; ?></h5>
-                                                <p class="mt-2"><?php echo $row['question']; ?></p>
+                                                <h5 class="card-title">Question <?php echo $questionNumber . ': ' . $row['question']; ?></h5>
+                                                <br>
                                                 <div class="list-group">
                                                     <table class="table table-hover">
                                                         <tbody>

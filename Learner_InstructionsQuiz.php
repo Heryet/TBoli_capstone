@@ -335,8 +335,22 @@ $user_id = $_SESSION['user_id'];
                                 }
                             }
                             else {
-                                echo "No record";
-                                exit();
+                                $sqlQuiz = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions
+                                FROM tbl_quiz_options
+                                WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id'";
+
+                                $resultQuiz = mysqli_query($conn, $sqlQuiz);
+                                if ($resultQuiz && mysqli_num_rows($resultQuiz) > 0){
+                                    $rowQuiz = mysqli_fetch_assoc($resultQuiz);
+                                    ?>
+                                    <p><?php echo $rowQuiz['instructions']; ?></p>
+                                    <div class="card-footer text-md-end">
+                                        <a href="Learner_Quiz.php?quiz_options_id=<?php echo $rowQuiz['quiz_options_id']; ?>">
+                                            <button type="button" class="btn btn-info">Take the quiz</button>
+                                        </a>
+                                    </div>
+                                    <?php
+                                }
                             }
                         } else {
                             echo "No id provided";
