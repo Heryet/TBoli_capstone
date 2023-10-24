@@ -32,7 +32,7 @@ $user_id = $_SESSION['user_id'];
     <!-- third party css end -->
 
 </head>
-
+<div class="wrapper">
 <body <?php include('dataconfig.php') ?>>
     <!-- Begin page -->
     <div class="wrapper">
@@ -172,6 +172,7 @@ $user_id = $_SESSION['user_id'];
                                 <th>Student</th>
                                 <th>Quiz</th>
                                 <th>Score</th>
+                                <th>Attempts</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -205,6 +206,7 @@ $user_id = $_SESSION['user_id'];
                                             </div>
                                         </td>
                                         <td><?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
