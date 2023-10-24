@@ -153,10 +153,6 @@ if (isset($_SESSION['user_id'])) {
                         <a href="admin_addnewTeacher.php" class="btn btn-danger mb-2"><i
                                 class="mdi mdi-plus-circle me-2"></i> Add New Teacher</a>
                     </div>
-                    <div class="col-sm-4">
-                        <a href="#" class="btn btn-primary mb-2" data-bs-toggle="modal"
-                            data-bs-target="#batchUploadModal"><i class="mdi mdi-upload me-2"></i> Batch Upload</a>
-                    </div>
                 </div>
 
                 <!-- Modal -->
@@ -185,12 +181,6 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 <thead>
                     <tr>
-                        <th class="">
-                            <div class="form-check form-checkbox-success mb-2">
-                                <input type="checkbox" class="form-check-input" id="customCheckAll">
-                                <label class="form-check-label" for="customCheckAll">Select All</label>
-                            </div>
-                        </th>
                         <th>ID</th>
                         <th>Full Name</th>
                         <th>Email Address</th>
@@ -226,12 +216,6 @@ if (isset($_SESSION['user_id'])) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                     <tr>
-                        <td>
-                            <div class="form-check form-checkbox-success">
-                                <input type="checkbox" class="form-check-input customCheckbox" id="customCheckcolor2">
-                                <label class="form-check-label" for="customCheckcolor2"></label>
-                            </div>
-                        </td>
                         <td><?php echo $row['teacher_id']; ?></td>
                         <td><?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?></td>
                         <td><?php echo $row['email']; ?></td>
@@ -273,10 +257,6 @@ if (isset($_SESSION['user_id'])) {
             <script src="assets/js/vendor.min.js"></script>
             <script src="assets/js/app.min.js"></script>
 
-            <!-- quill js -->
-            <script src="assets/js/vendor/quill.min.js"></script>
-            <!-- quill Init js-->
-            <script src="assets/js/pages/demo.quilljs.js"></script>
 
 
 
