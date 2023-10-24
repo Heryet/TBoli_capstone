@@ -169,7 +169,6 @@ tr.selected-answer.incorrect label {
                                 <span class="account-user-avatar">
                                     <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                                 </span>
-
                                 <?php
                                 include 'dbcon.php';
 

@@ -82,7 +82,7 @@ $user_id = $_SESSION['user_id'];
                             <div class="page-title-box">
                                 <div class="page-title-right">
                                 </div>
-                                <h4 class="page-title">Add List</h4>
+                                <h4 class="page-title">Quiz List</h4>
                             </div>
                         </div>
                     </div>
@@ -294,6 +294,11 @@ $user_id = $_SESSION['user_id'];
                                                             class="btn btn-primary btn-sm">Edit</a>
 
                                                         <a href="#" class="btn btn-danger btn-sm">Archive</a>
+                                                       
+        <a href="view_quiz.php?quiz_options_id=<?php echo $row['quiz_options_id']; ?>"
+            class="btn btn-primary btn-sm">View</a>
+    
+                                                        
                                                     </td>
                                                 </tr>
                                                 <?php
@@ -312,7 +317,54 @@ $user_id = $_SESSION['user_id'];
                 </div> <!-- container -->
             </div> <!-- content -->
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary mt-3" id="openAddQuizModal">Add Quiz</button>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" id="searchButton">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Modal for adding a new quiz assignment -->
+        <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addQuizModalLabel">Add Quiz Assignment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form for adding a new quiz assignment -->
+                        <form class="needs-validation" novalidate action="" method="POST">
+                        <div class="mb-3">
+                                            <label for="quizTitle" class="form-label">Title</label>
+                                            <input type="text" class="form-control" id="quizTitle" name="quizTitle"
+                                                required>
+                                            <label for="inputState" class="form-label">Select Lesson</label>
+                                            <input type="text" class="form-control" id="selectlesson" name="selectlesson"
+                                                required>
+                                                <label for="instructions" class="form-label">Instructions</label>
+                                            <!-- Changed the "for" attribute to match the textarea id -->
+                                            <textarea class="form-control" id="instructions" name="instructions"
+                                                required></textarea>
+                            <div>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" name="addQuiz">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script>
     document.addEventListener('DOMContentLoaded', function () {

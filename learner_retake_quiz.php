@@ -20,7 +20,6 @@ $user_id = $_SESSION['user_id'];
     <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style" disabled="disabled">
 
 </head>
-
 <body <?php include('dataconfig.php') ?>>
     <!-- Begin page -->
     <div class="wrapper">

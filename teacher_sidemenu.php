@@ -59,12 +59,13 @@
         </a>
         <div class="collapse" id="sidebarLessons">
             <ul class="side-nav-second-level">
+            <li>
+                    <a href="Teacher_Create_Lesson.php"><i class="uil-edit-alt"></i>Lesson</a>
+                </li>
                 <li>
                     <a href="Teacher_Create_Quiz.php"><i class="uil-edit-alt"></i>Quiz List</a>
                 </li>
-                <li>
-                    <a href="Teacher_Create_Lesson.php"><i class="uil-edit-alt"></i>Lesson</a>
-                </li>
+               
             </ul>
         </div>
     </li>
