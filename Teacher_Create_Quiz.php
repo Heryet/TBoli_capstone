@@ -223,7 +223,17 @@ $user_id = $_SESSION['user_id'];
                     <div class="modal-body">
                         <!-- Form for adding a new quiz assignment -->
                         <form class="needs-validation" novalidate action="" method="POST">
-  
+                        <div class="mb-3">
+                                            <label for="quizTitle" class="form-label">Title</label>
+                                            <input type="text" class="form-control" id="quizTitle" name="quizTitle"
+                                                required>
+                                            <label for="inputState" class="form-label">Select Lesson</label>
+                                            <input type="text" class="form-control" id="selectlesson" name="selectlesson"
+                                                required>
+                                                <label for="instructions" class="form-label">Instructions</label>
+                                            <!-- Changed the "for" attribute to match the textarea id -->
+                                            <textarea class="form-control" id="instructions" name="instructions"
+                                                required></textarea>
                             <div>
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Close</button>
