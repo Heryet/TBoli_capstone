@@ -262,7 +262,7 @@ $user_id = $_SESSION['user_id'];
                         include 'dbcon.php';
 
                         $sql = "SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.objective, tbl_lesson.type, tbl_lesson.added_by, tbl_lesson_files.status, tbl_quiz_student.quiz_student_id, tbl_quiz_student.quiz_options_id, tbl_quiz_student.student FROM tbl_lesson
-                                JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_files_id
+                                JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_id
                                 JOIN tbl_quiz_student ON tbl_lesson.lesson_id = tbl_quiz_student.quiz_options_id
                                 WHERE tbl_lesson_files.status = 1 AND tbl_quiz_student.student = '$user_id' AND tbl_lesson.type = 'LITERACY'";
 

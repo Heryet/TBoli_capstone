@@ -59,10 +59,31 @@ $user_id = $_SESSION['user_id'];
                 <?php include('teacher_topbar.php')?>
 
                 <!-- Start Content-->
-                
+                <!-- modal check gif -->
+                <div id="gifModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
+                                <p>Student added successfully</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- error modal -->
+                <div id="errorModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <img src="assets/images/gif/error.gif" alt="Error GIF" class="img-fluid">
+                                <p>The student has already been added.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Add button to open the modal -->
                 <div class="row">
-
                     <div class="row">
                         <div class="col-md-6">
                             <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
@@ -92,19 +113,24 @@ $user_id = $_SESSION['user_id'];
                                                 $options = $_POST['question_opt'];
                                                 $is_right = $_POST['is_right'];
 
-                                                // Loop through the options and insert them into the database
+                                               
                                                 for ($i = 0; $i < count($options); $i++) {
                                                     $choice = $options[$i];
                                                     $is_right_value = isset($is_right[$i]) ? 1 : 0;
 
                                                     $sql = "INSERT INTO tbl_quiz_choices (question_id, choices, is_right) VALUES ('$question_id', '$choice', '$is_right_value')";
 
-                                                    if ($conn->query($sql) !== TRUE) {
+                                                    if ($conn->query($sql) === TRUE) {
+                                                        $url = "Teacher_Manage_Quiz.php?quiz_options_id='$quiz_options_id'&openModal=true";
+                                                        ?>
+                                                        <script>
+                                                            window.location.href = $url;
+                                                        </script>
+                                                        <?php
+                                                    } else {
                                                         echo "Error: " . $sql . "<br>" . $conn->error;
                                                     }
                                                 }
-                                                header("Location: Teacher_Manage_Quiz.php?Quiz Added Successfully");
-                                                exit();
                                             } else {
                                                 echo "Error: " . $sql . "<br>" . $conn->error;
                                             }
@@ -131,14 +157,18 @@ $user_id = $_SESSION['user_id'];
                                                         echo "Error: " . $sql . "<br>" . $conn->error;
                                                     }
                                                 }
-                                                header("Location: Teacher_Manage_quiz.php?msg=Added Succesfully");
-                                                exit();
+                                                $url = "Teacher_Manage_Quiz.php?quiz_options_id='$quiz_options_id'&openModal=true";
+                                                    ?>
+                                                    <script>
+                                                        window.location.href = $url;
+                                                    </script>
+                                                    <?php
                                             } else {
                                                 echo "Error: " . $sql . "<br>" . $conn->error;
                                             }
                                         }
                                         ?>
-                                        <form action="" method="POST">
+                                        <form action="" method="POST" onsubmit="return validateForm()">
                                             <div id="msg"></div>
                                             <div class="form-group">
                                                 <label for="question">Question</label>
@@ -148,22 +178,22 @@ $user_id = $_SESSION['user_id'];
                                             <label>Options:</label>
 
                                             <div class="form-group" id="options">
-                                                <textarea rows="2" name="question_opt[0]" required="" class="form-control" value=""></textarea>
+                                                <textarea rows="2" name="question_opt[0]" required="" class="form-control"></textarea>
                                                 <span>
-                                                    <label><input type="radio" name="is_right[0]" class="is_right" value="1">
+                                                    <label><input type="radio" name="is_right" class="is_right" value="0" required="required">
                                                         <small>Question Answer</small></label>
                                                 </span>
                                                 <br>
                                                 <textarea rows="2" name="question_opt[1]" required="" class="form-control"></textarea>
-                                                <label><input type="radio" name="is_right[1]" class="is_right" value="1">
+                                                <label><input type="radio" name="is_right" class="is_right" value="1" required="required">
                                                     <small>Question Answer</small></label>
                                                 <br>
                                                 <textarea rows="2" name="question_opt[2]" required="" class="form-control"></textarea>
-                                                <label><input type="radio" name="is_right[2]" class="is_right" value="1">
+                                                <label><input type="radio" name="is_right" class="is_right" value="2" required="required">
                                                     <small>Question Answer</small></label>
                                                 <br>
                                                 <textarea rows="2" name="question_opt[3]" required="" class="form-control"></textarea>
-                                                <label><input type="radio" name="is_right[3]" class="is_right" value="1">
+                                                <label><input type="radio" name="is_right" class="is_right" value="3" required="required">
                                                     <small>Question Answer</small></label>
                                             </div>
                                             <div class="modal-footer">
@@ -325,6 +355,47 @@ $user_id = $_SESSION['user_id'];
                     <script src="assets/js/vendor/quill.min.js"></script>
                     <!-- quill Init js-->
                     <script src="assets/js/pages/demo.quilljs.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            // Check if the "openModal" query parameter is present
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const openModal = urlParams.get("openModal");
+
+                            if (openModal === "true") {
+                                // Trigger the modal using JavaScript
+                                $("#gifModal").modal("show");
+                            }
+                        });
+
+                        // Check if the "openerrorModal" query parameter is present
+                        const openerrorModal = urlParams.get("openerrorModal");
+
+                        if (openerrorModal === "true") {
+                            // Trigger the errorModal using JavaScript
+                            $("#errorModal").modal("show");
+                        }
+                    </script>
+                    <script>
+                        // Add a JavaScript function to check if at least one radio button is selected
+                        function validateForm() {
+                            var radios = document.getElementsByName('is_right');
+                            var radioSelected = false;
+                            for (var i = 0; i < radios.length; i++) {
+                                if (radios[i].checked) {
+                                    radioSelected = true;
+                                    break;
+                                }
+                            }
+                            if (!radioSelected) {
+                                alert('Please select a question answer.');
+                                return false; // Prevent form submission
+                            }
+                            return true; // Allow form submission
+                        }
+
+                        // Attach the validateForm function to the form's onsubmit event
+                        document.querySelector('form').onsubmit = validateForm;
+                    </script>
 </body>
 
 </html>

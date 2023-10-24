@@ -8,29 +8,22 @@ $user_id = $_SESSION['user_id'];
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Starter Page | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
-    <meta content="Coderthemes" name="author">
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
-    <!-- App css -->
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
-    <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style">
+    <?php include('teacher_header.php') ?>
+    <style>
+            /* gif modal css */
+    #gifModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
 
-    <!-- Quill css -->
-    <link href="assets/css/vendor/quill.core.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/vendor/quill.snow.css" rel="stylesheet" type="text/css" />
-
-    <!-- Add this inside your <head> tag -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- jQuery (required for Select2) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    #gifModal .modal-body img {
+        max-width: 100%;
+        height: auto;
+        width: 200px; /* Adjust the width as desired */
+        margin-bottom: 10px;
+    }
+    </style>
 </head>
 
 <body <?php include('dataconfig.php') ?>>
@@ -97,22 +90,145 @@ $user_id = $_SESSION['user_id'];
 
                     <!-- Add button to open the modal -->
                     <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                data-bs-target="#addQuizModal">Add Quiz</button>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="searchInput" placeholder="Search...">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" id="searchButton">Search</button>
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+            data-bs-target="#addQuizModal">Add Quiz</button>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="searchButton">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- modal gif -->
+        <div id="gifModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <img src="assets/images/gif/check.gif" alt="GIF" class="img-fluid">
+                        <p>Created successfully</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                    <!-- Modal for adding a new quiz assignment -->
+                    <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addQuizModalLabel">Add Quiz Assignment</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form for adding a new quiz assignment -->
+                                    <?php 
+                                    include 'dbcon.php';
+
+                                    if(isset($_POST['addQuiz'])) {
+                                        session_start(); // Add session_start() to use $_SESSION
+                                        $user_id = $_SESSION['user_id'];
+                                        $quizTitle = $_POST['quizTitle'];
+                                        $lesson = $_POST['lesson'];
+                                        $instructions = $_POST['instructions'];
+
+                                        $sql = "INSERT INTO tbl_quiz_options (added_by, title, lesson, instructions) VALUES
+                                        ('$user_id', '$quizTitle', '$lesson', '$instructions')";
+
+                                        if ($conn->query($sql) === TRUE) {
+                                            $url = "Teacher_Create_Quiz.php?success=Student added successfully&openModal=true";
+                                            echo '<script>window.location.href = "' . $url . '";</script>';
+                                        } else {
+                                            // Error occurred
+                                            echo "Error: " . mysqli_error($conn);
+                                        }
+                                    }
+                                    ?>
+                                    <form class="needs-validation" novalidate action="" method="POST">
+                                        <div class="mb-3">
+                                            <label for="quizTitle" class="form-label">Quiz Title</label>
+                                            <input type="text" class="form-control" id="quizTitle" name="quizTitle" required>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please provide a title!
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label for="lessonSelect" class="form-label">Select Lesson</label>
+                                            <select id="lessonSelect" class="form-select" name="lesson" required>
+                                                <option value="" selected disabled>Select a lesson</option>
+                                                <?php
+                                                include 'dbcon.php';
+                                                $sql = "SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.type, tbl_lesson_files.status FROM tbl_lesson
+                                                    JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_id
+                                                    WHERE tbl_lesson_files.status = 1";
+                                                $result = mysqli_query($conn, $sql);
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $lesson_id = $row['lesson_id'];
+                                                        $name = $row['name'];
+                                                        $type = $row['type'];
+                                                        $level = $row['level'];
+                                                        echo "<option value='$lesson_id'>$type: $level - $name</option>";
+                                                    }
+                                                } else {
+                                                    echo "<option value='' disabled>No lessons available</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please select a lesson!
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="instructions" class="form-label">Instructions</label>
+                                            <textarea class="form-control" id="instructions" name="instructions" required></textarea>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please provide instructions!
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="attemptsSelect" class="form-label">Attempts</label>
+                                            <select id="attemptsSelect" class="form-select" name="attempts" required>
+                                                <option value="" selected disabled>Select attempts</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please select the number of attempts!
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" name="addQuiz">Add</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
                     <!-- Table to display quiz assignments -->
                     <div class="row">
                         <div class="col-12">
@@ -196,93 +312,58 @@ $user_id = $_SESSION['user_id'];
                 </div> <!-- container -->
             </div> <!-- content -->
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <button type="button" class="btn btn-primary mt-3" id="openAddQuizModal">Add Quiz</button>
-            </div>
-            <div class="col-md-6">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Search...">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" id="searchButton">Search</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Modal for adding a new quiz assignment -->
-        <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addQuizModalLabel">Add Quiz Assignment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form for adding a new quiz assignment -->
-                        <form class="needs-validation" novalidate action="" method="POST">
-                        <div class="mb-3">
-                                            <label for="quizTitle" class="form-label">Title</label>
-                                            <input type="text" class="form-control" id="quizTitle" name="quizTitle"
-                                                required>
-                                            <label for="inputState" class="form-label">Select Lesson</label>
-                                            <input type="text" class="form-control" id="selectlesson" name="selectlesson"
-                                                required>
-                                                <label for="instructions" class="form-label">Instructions</label>
-                                            <!-- Changed the "for" attribute to match the textarea id -->
-                                            <textarea class="form-control" id="instructions" name="instructions"
-                                                required></textarea>
-                            <div>
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" name="addQuiz">Add</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const searchInput = document.getElementById('searchInput');
-                const searchButton = document.getElementById('searchButton');
-                const tableRows = document.querySelectorAll('.table tbody tr');
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const tableRows = document.querySelectorAll('.table tbody tr');
 
-                searchButton.addEventListener('click', function () {
-                    const searchTerm = searchInput.value.toLowerCase();
+        searchButton.addEventListener('click', function () {
+            const searchTerm = searchInput.value.toLowerCase();
 
-                    for (const row of tableRows) {
-                        const cells = row.querySelectorAll('td');
-                        let match = false;
+            for (const row of tableRows) {
+                const cells = row.querySelectorAll('td');
+                let match = false;
 
-                        for (const cell of cells) {
-                            const cellText = cell.textContent.toLowerCase();
-                            if (cellText.includes(searchTerm)) {
-                                match = true;
-                                break;
-                            }
-                        }
-
-                        if (match) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
+                for (const cell of cells) {
+                    const cellText = cell.textContent.toLowerCase();
+                    if (cellText.includes(searchTerm)) {
+                        match = true;
+                        break;
                     }
-                });
+                }
 
-                searchInput.addEventListener('keyup', function (event) {
-                    if (event.key === 'Enter') {
-                        searchButton.click();
-                    }
-                });
-            });
-        </script>
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
 
+        searchInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+    });
+</script>
 
+<!-- script gif modal -->
+<script>
+    $(document).ready(function() {
+        // Check if the "openModal" query parameter is present
+        const urlParams = new URLSearchParams(window.location.search);
+        const openModal = urlParams.get("openModal");
+
+        if (openModal === "true") {
+            // Trigger the modal using JavaScript
+            $("#gifModal").modal("show");
+        }
+    });
+</script>
 
         <!-- bundle -->
         <script src="assets/js/vendor.min.js"></script>

@@ -142,14 +142,14 @@ $user_id = $_SESSION['user_id'];
                                         $checkResult = mysqli_query($conn, $checkSql);
 
                                         if (mysqli_num_rows($checkResult) > 0) {
-                                            $url = "Teacher_ManageLesson.php?lesson_id=$lesson_id&error=Student already exists&openerrorModal=true";
+                                            $url = "Teacher_ManageLesson.php?lesson_id=$lesson_id&openerrorModal=true";
                                             echo '<script>window.location.href = "' . $url . '";</script>';
                                         } else {
                                             $sql = "INSERT INTO tbl_quiz_student (quiz_options_id, student) VALUES ('$lesson_id', '$student')";
                                             $result = mysqli_query($conn, $sql);
 
                                             if ($result) {
-                                                $url = "Teacher_ManageLesson.php?lesson_id=$lesson_id&success=Student added successfully&openModal=true";
+                                                $url = "Teacher_ManageLesson.php?lesson_id=$lesson_id&openModal=true";
                                                 echo '<script>window.location.href = "' . $url . '";</script>';
                                             }
                                         }

@@ -121,49 +121,41 @@ $user_id = $_SESSION['user_id'];
 
 
                 <div class="table-responsive">
-                    <table class="table table-hover table-centered table-nowrap mb-0" id="products-datatable">
+                    <table class="table table-hover table-centered table-nowrap mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th style="width: 20px;">
-                               
-                                </th>
+                                <th style="width: 20px;"></th>
                                 <th>Question</th>
                                 <th>Correct Answer</th>
-                               
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             include "dbcon.php";
+                            if(isset($_GET['quiz_options_id'])){
+                                $quiz_options_id = $_GET['quiz_options_id'];
+                                
+                                $sql = "SELECT tbl_quiz_question.question, tbl_quiz_choices.choices, tbl_quiz_choices.is_right FROM tbl_quiz_question
+                                JOIN tbl_quiz_choices ON tbl_quiz_question.question_id = tbl_quiz_choices.question_id
+                                WHERE tbl_quiz_question.quiz_options_id = '$quiz_options_id' AND tbl_quiz_choices.is_right = 1";
 
-                            $sql = "SELECT tbl_userinfo.user_id, tbl_learner.learner_id, tbl_learner.level_id, tbl_user_level.level, tbl_userinfo.firstname,
-                                        tbl_userinfo.middlename, tbl_userinfo.lastname, tbl_userinfo.birthday, tbl_user_status.status,
-                                        tbl_learner_id.lrn
-                                    FROM tbl_learner
-                                    JOIN tbl_user_level ON tbl_learner.level_id = tbl_user_level.level_id
-                                    JOIN tbl_userinfo ON tbl_learner.user_id = tbl_userinfo.user_id
-                                    JOIN tbl_learner_id ON tbl_learner.learner_id = tbl_learner_id.learner_id
-                                    JOIN tbl_user_status ON tbl_learner.status_id = tbl_user_status.status_id
-                                    WHERE tbl_user_level.level = 'LEARNER' AND tbl_user_status.status = 1";
+                                $result = mysqli_query($conn, $sql);
 
-                            $result = mysqli_query($conn, $sql);
-
-                            if (!$result) {
-                                die("Error executing the query: " . mysqli_error($conn));
-                            }
-
-                            if ($result && mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
-                                    <tr>
-                                        <td>
-                                            
-                                        </td>
-                                        <td><?php echo $row['firstname'] . ' ' . $row['middlename'] . ' ' . $row['lastname']; ?></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                            <?php
+                                if ($result && mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                ?>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <?php echo $row['question'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['choices'] ?>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                <?php
+                                    }
                                 }
                             }
                             ?>
