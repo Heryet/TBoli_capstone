@@ -191,6 +191,18 @@ $user_id = $_SESSION['user_id'];
                                                                 <a href="Teacher_ManageLesson.php?lesson_id=<?php echo $row['lesson_id']; ?>" class="btn btn-success btn-sm">Manage</a>
                                                                 <a href="#" class="btn btn-primary btn-sm">Edit</a>
                                                                 <a href="#" class="btn btn-danger btn-sm">Archive</a>
+                                                                <?php
+    if ($row['type'] === 'Literacy') {
+        // If the lesson type is 'Literacy', direct to Teacher_Literacy_Module.php
+        echo '<a href="Teacher_Literacy_Module.php?lesson_id=' . $row['lesson_id'] . '" class="btn btn-info btn-sm">View</a>';
+    } elseif ($row['type'] === 'Numeracy') {
+        // If the lesson type is 'Numeracy', direct to Teacher_Numeracy_Module.php
+        echo '<a href="Teacher_Numeracy_Module.php?lesson_id=' . $row['lesson_id'] . '" class="btn btn-info btn-sm">View</a>';
+    } else {
+        // Add a default action if the lesson type doesn't match 'Literacy' or 'Numeracy'
+        echo '<a href="#" class="btn btn-info btn-sm">View</a>';
+    }
+    ?>
                                                             </td>
                                                         </tr>
                                                     <?php

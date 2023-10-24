@@ -117,7 +117,7 @@ if (isset($_GET['logout'])) {
 
                                                 <!-- Simple card -->
                                                 <div class="card d-block">
-                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                            <img class="card-img-top" src="assets/images/letters.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">Literacy</h5>
                                 <p class="card-text">When: Feb 13 - June 2024</p><a href="Teacher_Literacy_Module.php"
@@ -131,7 +131,7 @@ if (isset($_GET['logout'])) {
 
                         <!-- Simple card -->
                         <div class="card d-block">
-                            <img class="card-img-top" src="assets/images/small/small-1.jpg" alt="Card image cap">
+                            <img class="card-img-top" src="assets/images/numbers.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">Numeracy</h5>
                                 <p class="card-text">When: Feb 13 - June 2024</p><a href="Teacher_Numeracy_Module.php"
