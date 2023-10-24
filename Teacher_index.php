@@ -107,18 +107,47 @@ if (isset($_GET['logout'])) {
 
     <!-- Dashboard cards -->
     <div class="row">
+        <!-- enrolled students -->
+        <?php
+        include 'dbcon.php';
+
+        $sql = "SELECT COUNT(*) AS count
+        FROM tbl_userinfo
+        JOIN tbl_user_level ON tbl_userinfo.user_id = tbl_user_level.level_id
+        JOIN tbl_user_status ON tbl_userinfo.user_id = tbl_user_status.status_id
+        WHERE tbl_user_status.status = 1 AND tbl_user_level.level = 'LEARNER'";
+
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $enrolledStudent = $row['count'];
+
+        ?> 
         <div class="col-md-4 stretch-card grid-margin">
             <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
                     <img src="assets/images/student.svg" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Number of Enrolled Students
-                     
                     </h4>
-                    <h2 class="mb-5">50</h2>
+                    <h2 class="mb-5"><?php echo $enrolledStudent ?></h2>
                 </div>
             </div>
         </div>
+        <?php
+        ?>
 
+        <!-- accepted lessons -->
+
+        <?php
+        $sql = "SELECT COUNT(*) AS count 
+        FROM tbl_lesson
+        JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_id
+        WHERE tbl_lesson_files.status = 1";
+
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $lesson = $row['count'];
+
+        ?>
         <div class="col-md-4 stretch-card grid-margin">
             <div class="card bg-gradient-info card-img-holder text-white">
                 <div class="card-body">
@@ -126,11 +155,22 @@ if (isset($_GET['logout'])) {
                     <h4 class="font-weight-normal mb-3">Number of Lesson
                      
                     </h4>
-                    <h2 class="mb-5">10</h2>
+                    <h2 class="mb-5"><?php echo $lesson ?></h2>
                 </div>
             </div>
         </div>
+        <?php
+        ?>
 
+        <!-- Quiz -->
+        <?php
+        $sql = "SELECT COUNT(*) AS count FROM tbl_quiz_options";
+
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $quiz = $row['count'];
+
+        ?>
         <div class="col-md-4 stretch-card grid-margin">
             <div class="card bg-gradient-info card-img-holder text-white">
                 <div class="card-body">
@@ -138,10 +178,12 @@ if (isset($_GET['logout'])) {
                     <h4 class="font-weight-normal mb-3">Number of Quiz
                        
                     </h4>
-                    <h2 class="mb-5">20</h2>
+                    <h2 class="mb-5"><?php echo $quiz ?></h2>
                 </div>
             </div>
         </div>
+        <?php
+        ?>
     </div>
 
     <!-- TO-DO section -->
@@ -155,21 +197,41 @@ if (isset($_GET['logout'])) {
                             <span class="uil-file-check">Assignment</span>
                         </a>
                     </p>
+
                     <div class="collapse slide-down" id="todo">
                         <div class="card card-body mb-0">
                             <ul class="list-unstyled">
+                                <!-- literacy -->
+                                <?php
+                                $sql = "SELECT COUNT(*) AS count FROM tbl_lesson WHERE tbl_lesson.type = 'LITERACY'";
+                                $result = mysqli_query($conn, $sql);
+                                $row = mysqli_fetch_assoc($result);
+                                $literacy = $row['count'];
+                                ?> 
                                 <li class="mb-2">
                                     <a href="#">
-                                        <span class="badge bg-success float-end">4</span>
+                                        <span class="badge bg-success float-end"><?php echo $literacy ?></span>
                                         <span class="h6">Literacy</span>
                                     </a>
                                 </li>
+                                <?php
+                                ?>
+
+                                <!-- numeracy -->
+                                <?php 
+                                $sql = "SELECT COUNT(*) AS count FROM tbl_lesson WHERE tbl_lesson.type = 'NUMERACY'";
+                                $result = mysqli_query($conn, $sql);
+                                $row = mysqli_fetch_assoc($result);
+                                $numeracy = $row['count'];
+                                ?>
                                 <li>
                                     <a href="#">
-                                        <span class="badge bg-success float-end">11</span>
+                                        <span class="badge bg-success float-end"><?php echo $numeracy ?></span>
                                         <span class="h6">Numeracy</span>
                                     </a>
                                 </li>
+                                <?php
+                                ?>
                             </ul>
                         </div>
                     </div>
@@ -212,6 +274,7 @@ if (isset($_GET['logout'])) {
 
     <!-- bundle -->
     <script src="assets/js/vendor.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
 
 </body>
 
