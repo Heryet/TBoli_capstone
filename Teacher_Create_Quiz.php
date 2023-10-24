@@ -32,26 +32,6 @@ $user_id = $_SESSION['user_id'];
         <!-- ========== Left Sidebar Start ========== -->
         <div class="leftside-menu">
 
-            <!-- LOGO -->
-            <a href="index.html" class="logo text-center logo-light">
-                <span class="logo-lg">
-                    <img src="assets/images/logo.png" alt="" height="16">
-                </span>
-                <span class="logo-sm">
-                    <img src="assets/images/logo_sm.png" alt="" height="16">
-                </span>
-            </a>
-
-            <!-- LOGO -->
-            <a href="index.html" class="logo text-center logo-dark">
-                <span class="logo-lg">
-                    <img src="assets/images/logo-dark.png" alt="" height="16">
-                </span>
-                <span class="logo-sm">
-                    <img src="assets/images/logo_sm_dark.png" alt="" height="16">
-                </span>
-            </a>
-
             <div class="h-100" id="leftside-menu-container" data-simplebar="">
 
                 <!--- Sidemenu -->
@@ -116,6 +96,18 @@ $user_id = $_SESSION['user_id'];
             </div>
         </div>
 
+        <!-- error modal -->
+        <div id="errorModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <img src="assets/images/gif/error.gif" alt="Error GIF" class="img-fluid">
+                        <p>An error occurred</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
                     <!-- Modal for adding a new quiz assignment -->
                     <div class="modal fade" id="addQuizModal" tabindex="-1" aria-labelledby="addQuizModalLabel"
                         aria-hidden="true">
@@ -137,9 +129,10 @@ $user_id = $_SESSION['user_id'];
                                         $quizTitle = $_POST['quizTitle'];
                                         $lesson = $_POST['lesson'];
                                         $instructions = $_POST['instructions'];
+                                        $attempts = $_POST['attempts'];
 
-                                        $sql = "INSERT INTO tbl_quiz_options (added_by, title, lesson, instructions) VALUES
-                                        ('$user_id', '$quizTitle', '$lesson', '$instructions')";
+                                        $sql = "INSERT INTO tbl_quiz_options (added_by, title, lesson, instructions, attempts) VALUES
+                                        ('$user_id', '$quizTitle', '$lesson', '$instructions', '$attempts')";
 
                                         if ($conn->query($sql) === TRUE) {
                                             $url = "Teacher_Create_Quiz.php?success=Student added successfully&openModal=true";
@@ -242,6 +235,7 @@ $user_id = $_SESSION['user_id'];
                                                     <th>Title</th>
                                                     <th>Lesson Name</th>
                                                     <th>Lesson Instructions</th>
+                                                    <th>Attempts</th>
                                                     <th>Added By</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -250,7 +244,8 @@ $user_id = $_SESSION['user_id'];
                                                 <?php
                                                     include 'dbcon.php';
 
-                                                    $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.instructions, tbl_userinfo.firstname, tbl_userinfo.lastname, tbl_lesson.name FROM tbl_quiz_options
+                                                    $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.instructions, tbl_quiz_options.attempts,
+                                                    tbl_userinfo.firstname, tbl_userinfo.lastname, tbl_lesson.name FROM tbl_quiz_options
                                                     JOIN tbl_userinfo ON tbl_quiz_options.added_by = tbl_userinfo.user_id
                                                     JOIN tbl_lesson ON tbl_quiz_options.lesson = tbl_lesson.lesson_id
                                                     WHERE tbl_quiz_options.lesson = tbl_lesson.lesson_id";
@@ -280,6 +275,11 @@ $user_id = $_SESSION['user_id'];
                                                     <td>
                                                         <span class="fw-semibold">
                                                             <?php echo $row['instructions']; ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="fw-semibold">
+                                                            <?php echo $row['attempts'] ?>
                                                         </span>
                                                     </td>
                                                     <td>
@@ -403,19 +403,32 @@ $user_id = $_SESSION['user_id'];
     });
 </script>
 
-<!-- script gif modal -->
-<script>
-    $(document).ready(function() {
-        // Check if the "openModal" query parameter is present
-        const urlParams = new URLSearchParams(window.location.search);
-        const openModal = urlParams.get("openModal");
+        <!-- script gif modal -->
+        <script>
+            $(document).ready(function() {
+                // Check if the "openModal" query parameter is present
+                const urlParams = new URLSearchParams(window.location.search);
+                const openModal = urlParams.get("openModal");
 
-        if (openModal === "true") {
-            // Trigger the modal using JavaScript
-            $("#gifModal").modal("show");
-        }
-    });
-</script>
+                if (openModal === "true") {
+                    // Trigger the modal using JavaScript
+                    $("#gifModal").modal("show");
+                }
+            });
+        </script>
+                    <!-- error modal script -->
+        <script>
+            $(document).ready(function() {
+                // Check if the "openModal" query parameter is present
+                const urlParams = new URLSearchParams(window.location.search);
+                const openerrorModal = urlParams.get("openerrorModal");
+
+                if (openerrorModal === "true") {
+                    // Trigger the errorModal using JavaScript
+                    $("#errorModal").modal("show");
+                }
+            });
+        </script>
 
         <!-- bundle -->
         <script src="assets/js/vendor.min.js"></script>

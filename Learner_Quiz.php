@@ -284,7 +284,7 @@ $user_id = $_SESSION['user_id'];
                             $question_id = $row['question_id'];
                             $user_answer = $user_answers[$questionNumber];
 
-                            $insertSql = "INSERT INTO tbl_quiz_answer (question_id, selected_answer, user_id) VALUES ('$question_id', '$user_answer', '$user_id')";
+                            $insertSql = "INSERT INTO tbl_quiz_answer (quiz_options_id, question_id, selected_answer, user_id) VALUES ('$quiz_options_id', '$question_id', '$user_answer', '$user_id')";
                             $insertResult = mysqli_query($conn, $insertSql);
 
                             if (!$insertResult) {

@@ -286,19 +286,30 @@ $user_id = $_SESSION['user_id'];
                         if (isset($_GET['quiz_options_id'])) {
                             $quiz_options_id = $_GET['quiz_options_id'];
 
-                            $sqlQuiz = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_question.question_id, tbl_quiz_score.remark, tbl_quiz_score.user_id
-                                        FROM tbl_quiz_options
-                                        JOIN tbl_quiz_question ON tbl_quiz_options.quiz_options_id = tbl_quiz_question.quiz_options_id
-                                        JOIN tbl_quiz_score ON tbl_quiz_options.quiz_options_id = tbl_quiz_score.question_id
-                                        WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id' AND tbl_quiz_score.user_id = '$user_id'";
+                            $sqlQuiz = "SELECT tbl_quiz_options.quiz_options_id, tbl_quiz_options.instructions, tbl_quiz_options.attempts AS optionsAttempts, tbl_quiz_question.question_id, 
+                            tbl_quiz_score.remark, tbl_quiz_score.attempts AS scoreAttempts, tbl_quiz_score.user_id
+                            FROM tbl_quiz_options
+                            JOIN tbl_quiz_question ON tbl_quiz_options.quiz_options_id = tbl_quiz_question.quiz_options_id
+                            JOIN tbl_quiz_score ON tbl_quiz_options.quiz_options_id = tbl_quiz_score.question_id
+                            WHERE tbl_quiz_options.quiz_options_id = '$quiz_options_id' AND tbl_quiz_score.user_id = '$user_id'";
 
                             $resultQuiz = mysqli_query($conn, $sqlQuiz);
 
                             if ($resultQuiz && mysqli_num_rows($resultQuiz) > 0) {
                                 $rowQuiz = mysqli_fetch_assoc($resultQuiz);
                                 $remarks = $rowQuiz['remark'];
+                                $scoreAttempts = $rowQuiz['scoreAttempts'];
+                                $optionsAttempts = $rowQuiz['optionsAttempts'];
 
-                                if ($remarks == 'FAILED') {
+                                if ($scoreAttempts >= $optionsAttempts) {
+                                    ?> 
+                                    <div class="card-footer text-md-end">
+                                        <a href="learner_quiz_result.php?quiz_options_id=<?php echo $rowQuiz['quiz_options_id']; ?>">
+                                            <button type="button" class="btn btn-info">See Submission</button>
+                                        </a>
+                                    </div>
+                                    <?php
+                                } elseif ($remarks == 'FAILED') {
                                     ?>
                                     <p><?php echo $rowQuiz['instructions']; ?></p>
                                     <div class="card-footer text-md-end">
@@ -312,14 +323,6 @@ $user_id = $_SESSION['user_id'];
                                     <div class="card-footer text-md-end">
                                         <a href="learner_retake_quiz.php?quiz_options_id=<?php echo $rowQuiz['quiz_options_id']; ?>">
                                             <button type="button" class="btn btn-info">Retake quiz</button>
-                                        </a>
-                                    </div>
-                                    <?php
-                                } elseif ($remarks == 'PERFECT') {
-                                    ?> 
-                                    <div class="card-footer text-md-end">
-                                        <a href="learner_quiz_result.php?quiz_options_id=<?php echo $rowQuiz['quiz_options_id']; ?>">
-                                            <button type="button" class="btn btn-info">See Submission</button>
                                         </a>
                                     </div>
                                     <?php
