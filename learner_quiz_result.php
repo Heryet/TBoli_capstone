@@ -443,14 +443,28 @@ tr.selected-answer.incorrect label {
                             }
                             ?>
                             <?php 
-                            $sql = "SELECT tbl_quiz_score.remark FROM tbl_quiz_score WHERE user_id = '$user_id'";
+                            $sql = "SELECT tbl_quiz_score.remark, tbl_quiz_score.attempts AS scoreAttempts, tbl_quiz_options.attempts AS optionsAttempts 
+                            FROM tbl_quiz_score 
+                            JOIN tbl_quiz_options ON tbl_quiz_score.question_id = tbl_quiz_options.quiz_options_id
+                            WHERE tbl_quiz_score.user_id = '$user_id'";
                             $result = mysqli_query($conn, $sql);
+                            
 
                             if($result){
                                 $row = mysqli_fetch_assoc($result);
                                 $remark = $row['remark'];
-                                
-                                if($remark == 'FAILED') {
+                                $scoreAttempts = $row['scoreAttempts'];
+                                $optionsAttempts = $row['optionsAttempts'];
+                                if ($scoreAttempts >= $optionsAttempts){
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-sm-6 text-md-end">
+                                            <a href="Learner_index.php" class="btn btn-primary">Dashboard</a>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                elseif($remark == 'FAILED') {
                                     ?>
                                     <div class="row">
                                         <div class="col-sm-6 text-md-end">
