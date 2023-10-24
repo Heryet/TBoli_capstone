@@ -204,7 +204,7 @@ $user_id = $_SESSION['user_id'];
                                                 <div class="mb-1">
                                                     <span>
                                                         <a
-                                                            href="Learner_InstructionsQuiz.php?quiz_options_id=<?php echo $quiz_row['quiz_options_id'] ?>">
+                                                            href="Teacher_InstructionQuiz.php?quiz_options_id=<?php echo $quiz_row['quiz_options_id'] ?>">
                                                             <?php echo $quiz_row['title']; ?>
                                                         </a>
                                                     </span>
