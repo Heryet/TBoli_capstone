@@ -154,12 +154,10 @@ include 'dbcon.php';
                                         $user_id = $_SESSION['user_id'];
                                         $quizTitle = $_POST['quizTitle'];
                                         $lesson = $_POST['lesson'];
-                                        $dateStart = $_POST['dateStart'];
-                                        $due = $_POST['due'];
                                         $attempts = $_POST['attempts'];
                                         $instructions = $_POST['instructions'];
 
-                                        $sql = "INSERT INTO tbl_quiz_options (added_by, title, lesson, date_start, due, attempts, instructions) VALUES
+                                        $sql = "INSERT INTO tbl_quiz_options (added_by, title, lesson, attempts, instructions) VALUES
                                         ('$user_id', '$quizTitle', '$lesson', '$dateStart', '$due', '$attempts', '$instructions')";
 
                                         if ($conn->query($sql) === TRUE) {
@@ -194,7 +192,7 @@ include 'dbcon.php';
                                                 <?php
                                                 include 'dbcon.php';
 
-                                                $sql = "SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.type, tbl_lesson.level, tbl_lesson_files.status FROM tbl_lesson
+                                                $sql = "SELECT tbl_lesson.lesson_id, tbl_lesson.name, tbl_lesson.type, tbl_lesson_files.status FROM tbl_lesson
                                                         JOIN tbl_lesson_files ON tbl_lesson.lesson_id = tbl_lesson_files.lesson_files_id
                                                         WHERE tbl_lesson_files.status = 1";
 
@@ -205,8 +203,7 @@ include 'dbcon.php';
                                                         $lesson_id = $row['lesson_id'];
                                                         $name = $row['name'];
                                                         $type = $row['type'];
-                                                        $level = $row['level'];
-                                                        echo "<option value='$lesson_id'>$type: $level - $name</option>";
+                                                        echo "<option value='$lesson_id'>$type: - $name</option>";
                                                     }   
                                                 } else {
                                                     echo "<option value='' disabled>No lessons available</option>";
@@ -220,33 +217,6 @@ include 'dbcon.php';
                                             <div class="invalid-feedback">
                                                 Please a Lessons!
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="dateStart" class="form-label">Date Start</label>
-                                                <input type="datetime-local" class="form-control" id="dateStart"
-                                                    name="dateStart" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-
-                                                <div class="invalid-feedback">
-                                                    Please provide a start date!
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="due" class="form-label">Due</label>
-                                                <input type="datetime-local" class="form-control" id="due" name="due"
-                                                    required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-
-                                                <div class="invalid-feedback">
-                                                    Please provide a due date!
-                                                </div>
-                                            </div>
-
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="attempts" class="form-label">Attempts</label>
@@ -302,8 +272,6 @@ include 'dbcon.php';
                                                     <th>ID</th>
                                                     <th>Title</th>
                                                     <th>Lesson Name</th>
-                                                    <th>Date Start</th>
-                                                    <th>Due</th>
                                                     <th>Attempts</th>
                                                     <th>Lesson Instructions</th>
                                                     <th>Added By</th>
@@ -314,8 +282,7 @@ include 'dbcon.php';
                                                 <?php
                                                     include 'dbcon.php';
 
-                                                    $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.date_start,
-                                                    tbl_quiz_options.due, tbl_quiz_options.attempts, tbl_quiz_options.instructions, tbl_userinfo.firstname, tbl_userinfo.lastname, tbl_lesson.name FROM tbl_quiz_options
+                                                    $sql = "SELECT DISTINCT tbl_quiz_options.quiz_options_id, tbl_quiz_options.added_by, tbl_quiz_options.title, tbl_quiz_options.lesson, tbl_quiz_options.attempts, tbl_quiz_options.instructions, tbl_userinfo.firstname, tbl_userinfo.lastname, tbl_lesson.name FROM tbl_quiz_options
                                                     JOIN tbl_userinfo ON tbl_quiz_options.added_by = tbl_userinfo.user_id
                                                     JOIN tbl_lesson ON tbl_quiz_options.lesson = tbl_lesson.lesson_id
                                                     WHERE tbl_quiz_options.lesson = tbl_lesson.lesson_id";
@@ -340,16 +307,6 @@ include 'dbcon.php';
                                                     <td>
                                                         <span class="fw-semibold">
                                                             <?php echo $row['name']; ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['date_start']; ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="fw-semibold">
-                                                            <?php echo $row['due']; ?>
                                                         </span>
                                                     </td>
                                                     <td>
